@@ -5,8 +5,10 @@ import Heading from '../components/Heading';
 import {Text, useTheme} from 'react-native-paper';
 import {fonts} from '../constant';
 import {Logo, TopDesign} from '../../assets/svg';
-interface props {}
-const SignIn: React.FunctionComponent<props> = () => {
+interface props {
+  navigation: any;
+}
+const SignIn: React.FunctionComponent<props> = ({navigation}) => {
   const theme = useTheme();
   return (
     <Block>
@@ -20,11 +22,19 @@ const SignIn: React.FunctionComponent<props> = () => {
       <Heading heading="Welcome" />
       <AuthTextInput placeholder="Your Email" />
       <AuthTextInput placeholder="Password" />
-      <TouchableText text="Forgot Your Password?" alignSelf="center" />
+      <TouchableText
+        text="Forgot Your Password?"
+        alignSelf="center"
+        onPress={() => navigation.navigate('ForgetPassword')}
+      />
       <AuthButton heading="Sign In" />
       <View style={styles.bottomTextContanier}>
         <Text style={styles.bottomText}>Do not have an account?</Text>
-        <TouchableText text="Sign up" alignSelf="center" />
+        <TouchableText
+          text="Sign up"
+          alignSelf="center"
+          onPress={() => navigation.navigate('SignUp')}
+        />
       </View>
     </Block>
   );

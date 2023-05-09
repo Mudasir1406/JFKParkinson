@@ -1,4 +1,4 @@
-import {FlexStyle, StyleSheet} from 'react-native';
+import {FlexStyle, Pressable, StyleSheet} from 'react-native';
 import React from 'react';
 import Animated, {FadeInDown} from 'react-native-reanimated';
 import {useTheme} from 'react-native-paper';
@@ -6,18 +6,25 @@ import {fonts} from '../constant';
 type props = {
   text: string;
   alignSelf: FlexStyle['alignSelf'];
+  onPress: () => {};
 };
-const TouchableText: React.FunctionComponent<props> = ({text, alignSelf}) => {
+const TouchableText: React.FunctionComponent<props> = ({
+  text,
+  alignSelf,
+  onPress,
+}) => {
   const theme = useTheme();
   return (
-    <Animated.Text
-      entering={FadeInDown.duration(1000)}
-      style={[
-        styles.text,
-        {color: theme.colors.tertiary, alignSelf: alignSelf},
-      ]}>
-      {text}
-    </Animated.Text>
+    <Pressable onPress={onPress}>
+      <Animated.Text
+        entering={FadeInDown.duration(1000)}
+        style={[
+          styles.text,
+          {color: theme.colors.tertiary, alignSelf: alignSelf},
+        ]}>
+        {text}
+      </Animated.Text>
+    </Pressable>
   );
 };
 
