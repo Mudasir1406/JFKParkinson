@@ -2,8 +2,9 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {SignIn, SignUp} from '../screens';
+import {RootStackParams} from '../Types/NavigationTypes.types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParams>();
 
 const AppNavigator = () => {
   return (

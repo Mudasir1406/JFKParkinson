@@ -6,9 +6,14 @@ import {Text, useTheme} from 'react-native-paper';
 import {fonts} from '../constant';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {Logo, TopDesign} from '../../assets/svg';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParams} from '../Types/NavigationTypes.types';
 interface props {}
 const SignUp: React.FunctionComponent<props> = () => {
   const theme = useTheme();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParams>>();
   return (
     <Block>
       <TopDesign />
@@ -36,7 +41,11 @@ const SignUp: React.FunctionComponent<props> = () => {
       <AuthButton heading="Sign Up" />
       <View style={styles.bottomTextContanier}>
         <Text style={styles.bottomText}>Do not have an account?</Text>
-        <TouchableText text="Sign in" alignSelf="center" />
+        <TouchableText
+          text="Sign in"
+          alignSelf="center"
+          onPress={() => navigation.push('SignUp')}
+        />
       </View>
     </Block>
   );

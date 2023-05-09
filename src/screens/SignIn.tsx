@@ -5,11 +5,16 @@ import Heading from '../components/Heading';
 import {Text, useTheme} from 'react-native-paper';
 import {fonts} from '../constant';
 import {Logo, TopDesign} from '../../assets/svg';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
+import {RootStackParams} from '../Types/NavigationTypes.types';
 interface props {
   navigation: any;
 }
-const SignIn: React.FunctionComponent<props> = ({navigation}) => {
+const SignIn: React.FunctionComponent<props> = () => {
   const theme = useTheme();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParams>>();
   return (
     <Block>
       <TopDesign />
