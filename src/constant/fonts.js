@@ -15,4 +15,8 @@ export default fonts = {
     fontFamily: 'Poppins-Bold',
     fontSize: 14,
   },
+  screenHeading: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 18,
+  },
 };
