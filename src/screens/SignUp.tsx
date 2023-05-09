@@ -1,6 +1,12 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {Block, AuthTextInput, AuthButton, TouchableText} from '../components';
+import {
+  Block,
+  AuthTextInput,
+  AuthButton,
+  TouchableText,
+  ProviderLoginButton,
+} from '../components';
 import Heading from '../components/Heading';
 import {Text, useTheme} from 'react-native-paper';
 import {fonts} from '../constant';
@@ -47,6 +53,16 @@ const SignUp: React.FunctionComponent<props> = () => {
           onPress={() => navigation.push('SignUp')}
         />
       </View>
+      <View style={styles.bottomButton}>
+        <ProviderLoginButton
+          name="Google"
+          color={theme.colors.elevation.level2}
+        />
+        <ProviderLoginButton
+          name="Facebook"
+          color={theme.colors.elevation.level2}
+        />
+      </View>
     </Block>
   );
 };
@@ -72,5 +88,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: '37%',
     top: '4%',
+  },
+  bottomButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
   },
 });
