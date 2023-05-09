@@ -31,8 +31,8 @@ const SignIn: React.FunctionComponent<props> = () => {
         <Logo width={140} height={130} />
       </View>
       <Heading heading="Welcome" />
-      <AuthTextInput placeholder="Your Email" />
-      <AuthTextInput placeholder="Password" />
+      <AuthTextInput placeholder="Your Email" name="Email" />
+      <AuthTextInput placeholder="Password" name="Eye" />
       <TouchableText
         text="Forgot Your Password?"
         alignSelf="center"

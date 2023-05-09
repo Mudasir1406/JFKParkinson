@@ -1,13 +1,16 @@
-import {StyleSheet, TextInput} from 'react-native';
+import {StyleSheet, TextInput, Pressable} from 'react-native';
 import React from 'react';
 import {Surface, useTheme} from 'react-native-paper';
 import {fonts} from '../constant';
 import Animated, {Easing, FadeInDown} from 'react-native-reanimated';
+import * as icon from '../../assets/svg';
 interface Props {
   placeholder: string;
+  name: string;
 }
-const AuthTextInput: React.FunctionComponent<Props> = ({placeholder}) => {
+const AuthTextInput: React.FunctionComponent<Props> = ({placeholder, name}) => {
   const theme = useTheme();
+  const Icon = icon[name];
   return (
     <Animated.View entering={FadeInDown.duration(1000).easing(Easing.linear)}>
       <Surface
@@ -19,6 +22,9 @@ const AuthTextInput: React.FunctionComponent<Props> = ({placeholder}) => {
           selectionColor={theme.colors.tertiary}
           placeholderTextColor={theme.colors.onPrimary}
         />
+        <Pressable>
+          <Icon width={20} height={20} />
+        </Pressable>
       </Surface>
     </Animated.View>
   );
@@ -31,9 +37,13 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     marginHorizontal: 35,
     borderRadius: 30,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   input: {
+    flex: 1,
     ...fonts.AuthInput,
     height: 55,
     textAlignVertical: 'center',

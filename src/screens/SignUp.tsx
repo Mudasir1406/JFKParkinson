@@ -30,9 +30,9 @@ const SignUp: React.FunctionComponent<props> = () => {
         <Logo width={140} height={130} />
       </View>
       <Heading heading="Welcome" />
-      <AuthTextInput placeholder="Name" />
-      <AuthTextInput placeholder="Your Email" />
-      <AuthTextInput placeholder="Password" />
+      <AuthTextInput placeholder="Name" name="User" />
+      <AuthTextInput placeholder="Your Email" name="Email" />
+      <AuthTextInput placeholder="Password" name="Eye" />
       <View style={styles.bottomTextContanier}>
         <BouncyCheckbox onPress={(isChecked: boolean) => {}} />
         <Text style={styles.bottomText}>I agree to the</Text>
