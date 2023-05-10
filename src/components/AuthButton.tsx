@@ -7,9 +7,14 @@ import {useTheme} from 'react-native-paper';
 type props = {
   heading: string;
   loading?: boolean;
+  onPress?: () => void;
 };
 
-const AuthButton: React.FunctionComponent<props> = ({heading, loading}) => {
+const AuthButton: React.FunctionComponent<props> = ({
+  heading,
+  loading,
+  onPress,
+}) => {
   const theme = useTheme();
 
   return (
@@ -17,6 +22,7 @@ const AuthButton: React.FunctionComponent<props> = ({heading, loading}) => {
       entering={FadeInDown.duration(1000)}
       style={styles.contanier}>
       <Button
+        onPress={onPress}
         mode="elevated"
         loading={loading}
         disabled={loading}
@@ -35,15 +41,17 @@ export default AuthButton;
 
 const styles = StyleSheet.create({
   contanier: {
+    flexDirection: 'row',
     marginVertical: 20,
     marginHorizontal: 35,
+    alignItems: 'center',
+    height: 55,
   },
   button: {
+    flex: 1,
     ...fonts.AuthButton,
-    height: 55,
-    alignItems: 'center',
-    justifyContent: 'center',
     borderRadius: 30,
+    paddingVertical: 5,
   },
   text: {
     ...fonts.AuthButton,

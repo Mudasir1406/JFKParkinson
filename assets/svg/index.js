@@ -6,3 +6,6 @@ export {default as Email} from './Email.svg';
 export {default as Eye} from './Eye.svg';
 export {default as EyeOpen} from './EyeOpen.svg';
 export {default as User} from './User.svg';
+export {default as HomeDesign} from './HomeDesign.svg';
+export {default as NotificationIcon} from './NotificationIcon.svg';
+export {default as DrawerIcon} from './DrawerIcon.svg';

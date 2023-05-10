@@ -18,6 +18,7 @@ const AuthTextInput: React.FunctionComponent<Props> = ({placeholder, name}) => {
         style={[styles.contanier, {backgroundColor: theme.colors.onSecondary}]}>
         <TextInput
           style={styles.input}
+          secureTextEntry={name === 'Eye' ? true : false}
           placeholder={placeholder}
           selectionColor={theme.colors.tertiary}
           placeholderTextColor={theme.colors.onPrimary}

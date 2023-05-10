@@ -38,7 +38,10 @@ const SignIn: React.FunctionComponent<props> = () => {
         alignSelf="center"
         onPress={() => navigation.navigate('ForgetPassword')}
       />
-      <AuthButton heading="Sign In" />
+      <AuthButton
+        heading="Sign In"
+        onPress={() => navigation.navigate('Home')}
+      />
       <View style={styles.bottomTextContanier}>
         <Text style={styles.bottomText}>Do not have an account?</Text>
         <TouchableText
