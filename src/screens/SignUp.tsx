@@ -50,7 +50,7 @@ const SignUp: React.FunctionComponent<props> = () => {
         <TouchableText
           text="Sign in"
           alignSelf="center"
-          onPress={() => navigation.push('SignUp')}
+          onPress={() => navigation.navigate('SignIn')}
         />
       </View>
       <View style={styles.bottomButton}>

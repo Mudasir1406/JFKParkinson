@@ -6,7 +6,7 @@ import {fonts} from '../constant';
 type props = {
   text: string;
   alignSelf: FlexStyle['alignSelf'];
-  onPress: () => void;
+  onPress?: () => void;
 };
 const TouchableText: React.FunctionComponent<props> = ({
   text,
