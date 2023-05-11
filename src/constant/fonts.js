@@ -23,4 +23,12 @@ export default fonts = {
     fontFamily: 'Poppins-Bold',
     fontSize: 22,
   },
+  homeHeading: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 22,
+  },
+  cardHeading: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 18,
+  },
 };

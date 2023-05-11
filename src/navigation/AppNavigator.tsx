@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {ForgetPassword, Home, SignIn, SignUp} from '../screens';
 import {RootStackParams} from '../Types/NavigationTypes.types';
+import BottomTab from './BottomTabNavigator';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -14,6 +15,7 @@ const AppNavigator = () => {
         headerShown: false,
         animation: 'slide_from_right',
       }}>
+      <Stack.Screen name="BottomTab" component={BottomTab} />
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="ForgetPassword" component={ForgetPassword} />

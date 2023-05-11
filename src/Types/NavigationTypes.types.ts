@@ -4,4 +4,5 @@ export type RootStackParams={
     SignIn: any;
     ForgetPassword: any;
     Home:any;
+    BottomTab:any;
 }

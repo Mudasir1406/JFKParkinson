@@ -22,7 +22,7 @@ for (let i = 0; i < 10; i++) {
   DATA.push(i);
 }
 
-const HomeBanner = () => {
+const HomeBanner: React.FunctionComponent = () => {
   const [state, setState] = useState(0);
 
   return (

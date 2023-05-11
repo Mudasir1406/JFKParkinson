@@ -20,9 +20,9 @@ import {
   const lightTheme = {
     ...MD3LightTheme,
     colors: {
-      primary: 'rgb(255, 179, 173)',
+      primary: 'rgb(255, 129, 117)',
       onPrimary: 'rgb(211, 211, 211)',
-      primaryContainer: 'rgb(255, 218, 214)',
+      primaryContainer: 'rgb(244, 123, 114)',
       onPrimaryContainer: 'rgb(65, 0, 3)',
       secondary: 'rgb(206, 99, 206)',
       onSecondary: 'rgb(255, 255, 255)',
@@ -67,7 +67,7 @@ import {
     colors: {
       primary: 'rgb(255, 179, 173)',
       onPrimary: 'rgb(95, 20, 19)',
-      primaryContainer: 'rgb(126, 42, 39)',
+      primaryContainer: 'rgb(244, 123, 114)',
       onPrimaryContainer: 'rgb(255, 218, 214)',
       secondary: 'rgb(255, 169, 250)',
       onSecondary: 'rgb(90, 0, 95)',
@@ -113,7 +113,6 @@ import {
     ...LightTheme,
     colors: {
       ...lightTheme.colors,
-      ...LightTheme.colors,
     },
   };
   export const CombinedDarkTheme = {

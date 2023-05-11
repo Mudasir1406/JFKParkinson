@@ -5,3 +5,4 @@ export {default as AuthButton} from './AuthButton';
 export {default as TouchableText} from './TouchableText';
 export {default as ProviderLoginButton} from './ProviderLoginButton';
 export {default as HomeBanner} from './HomeBanner';
+export {default as EventHomeCard} from './EventHomeCard';

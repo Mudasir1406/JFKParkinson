@@ -9,3 +9,8 @@ export {default as User} from './User.svg';
 export {default as HomeDesign} from './HomeDesign.svg';
 export {default as NotificationIcon} from './NotificationIcon.svg';
 export {default as DrawerIcon} from './DrawerIcon.svg';
+export {default as Home} from './Home.svg';
+export {default as Consultation} from './Consultation.svg';
+export {default as Events} from './Events.svg';
+export {default as Post} from './Post.svg';
+export {default as Stories} from './Stories.svg';

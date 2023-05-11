@@ -1,13 +1,15 @@
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, Dimensions, ScrollView} from 'react-native';
 import React from 'react';
 import {DrawerIcon, HomeDesign, NotificationIcon} from '../../assets/svg';
-import {HomeBanner} from '../components';
+import {Block, EventHomeCard, HomeBanner, TouchableText} from '../components';
 import {colors, fonts} from '../constant';
 
-const Home = () => {
+interface props {}
+
+const Home: React.FunctionComponent<props> = () => {
   const {width, height} = Dimensions.get('window');
   return (
-    <View>
+    <Block>
       <HomeDesign
         width={width * 1.002}
         height={height * 0.3365}
@@ -21,8 +23,24 @@ const Home = () => {
         <NotificationIcon width={30} height={30} />
       </View>
       <HomeBanner />
-      <Text>Parkinson's Support Group Events</Text>
-    </View>
+      <View style={styles.headingContanier}>
+        <Text style={styles.heading}>Parkinson's Support Group Events</Text>
+        <TouchableText text="View all >>" alignSelf="flex-end" />
+      </View>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        <EventHomeCard width={250} />
+        <EventHomeCard width={250} />
+        <EventHomeCard width={250} />
+        <EventHomeCard width={250} />
+      </ScrollView>
+      <View style={styles.headingContanier}>
+        <Text style={styles.heading}>New On Parkinson's</Text>
+      </View>
+      <View style={{flexDirection: 'row'}}>
+        <EventHomeCard width={170} />
+        <EventHomeCard width={170} />
+      </View>
+    </Block>
   );
 };
 
@@ -45,5 +63,15 @@ const styles = StyleSheet.create({
     ...fonts.headerHeading,
     marginLeft: 10,
     color: colors.white,
+  },
+  heading: {
+    ...fonts.homeHeading,
+    maxWidth: '60%',
+  },
+  headingContanier: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    margin: 20,
   },
 });
