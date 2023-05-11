@@ -3,7 +3,7 @@ import {View, StyleSheet, TouchableOpacity} from 'react-native';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {colors} from '../constant';
-import {Home} from '../screens';
+import {Consultation, Events, Home, Post, Stories} from '../screens';
 import * as SvgIcons from '../../assets/svg';
 import {useTheme} from 'react-native-paper';
 
@@ -46,7 +46,7 @@ const BottomTabBar = ({state, navigation, descriptors}) => {
           } else if (route.name == 'Events') {
             activeIcon = 'Events';
             InactiveIcon = 'Events';
-          } else if (route.name == 'Posts') {
+          } else if (route.name == 'Post') {
             activeIcon = 'Post';
             InactiveIcon = 'Post';
           } else if (route.name == 'Consultation') {
@@ -71,7 +71,7 @@ const BottomTabBar = ({state, navigation, descriptors}) => {
                 backgroundColor:
                   route.name === 'Home'
                     ? theme.colors.primaryContainer
-                    : colors.white,
+                    : theme.colors.primary,
                 borderRadius: 10,
                 height: 50,
                 width: 50,
@@ -106,13 +106,18 @@ const BottomTab = () => {
         },
       }}
       tabBar={props => <BottomTabBar {...props} />}>
+      <Tab.Screen name="Events" component={Events} />
+      <Tab.Screen name="Post" component={Post} />
       <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Consultation" component={Consultation} />
+      <Tab.Screen name="Stories" component={Stories} />
     </Tab.Navigator>
   );
 };
 
 const styles = StyleSheet.create({
   contanier: {
+    flexDirection: 'row',
     height: 60,
     alignItems: 'center',
     justifyContent: 'space-evenly',
