@@ -2,7 +2,6 @@ import React from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {colors} from '../constant';
 import {Consultation, Events, Home, Post, Stories} from '../screens';
 import * as SvgIcons from '../../assets/svg';
 import {useTheme} from 'react-native-paper';
@@ -99,6 +98,7 @@ const BottomTabBar = ({state, navigation, descriptors}) => {
 const BottomTab = () => {
   return (
     <Tab.Navigator
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
@@ -118,7 +118,7 @@ const BottomTab = () => {
 const styles = StyleSheet.create({
   contanier: {
     flexDirection: 'row',
-    height: 60,
+    height: 70,
     alignItems: 'center',
     justifyContent: 'space-evenly',
     borderTopRightRadius: 30,

@@ -1,24 +1,27 @@
 import {StyleSheet, Text, View, ImageBackground} from 'react-native';
 import React from 'react';
-import Animated, {Easing, FadeIn} from 'react-native-reanimated';
-import {colors, fonts} from '../constant';
+import {colors, fonts, images} from '../constant';
 import {Surface, TouchableRipple} from 'react-native-paper';
 interface props {
   width?: number;
+  time: string;
+  heading: string;
 }
 
-const EventHomeCard: React.FunctionComponent<props> = ({width}) => {
+const EventHomeCard: React.FunctionComponent<props> = ({
+  width,
+  heading,
+  time,
+}) => {
   return (
     <TouchableRipple onPress={() => {}} style={[styles.ripple, {width: width}]}>
       <Surface elevation={2} style={[styles.contanier, {width: width}]}>
         <ImageBackground
-          source={require('../../assets/Image1.jpg')}
+          source={images.gindolce}
           style={[styles.innerContanier, {width: width}]}>
           <View style={[styles.back, {width: width}]} />
-          <Text style={styles.heading}>Moving Day New Jersey</Text>
-          <Text style={styles.text}>
-            Saturday,Octuber 2, 2023 from 8:30 am to Noon
-          </Text>
+          <Text style={styles.heading}>{heading}</Text>
+          <Text style={styles.text}>{time}</Text>
         </ImageBackground>
       </Surface>
     </TouchableRipple>

@@ -28,17 +28,41 @@ const Home: React.FunctionComponent<props> = () => {
         <TouchableText text="View all >>" alignSelf="flex-end" />
       </View>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        <EventHomeCard width={250} />
-        <EventHomeCard width={250} />
-        <EventHomeCard width={250} />
-        <EventHomeCard width={250} />
+        <EventHomeCard
+          width={250}
+          heading="Rock Steady Boxing at JFK – on Zoom"
+          time="Monday, Jan 3, 2022 1:00pm – 2:30pm"
+        />
+        <EventHomeCard
+          width={250}
+          heading="Rock Steady Boxing at JFK – on Zoom"
+          time="Monday, Jan 3, 2022 1:00pm – 2:30pm"
+        />
+        <EventHomeCard
+          width={250}
+          heading="Rock Steady Boxing at JFK – on Zoom"
+          time="Monday, Jan 3, 2022 1:00pm – 2:30pm"
+        />
+        <EventHomeCard
+          width={250}
+          heading="Rock Steady Boxing at JFK – on Zoom"
+          time="Monday, Jan 3, 2022 1:00pm – 2:30pm"
+        />
       </ScrollView>
       <View style={styles.headingContanier}>
         <Text style={styles.heading}>New On Parkinson's</Text>
       </View>
       <View style={{flexDirection: 'row'}}>
-        <EventHomeCard width={170} />
-        <EventHomeCard width={170} />
+        <EventHomeCard width={170} heading="Stories" time="See Stories >" />
+        <EventHomeCard
+          width={170}
+          heading="Community "
+          time="Join Community >"
+        />
+      </View>
+      <View style={styles.headingContanier}>
+        <Text style={styles.heading}>Parkinson's Support Group Events</Text>
+        <TouchableText text="View all >>" alignSelf="flex-end" />
       </View>
     </Block>
   );

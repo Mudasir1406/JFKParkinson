@@ -11,7 +11,7 @@ import {
 import Carousel from 'react-native-snap-carousel'; // Version can be specified in package.json
 
 import {scrollInterpolator, animatedStyles} from '../utils/animations';
-import {colors} from '../constant';
+import {colors, images} from '../constant';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.9);
@@ -40,7 +40,7 @@ const HomeBanner: React.FunctionComponent = () => {
                 overflow: 'hidden',
               }}>
               <Image
-                source={require('../../assets/Image1.jpg')}
+                source={images.healing}
                 resizeMode="stretch"
                 style={{flex: 1, width: ITEM_WIDTH}}></Image>
             </View>
