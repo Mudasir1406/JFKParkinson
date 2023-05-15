@@ -1,7 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {ForgetPassword, Home, SignIn, SignUp} from '../screens';
+import {ForgetPassword, Home, Onboarding, SignIn, SignUp} from '../screens';
 import {RootStackParams} from '../Types/NavigationTypes.types';
 import BottomTab from './BottomTabNavigator';
 
@@ -20,6 +20,7 @@ const AppNavigator = () => {
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Onboarding" component={Onboarding} />
     </Stack.Navigator>
   );
 };

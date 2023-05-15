@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
-
+import {Shadow} from 'react-native-neomorph-shadows';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Consultation, Events, Home, Post, Stories} from '../screens';
 import * as SvgIcons from '../../assets/svg';
@@ -57,37 +57,46 @@ const BottomTabBar = ({state, navigation, descriptors}) => {
           }
           Icon = SvgIcons[isFocused ? activeIcon : InactiveIcon];
           return (
-            <TouchableOpacity
-              key={index}
-              accessibilityRole="button"
-              accessibilityState={isFocused ? {selected: true} : {}}
-              accessibilityLabel={options.tabBarAccessibilityLabel}
-              testID={options.tabBarTestID}
-              onPress={onPress}
+            <Shadow
+              inner={isFocused}
+              useArt
               style={{
+                shadowOffset: {width: 20, height: 10},
+                shadowOpacity: 1,
+                shadowColor: 'grey',
+                shadowRadius: 30,
+                borderRadius: 10,
+                width: 50,
+                height: 50,
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor:
-                  route.name === 'Home'
-                    ? theme.colors.primaryContainer
-                    : theme.colors.primary,
-                borderRadius: 10,
-                height: 50,
-                width: 50,
-                elevation: isFocused ? 0 : 3,
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-              }}
-              activeOpacity={0.8}>
-              <Icon />
-              {/* <Text style={{color: isFocused ? colors.bule : colors.lightBrown}}>
+                backgroundColor: 'white',
+              }}>
+              <TouchableOpacity
+                key={index}
+                accessibilityRole="button"
+                accessibilityState={isFocused ? {selected: true} : {}}
+                accessibilityLabel={options.tabBarAccessibilityLabel}
+                testID={options.tabBarTestID}
+                onPress={onPress}
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor:
+                    route.name === 'Home'
+                      ? theme.colors.primaryContainer
+                      : theme.colors.primary,
+                  borderRadius: 10,
+                  height: 50,
+                  width: 50,
+                }}
+                activeOpacity={0.8}>
+                <Icon />
+                {/* <Text style={{color: isFocused ? colors.bule : colors.lightBrown}}>
                     {route?.name}
                   </Text> */}
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </Shadow>
           );
         },
       )}

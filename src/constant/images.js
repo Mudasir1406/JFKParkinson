@@ -7,4 +7,5 @@ export default images = {
   preview: require('../../assets/preview.jpg'),
   rainbow: require('../../assets/rainbow.jpg'),
   shutter: require('../../assets/shutter.jpg'),
+  onbordingImage: require('../../assets/OnboardingImage.png'),
 };

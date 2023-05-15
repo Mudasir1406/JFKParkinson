@@ -40,7 +40,7 @@ const SignIn: React.FunctionComponent<props> = () => {
       />
       <AuthButton
         heading="Sign In"
-        onPress={() => navigation.navigate('BottomTab')}
+        onPress={() => navigation.navigate('Onboarding')}
       />
       <View style={styles.bottomTextContanier}>
         <Text style={styles.bottomText}>Do not have an account?</Text>

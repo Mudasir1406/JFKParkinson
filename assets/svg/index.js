@@ -14,3 +14,5 @@ export {default as Consultation} from './Consultation.svg';
 export {default as Events} from './Events.svg';
 export {default as Post} from './Post.svg';
 export {default as Stories} from './Stories.svg';
+export {default as OnboardingDesign} from './Onboarding.svg';
+export {default as OnboardingArrow} from './OnboardingArrow.svg';
