@@ -87,7 +87,7 @@ import {
       onSurface: 'rgb(237, 224, 222)',
       surfaceVariant: 'rgb(83, 67, 66)',
       onSurfaceVariant: 'rgb(216, 194, 191)',
-      outline: 'rgb(160, 140, 138)',
+      outline: 'rgb(231, 231, 231)',
       outlineVariant: 'rgb(83, 67, 66)',
       shadow: 'rgb(0, 0, 0)',
       scrim: 'rgb(0, 0, 0)',

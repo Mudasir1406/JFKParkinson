@@ -6,8 +6,18 @@ import {Consultation, Events, Home, Post, Stories} from '../screens';
 import * as SvgIcons from '../../assets/svg';
 import {useTheme} from 'react-native-paper';
 
+type props = {
+  state: any;
+  navigation: any;
+  descriptors: any;
+};
+
 const Tab = createBottomTabNavigator();
-const BottomTabBar = ({state, navigation, descriptors}) => {
+const BottomTabBar: React.FunctionComponent<props> = ({
+  state,
+  navigation,
+  descriptors,
+}) => {
   const theme = useTheme();
   return (
     <View style={[styles.contanier, {backgroundColor: theme.colors.primary}]}>
@@ -61,10 +71,10 @@ const BottomTabBar = ({state, navigation, descriptors}) => {
               inner={isFocused}
               useArt
               style={{
-                shadowOffset: {width: 20, height: 10},
+                shadowOffset: {width: 10, height: 10},
                 shadowOpacity: 1,
-                shadowColor: 'grey',
-                shadowRadius: 30,
+                shadowColor: theme.colors.outline,
+                shadowRadius: 20,
                 borderRadius: 10,
                 width: 50,
                 height: 50,
