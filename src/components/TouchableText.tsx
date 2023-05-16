@@ -1,4 +1,4 @@
-import {FlexStyle, Pressable, StyleSheet} from 'react-native';
+import {ColorValue, FlexStyle, Pressable, StyleSheet} from 'react-native';
 import React from 'react';
 import Animated, {FadeInDown} from 'react-native-reanimated';
 import {useTheme} from 'react-native-paper';
@@ -7,11 +7,13 @@ type props = {
   text: string;
   alignSelf: FlexStyle['alignSelf'];
   onPress?: () => void;
+  color?: ColorValue;
 };
 const TouchableText: React.FunctionComponent<props> = ({
   text,
   alignSelf,
   onPress,
+  color,
 }) => {
   const theme = useTheme();
   return (
@@ -20,7 +22,7 @@ const TouchableText: React.FunctionComponent<props> = ({
         entering={FadeInDown.duration(1000)}
         style={[
           styles.text,
-          {color: theme.colors.tertiary, alignSelf: alignSelf},
+          {color: color ? color : theme.colors.tertiary, alignSelf: alignSelf},
         ]}>
         {text}
       </Animated.Text>

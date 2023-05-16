@@ -73,7 +73,7 @@ const BottomTabBar: React.FunctionComponent<props> = ({
               style={{
                 shadowOffset: {width: 10, height: 10},
                 shadowOpacity: 1,
-                shadowColor: theme.colors.outline,
+                shadowColor: theme.colors.shadow,
                 shadowRadius: 20,
                 borderRadius: 10,
                 width: 50,
