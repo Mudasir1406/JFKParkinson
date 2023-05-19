@@ -68,13 +68,14 @@ const BottomTabBar: React.FunctionComponent<props> = ({
           Icon = SvgIcons[isFocused ? activeIcon : InactiveIcon];
           return (
             <Shadow
+              key={index}
               inner={isFocused}
               useArt
               style={{
-                shadowOffset: {width: 10, height: 10},
+                shadowOffset: {width: 5, height: 5},
                 shadowOpacity: 1,
                 shadowColor: theme.colors.shadow,
-                shadowRadius: 20,
+                shadowRadius: 10,
                 borderRadius: 10,
                 width: 50,
                 height: 50,
@@ -83,7 +84,6 @@ const BottomTabBar: React.FunctionComponent<props> = ({
                 backgroundColor: 'white',
               }}>
               <TouchableOpacity
-                key={index}
                 accessibilityRole="button"
                 accessibilityState={isFocused ? {selected: true} : {}}
                 accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -146,4 +146,3 @@ const styles = StyleSheet.create({
 });
 
 export default BottomTab;
-5;

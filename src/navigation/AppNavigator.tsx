@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator<RootStackParams>();
 const AppNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="SignIn"
+      initialRouteName="BottomTab"
       screenOptions={{
         headerShown: false,
         animation: 'slide_from_right',

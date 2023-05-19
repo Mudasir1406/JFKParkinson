@@ -29,7 +29,7 @@ import {
       secondaryContainer: 'rgb(255, 214, 248)',
       onSecondaryContainer: 'rgb(55, 0, 59)',
       tertiary: 'rgb(45, 216, 255)',
-      onTertiary: 'rgb(255, 255, 255)',
+      onTertiary: 'rgb(213, 250, 255)',
       tertiaryContainer: 'rgb(178, 235, 255)',
       onTertiaryContainer: 'rgb(0, 31, 39)',
       error: 'rgb(186, 26, 26)',

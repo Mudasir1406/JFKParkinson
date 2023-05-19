@@ -4,6 +4,7 @@ import {useTheme} from 'react-native-paper';
 import {Image} from 'react-native';
 import {colors, fonts, images} from '../constant';
 import Animated, {
+  Adaptable,
   BounceInRight,
   Easing,
   FadeOutLeft,
@@ -51,7 +52,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     flexDirection: 'row',
-    marginHorizontal: 20,
     marginTop: 10,
   },
   image: {
