@@ -8,3 +8,4 @@ export {default as HomeBanner} from './HomeBanner';
 export {default as EventHomeCard} from './EventHomeCard';
 export {default as MeetingCard} from './MeetingCard';
 export {default as DatePicker} from './DatePicker';
+export {default as Search} from './Search';

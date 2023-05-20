@@ -8,7 +8,7 @@ import {
   StatusBar,
 } from 'react-native';
 import React, {useRef} from 'react';
-import {Block, DatePicker, MeetingCard} from '../components';
+import {Block, DatePicker, MeetingCard, Search} from '../components';
 import {MeetingDesign} from '../../assets/svg';
 import {useTheme} from 'react-native-paper';
 const {height} = Dimensions.get('window');
@@ -22,6 +22,9 @@ const Events = () => {
       <View>
         <MeetingDesign width="100%" height={height * 0.42} />
         <DatePicker />
+        <View style={styles.search}>
+          <Search placeholder="Search here..." />
+        </View>
       </View>
       <Block withoutScroll={true}>
         <Animated.FlatList
@@ -61,4 +64,10 @@ const Events = () => {
 
 export default Events;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  search: {
+    position: 'absolute',
+    right: 20,
+    width: '45%',
+  },
+});
