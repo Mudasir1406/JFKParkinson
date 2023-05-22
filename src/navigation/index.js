@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-
+import {useUserContext} from '../context/UserContex';
 // FireBase Auth
 
 // //import navigators
 import AppNavigator from './AppNavigator';
-
+import AuthNavigator from './AuthNavigator';
 export default AppContainer = ({theme}) => {
+  const {user, setUser} = useUserContext();
   //   const {loading, setLoading} = useLoading();
   //   const {user, setUser} = useUser();
   //   useEffect(() => {
@@ -28,7 +29,7 @@ export default AppContainer = ({theme}) => {
     <>
       {/* {loading && <Loading />} */}
       <NavigationContainer theme={theme}>
-        <AppNavigator />
+        {user ? <AppNavigator /> : <AuthNavigator />}
       </NavigationContainer>
     </>
   );

@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {useTheme} from 'react-native-paper';
 import {Image} from 'react-native';
@@ -15,31 +15,43 @@ type props = {
   date: string;
   title: string;
   time: string;
+  onPress: () => void;
 };
 
-const MeetingCard: React.FunctionComponent<props> = ({date, time, title}) => {
+const MeetingCard: React.FunctionComponent<props> = ({
+  date,
+  time,
+  title,
+  onPress,
+}) => {
   const theme = useTheme();
   return (
-    <Animated.View
-      style={[styles.contanier, {borderColor: theme.colors.outline}]}
-      entering={BounceInRight.duration(1000)}
-      exiting={FadeOutLeft.duration(1000).easing(Easing.linear)}>
-      <Image source={images.healing} style={styles.image}></Image>
-      <View>
-        <Text style={[styles.date, {color: theme.colors.primary}]}>{date}</Text>
-        <Text style={[styles.time, {color: theme.colors.shadow}]}>{time}</Text>
-        <Text
-          style={[styles.title, {color: theme.colors.scrim}]}
-          numberOfLines={2}>
-          {title}
-        </Text>
-        <TouchableText
-          text="Registar >>"
-          alignSelf="flex-start"
-          color={theme.colors.primary}
-        />
-      </View>
-    </Animated.View>
+    <Pressable onPress={onPress}>
+      <Animated.View
+        style={[styles.contanier, {borderColor: theme.colors.outline}]}
+        entering={BounceInRight.duration(1000)}
+        exiting={FadeOutLeft.duration(1000).easing(Easing.linear)}>
+        <Image source={images.healing} style={styles.image}></Image>
+        <View>
+          <Text style={[styles.date, {color: theme.colors.primary}]}>
+            {date}
+          </Text>
+          <Text style={[styles.time, {color: theme.colors.shadow}]}>
+            {time}
+          </Text>
+          <Text
+            style={[styles.title, {color: theme.colors.scrim}]}
+            numberOfLines={2}>
+            {title}
+          </Text>
+          <TouchableText
+            text="Registar >>"
+            alignSelf="flex-start"
+            color={theme.colors.primary}
+          />
+        </View>
+      </Animated.View>
+    </Pressable>
   );
 };
 

@@ -7,3 +7,4 @@ export {default as Post} from './Posts';
 export {default as Events} from './Events';
 export {default as Stories} from './Stories';
 export {default as Onboarding} from './Onbording';
+export {default as EventDetails} from './EventDetails';

@@ -69,7 +69,7 @@ const BottomTabBar: React.FunctionComponent<props> = ({
           return (
             <Shadow
               key={index}
-              inner={isFocused}
+              inner={!isFocused}
               useArt
               style={{
                 shadowOffset: {width: 5, height: 5},

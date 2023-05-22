@@ -14,11 +14,13 @@ import {Logo, TopDesign} from '../../assets/svg';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
 import {RootStackParams} from '../Types/NavigationTypes.types';
+import {useUserContext} from '../context/UserContex';
 interface props {
   navigation: any;
 }
 const SignIn: React.FunctionComponent<props> = () => {
   const theme = useTheme();
+  const {user, setUser} = useUserContext();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
   return (
@@ -40,14 +42,24 @@ const SignIn: React.FunctionComponent<props> = () => {
       />
       <AuthButton
         heading="Sign In"
-        onPress={() => navigation.navigate('Onboarding')}
+        onPress={() =>
+          setUser({
+            ...user,
+            name: 'asdsa',
+          })
+        }
       />
       <View style={styles.bottomTextContanier}>
         <Text style={styles.bottomText}>Do not have an account?</Text>
         <TouchableText
           text="Sign up"
           alignSelf="center"
-          onPress={() => navigation.navigate('SignUp')}
+          onPress={() =>
+            setUser({
+              ...user,
+              name: 'asdsa',
+            })
+          }
         />
       </View>
       <View style={styles.bottomButton}>

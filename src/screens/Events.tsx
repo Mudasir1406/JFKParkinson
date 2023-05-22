@@ -1,12 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  ListRenderItem,
-  Animated,
-  StatusBar,
-} from 'react-native';
+import {StyleSheet, View, Dimensions, Animated} from 'react-native';
 import React, {useRef} from 'react';
 import {
   BackButton,
@@ -19,10 +11,12 @@ import {MeetingDesign} from '../../assets/svg';
 import {useTheme} from 'react-native-paper';
 const {height} = Dimensions.get('window');
 import {meetingData, days} from '../utils/data';
+import {useNavigation} from '@react-navigation/native';
 
 const Events = () => {
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const theme = useTheme();
+  const navigation = useNavigation();
   return (
     <>
       <View>
@@ -62,6 +56,7 @@ const Events = () => {
                   date={item.date}
                   time={item.time}
                   title={item.title}
+                  onPress={() => navigation.navigate('EventDetails')}
                 />
               </Animated.View>
             );

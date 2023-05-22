@@ -43,7 +43,7 @@ import {
       surfaceVariant: 'rgb(245, 221, 219)',
       onSurfaceVariant: 'rgb(83, 67, 66)',
       outline: 'rgb(231, 231, 231)',
-      outlineVariant: 'rgb(216, 194, 191)',
+      outlineVariant: 'rgb(123, 123, 123)',
       shadow: 'rgb(132, 132, 132)',
       scrim: 'rgb(0, 0, 0)',
       inverseSurface: 'rgb(54, 47, 46)',

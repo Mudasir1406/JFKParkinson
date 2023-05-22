@@ -31,4 +31,12 @@ export default fonts = {
     fontFamily: 'Poppins-Regular',
     fontSize: 18,
   },
+  eventDetailsHeading: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 20,
+  },
+  eventDetailsText: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 13,
+  },
 };

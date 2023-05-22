@@ -4,6 +4,7 @@ import {Provider} from 'react-native-paper';
 import AppContanier from './src/navigation/index';
 import {CombinedDarkTheme, CombinedDefaultTheme} from './src/Theme/AppTheme';
 import SplashScreen from 'react-native-splash-screen';
+import UserContextProvider from './src/context/UserContex';
 function App(): JSX.Element {
   const [isThemeDark, setIsThemeDark] = React.useState(false);
   let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
@@ -21,11 +22,13 @@ function App(): JSX.Element {
     [toggleTheme, isThemeDark],
   );
   return (
-    <PreferencesContext.Provider value={preferences}>
-      <Provider theme={theme}>
-        <AppContanier theme={theme} />
-      </Provider>
-    </PreferencesContext.Provider>
+    <UserContextProvider>
+      <PreferencesContext.Provider value={preferences}>
+        <Provider theme={theme}>
+          <AppContanier theme={theme} />
+        </Provider>
+      </PreferencesContext.Provider>
+    </UserContextProvider>
   );
 }
 

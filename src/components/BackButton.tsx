@@ -1,8 +1,9 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {fonts} from '../constant';
 import {useTheme} from 'react-native-paper';
 import {Back} from '../../assets/svg';
+import {useNavigation} from '@react-navigation/native';
 
 type props = {
   pageName: string;
@@ -10,13 +11,18 @@ type props = {
 
 const BackButton: React.FunctionComponent<props> = ({pageName}) => {
   const theme = useTheme();
+  const navigation = useNavigation();
   return (
-    <View style={styles.constanier}>
+    <Pressable
+      style={styles.constanier}
+      onPress={() => {
+        if (navigation.canGoBack()) navigation.goBack();
+      }}>
       <Back width={30} height={30} />
       <Text style={[styles.text, {color: theme.colors.onSecondary}]}>
         {pageName}
       </Text>
-    </View>
+    </Pressable>
   );
 };
 
