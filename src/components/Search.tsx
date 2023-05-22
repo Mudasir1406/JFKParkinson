@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import React from 'react';
 import {useTheme} from 'react-native-paper';
+import {SearchIcon} from '../../assets/svg';
 type props = {
   placeholder: string;
 };
@@ -9,6 +10,7 @@ const Search: React.FunctionComponent<props> = ({placeholder}) => {
   return (
     <View
       style={[styles.contanier, {backgroundColor: theme.colors.onSecondary}]}>
+      <SearchIcon />
       <TextInput
         style={styles.input}
         placeholder={placeholder}
@@ -25,7 +27,6 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     borderRadius: 30,
-    paddingHorizontal: 20,
   },
   contanier: {
     marginTop: 30,
@@ -33,5 +34,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: 'center',
     flexDirection: 'row',
+    paddingHorizontal: 10,
   },
 });

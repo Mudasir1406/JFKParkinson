@@ -8,7 +8,13 @@ import {
   StatusBar,
 } from 'react-native';
 import React, {useRef} from 'react';
-import {Block, DatePicker, MeetingCard, Search} from '../components';
+import {
+  BackButton,
+  Block,
+  DatePicker,
+  MeetingCard,
+  Search,
+} from '../components';
 import {MeetingDesign} from '../../assets/svg';
 import {useTheme} from 'react-native-paper';
 const {height} = Dimensions.get('window');
@@ -24,6 +30,9 @@ const Events = () => {
         <DatePicker />
         <View style={styles.search}>
           <Search placeholder="Search here..." />
+        </View>
+        <View style={styles.back}>
+          <BackButton pageName="Meetings" />
         </View>
       </View>
       <Block withoutScroll={true}>
@@ -68,6 +77,11 @@ const styles = StyleSheet.create({
   search: {
     position: 'absolute',
     right: 20,
+    width: '45%',
+  },
+  back: {
+    position: 'absolute',
+    left: 20,
     width: '45%',
   },
 });
