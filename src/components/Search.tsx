@@ -2,6 +2,7 @@ import {StyleSheet, Text, View, TextInput} from 'react-native';
 import React from 'react';
 import {useTheme} from 'react-native-paper';
 import {SearchIcon} from '../../assets/svg';
+import {colors} from '../constant';
 type props = {
   placeholder: string;
 };
@@ -27,6 +28,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     borderRadius: 30,
+    backgroundColor: colors.black,
   },
   contanier: {
     marginTop: 30,

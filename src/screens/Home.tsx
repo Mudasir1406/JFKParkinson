@@ -11,6 +11,7 @@ import React from 'react';
 import {DrawerIcon, HomeDesign, NotificationIcon} from '../../assets/svg';
 import {Block, EventHomeCard, TouchableText, HomeBanner} from '../components';
 import {colors, fonts, images} from '../constant';
+import {useTheme} from 'react-native-paper';
 
 interface props {}
 
@@ -22,6 +23,7 @@ const Home: React.FunctionComponent<props> = () => {
       ToastAndroid.CENTER,
     );
   };
+  const theme = useTheme();
   const {width, height} = Dimensions.get('window');
   return (
     <Block>
@@ -35,7 +37,11 @@ const Home: React.FunctionComponent<props> = () => {
           <DrawerIcon width={30} height={30} />
           <Text style={styles.text}>Home</Text>
         </Pressable>
-        <NotificationIcon width={30} height={30} />
+        <NotificationIcon
+          width={30}
+          height={30}
+          fill={theme.colors.onSecondary}
+        />
       </View>
       <HomeBanner />
       <View style={styles.headingContanier}>
