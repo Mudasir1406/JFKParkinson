@@ -1,75 +1,135 @@
-import React, {Component, useState} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import {
+  SafeAreaView,
+  ScrollView,
   Text,
-  View,
-  Dimensions,
   StyleSheet,
-  ImageBackground,
+  View,
   Image,
+  Animated,
+  useWindowDimensions,
 } from 'react-native';
+import {colors} from '../constant';
+import {useTheme} from 'react-native-paper';
 
-import Carousel from 'react-native-snap-carousel'; // Version can be specified in package.json
+const images = new Array(6).fill(
+  'https://images.unsplash.com/photo-1556740749-887f6717d7e4',
+);
 
-import {scrollInterpolator, animatedStyles} from '../utils/animations';
-import {colors, images} from '../constant';
+const HomeBanner = () => {
+  const [activeStep, setActiveStep] = useState<number>(0);
+  const scrollX = useRef(new Animated.Value(0)).current;
 
-const SLIDER_WIDTH = Dimensions.get('window').width;
-const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.9);
-const ITEM_HEIGHT = Math.round((ITEM_WIDTH * 3) / 6);
+  const {width: windowWidth} = useWindowDimensions();
+  const theme = useTheme();
 
-const DATA: any = [];
-for (let i = 0; i < 10; i++) {
-  DATA.push(i);
-}
+  const handleStepChange = (step: number) => {
+    setActiveStep(step);
+  };
 
-const HomeBanner: React.FunctionComponent = () => {
-  const [state, setState] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveStep(prevStep => (prevStep + 1) % images.length);
+      scrollX.setValue(activeStep * windowWidth);
+    }, 2000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
-    <View>
-      <Carousel
-        data={DATA}
-        renderItem={() => {
+    <View style={styles.scrollContainer}>
+      <Animated.ScrollView
+        horizontal={true}
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: {
+                  x: scrollX,
+                },
+              },
+            },
+          ],
+          {useNativeDriver: false},
+        )}
+        contentOffset={{x: activeStep * windowWidth, y: 0}}
+        scrollEventThrottle={10}>
+        {images.map((image, imageIndex) => {
           return (
-            <View
-              style={{
-                height: ITEM_HEIGHT,
-                borderRadius: 20,
-                borderWidth: 2,
-                borderColor: colors.white,
-                overflow: 'hidden',
-              }}>
-              <Image
-                source={images.healing}
-                resizeMode="stretch"
-                style={{flex: 1, width: ITEM_WIDTH}}></Image>
+            <View style={{width: windowWidth, height: 200}} key={imageIndex}>
+              <Image source={{uri: image}} style={styles.card}></Image>
             </View>
           );
-        }}
-        autoplay={true}
-        autoplayDelay={1000}
-        autoplayInterval={5000}
-        sliderWidth={SLIDER_WIDTH}
-        layout="stack"
-        itemWidth={ITEM_WIDTH}
-        containerCustomStyle={styles.carouselContainer}
-        inactiveSlideShift={0}
-        onSnapToItem={index => setState(index)}
-        scrollInterpolator={scrollInterpolator}
-      />
+        })}
+      </Animated.ScrollView>
+      <View style={styles.indicatorContainer}>
+        {images.map((image, imageIndex) => {
+          const width = scrollX.interpolate({
+            inputRange: [
+              windowWidth * (imageIndex - 1),
+              windowWidth * imageIndex,
+              windowWidth * (imageIndex + 1),
+            ],
+            outputRange: [8, 16, 8],
+            extrapolate: 'clamp',
+          });
+          return (
+            <Animated.View
+              key={imageIndex}
+              style={[
+                styles.normalDot,
+                {
+                  width,
+                  backgroundColor: theme.colors.primary,
+                },
+              ]}
+            />
+          );
+        })}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  carouselContainer: {
-    marginTop: 50,
-  },
-  itemContainer: {
-    width: ITEM_WIDTH,
-    height: ITEM_HEIGHT,
+  scrollContainer: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    marginVertical: 8,
+  },
+  card: {
+    flex: 1,
+    marginVertical: 4,
+    marginHorizontal: 16,
+    borderRadius: 10,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: colors.white,
+  },
+  textContainer: {
+    backgroundColor: 'rgba(0,0,0, 0.7)',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 5,
+  },
+  normalDot: {
+    height: 8,
+    width: 8,
+    borderRadius: 4,
+    marginHorizontal: 4,
+  },
+  indicatorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 8,
   },
 });
 

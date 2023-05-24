@@ -1,12 +1,27 @@
-import {StyleSheet, Text, View, Dimensions, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  ScrollView,
+  Pressable,
+  ToastAndroid,
+} from 'react-native';
 import React from 'react';
 import {DrawerIcon, HomeDesign, NotificationIcon} from '../../assets/svg';
-import {Block, EventHomeCard, HomeBanner, TouchableText} from '../components';
-import {colors, fonts} from '../constant';
+import {Block, EventHomeCard, TouchableText, HomeBanner} from '../components';
+import {colors, fonts, images} from '../constant';
 
 interface props {}
 
 const Home: React.FunctionComponent<props> = () => {
+  const showTost = () => {
+    ToastAndroid.showWithGravity(
+      'hello',
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER,
+    );
+  };
   const {width, height} = Dimensions.get('window');
   return (
     <Block>
@@ -16,10 +31,10 @@ const Home: React.FunctionComponent<props> = () => {
         style={{position: 'absolute'}}
       />
       <View style={styles.header}>
-        <View style={styles.inner}>
+        <Pressable style={styles.inner} onPress={() => console.log('sada')}>
           <DrawerIcon width={30} height={30} />
           <Text style={styles.text}>Home</Text>
-        </View>
+        </Pressable>
         <NotificationIcon width={30} height={30} />
       </View>
       <HomeBanner />
@@ -53,7 +68,12 @@ const Home: React.FunctionComponent<props> = () => {
         <Text style={styles.heading}>New On Parkinson's</Text>
       </View>
       <View style={{flexDirection: 'row'}}>
-        <EventHomeCard width={170} heading="Stories" time="See Stories >" />
+        <EventHomeCard
+          width={170}
+          heading="Stories"
+          time="See Stories >"
+          onPress={showTost}
+        />
         <EventHomeCard
           width={170}
           heading="Community "

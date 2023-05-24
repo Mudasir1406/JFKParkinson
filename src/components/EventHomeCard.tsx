@@ -6,15 +6,17 @@ interface props {
   width?: number;
   time: string;
   heading: string;
+  onPress?: () => void;
 }
 
 const EventHomeCard: React.FunctionComponent<props> = ({
   width,
   heading,
   time,
+  onPress,
 }) => {
   return (
-    <TouchableRipple onPress={() => {}} style={[styles.ripple, {width: width}]}>
+    <TouchableRipple onPress={onPress} style={[styles.ripple, {width: width}]}>
       <Surface elevation={2} style={[styles.contanier, {width: width}]}>
         <ImageBackground
           source={images.gindolce}
