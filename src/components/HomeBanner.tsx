@@ -8,18 +8,23 @@ import {
   Image,
   Animated,
   useWindowDimensions,
+  Easing,
 } from 'react-native';
-import {colors} from '../constant';
+import {colors, images} from '../constant';
 import {useTheme} from 'react-native-paper';
 
-const images = new Array(6).fill(
-  'https://images.unsplash.com/photo-1556740749-887f6717d7e4',
-);
+const image = [
+  images.gindolce,
+  images.healing,
+  images.image1,
+  images.image2,
+  images.premier,
+];
 
 const HomeBanner = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
   const scrollX = useRef(new Animated.Value(0)).current;
-
+  const scroll = useState(new Animated.Value(0))[0];
   const {width: windowWidth} = useWindowDimensions();
   const theme = useTheme();
 
@@ -29,9 +34,15 @@ const HomeBanner = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveStep(prevStep => (prevStep + 1) % images.length);
+      setActiveStep(prevStep => (prevStep + 1) % image.length);
+      Animated.timing(scroll, {
+        toValue: windowWidth * activeStep,
+        duration: 2000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      });
       scrollX.setValue(activeStep * windowWidth);
-    }, 2000);
+    }, 5000);
 
     return () => {
       clearInterval(interval);
@@ -57,17 +68,17 @@ const HomeBanner = () => {
           {useNativeDriver: false},
         )}
         contentOffset={{x: activeStep * windowWidth, y: 0}}
-        scrollEventThrottle={10}>
-        {images.map((image, imageIndex) => {
+        scrollEventThrottle={1}>
+        {image.map((image, imageIndex) => {
           return (
             <View style={{width: windowWidth, height: 200}} key={imageIndex}>
-              <Image source={{uri: image}} style={styles.card}></Image>
+              <Image source={image} style={styles.card}></Image>
             </View>
           );
         })}
       </Animated.ScrollView>
       <View style={styles.indicatorContainer}>
-        {images.map((image, imageIndex) => {
+        {image.map((image, imageIndex) => {
           const width = scrollX.interpolate({
             inputRange: [
               windowWidth * (imageIndex - 1),
@@ -112,6 +123,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 2,
     borderColor: colors.white,
+    resizeMode: 'cover',
+    width: '93%',
   },
   textContainer: {
     backgroundColor: 'rgba(0,0,0, 0.7)',

@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
     justifyContent: 'space-between',
+    overflow: 'hidden',
   },
   text: {
     ...fonts.headerHeading,

@@ -1,12 +1,16 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import React from 'react';
-import {Header} from '../components';
+import {Header, PostCard} from '../components';
 
 const Posts = () => {
   return (
     <View>
       <Header title="Posts" />
-      <Text>Posts</Text>
+      <ScrollView>
+        <PostCard />
+        <PostCard />
+        <PostCard />
+      </ScrollView>
     </View>
   );
 };

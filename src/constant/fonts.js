@@ -39,4 +39,8 @@ export default fonts = {
     fontFamily: 'Poppins-SemiBold',
     fontSize: 13,
   },
+  postName: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 20,
+  },
 };

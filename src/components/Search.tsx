@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     borderRadius: 30,
-    backgroundColor: colors.black,
   },
   contanier: {
     marginTop: 30,
