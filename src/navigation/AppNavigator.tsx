@@ -14,6 +14,7 @@ const AppNavigator = () => {
       screenOptions={{
         headerShown: false,
         animation: 'slide_from_right',
+        animationDuration: 2000,
       }}>
       <Stack.Screen name="BottomTab" component={BottomTab} />
 

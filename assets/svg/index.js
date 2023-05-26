@@ -19,3 +19,8 @@ export {default as OnboardingArrow} from './OnboardingArrow.svg';
 export {default as MeetingDesign} from './MeetingDesign.svg';
 export {default as Back} from './Back.svg';
 export {default as SearchIcon} from './SearchIcon.svg';
+export {default as Calender} from './Calendar.svg';
+export {default as Location} from './Location.svg';
+export {default as MeetingBanner} from './MeetingBanner.svg';
+export {default as Time} from './Time.svg';
+export {default as Zoom} from './zoom.svg';

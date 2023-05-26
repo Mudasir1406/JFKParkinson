@@ -1,6 +1,13 @@
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {MeetingDesign} from '../../assets/svg';
+import {
+  Calender,
+  Location,
+  MeetingBanner,
+  MeetingDesign,
+  Time,
+  Zoom,
+} from '../../assets/svg';
 import {BackButton, Block, Search} from '../components';
 import {colors, fonts} from '../constant';
 import Animated, {Easing, FadeInDown} from 'react-native-reanimated';
@@ -14,12 +21,10 @@ const EventDetails: React.FunctionComponent<props> = () => {
   return (
     <>
       <View>
-        <MeetingDesign width="100%" height={height * 0.42} />
-        <View style={styles.search}>
-          <Search placeholder="Search here..." />
-        </View>
+        <MeetingBanner width="100%" height={height * 0.4725} />
+
         <View style={styles.back}>
-          <BackButton pageName="Meetings" />
+          <BackButton pageName="Meeting Details" />
         </View>
       </View>
       <Block contentContainerStyle={{padding: 15}}>
@@ -34,24 +39,37 @@ const EventDetails: React.FunctionComponent<props> = () => {
           Description
         </Animated.Text>
         <View style={styles.dateContanier}>
-          <Animated.Text
-            style={[styles.date, {color: theme.colors.primary}]}
+          <Animated.View
+            style={styles.linkContanier}
             entering={FadeInDown.duration(2000).easing(Easing.bounce)}>
-            Monday, May 1, 2023
-          </Animated.Text>
-          <Animated.Text
-            entering={FadeInDown.duration(2000).easing(Easing.bounce)}
-            style={[styles.time, {color: theme.colors.outlineVariant}]}>
-            1:00pm - 2:30pm
-          </Animated.Text>
+            <Calender />
+            <Animated.Text style={[styles.date, {color: theme.colors.primary}]}>
+              Monday, May 1, 2023
+            </Animated.Text>
+          </Animated.View>
+          <Animated.View
+            style={styles.linkContanier}
+            entering={FadeInDown.duration(2000).easing(Easing.bounce)}>
+            <Time />
+            <Animated.Text
+              style={[styles.time, {color: theme.colors.outlineVariant}]}>
+              1:00pm - 2:30pm
+            </Animated.Text>
+          </Animated.View>
         </View>
-        <Animated.Text
+        <Animated.View
           entering={FadeInDown.duration(2000).easing(Easing.bounce)}
-          style={[styles.location, {color: theme.colors.outlineVariant}]}>
-          Location: HMH JFK UNIVERSITY MEDICAL CENTER, 70 JAMES STREET, EDISON,
-          NJ 08840
-        </Animated.Text>
+          style={styles.linkContanier}>
+          <Location />
+          <Animated.Text
+            style={[styles.location, {color: theme.colors.outlineVariant}]}>
+            Location: HMH JFK UNIVERSITY MEDICAL CENTER, 70 JAMES STREET,
+            EDISON, NJ 08840
+          </Animated.Text>
+        </Animated.View>
+
         <View style={styles.linkContanier}>
+          <Zoom />
           <Animated.Text
             entering={FadeInDown.duration(2000).easing(Easing.bounce)}
             style={[styles.location, {color: theme.colors.outlineVariant}]}>
@@ -88,6 +106,8 @@ const styles = StyleSheet.create({
   },
   date: {
     ...fonts.eventDetailsText,
+    marginHorizontal: 4,
+    marginTop: 3,
   },
   dateContanier: {
     flexDirection: 'row',
@@ -96,11 +116,15 @@ const styles = StyleSheet.create({
   location: {
     ...fonts.eventDetailsText,
     marginVertical: 15,
+    marginLeft: 8,
   },
   time: {
     ...fonts.eventDetailsText,
+    marginHorizontal: 4,
+    marginTop: 3,
   },
   linkContanier: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
 });
