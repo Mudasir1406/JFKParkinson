@@ -3,6 +3,7 @@ import React from 'react';
 import Animated from 'react-native-reanimated';
 import {fonts, images} from '../constant';
 import {Surface, useTheme} from 'react-native-paper';
+import {Comment, Heart, Share} from '../../assets/svg';
 
 type props = {};
 const {width, height} = Dimensions.get('window');
@@ -36,8 +37,11 @@ const PostCard: React.FunctionComponent<props> = () => {
           ]}
         />
         <View style={styles.footerContanier}>
+          <Heart width={20} height={20} />
           <Text style={styles.timeText}>1341</Text>
+          <Comment width={20} height={20} />
           <Text style={styles.timeText}>50</Text>
+          <Share width={20} height={20} />
         </View>
       </Animated.View>
     </Surface>
@@ -74,9 +78,7 @@ const styles = StyleSheet.create({
   },
   footerContanier: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    alignSelf: 'flex-start',
+    alignItems: 'center',
   },
   nameText: {
     ...fonts.postName,
@@ -84,7 +86,9 @@ const styles = StyleSheet.create({
   },
   timeText: {
     ...fonts.TouchableText,
-    marginLeft: 15,
+    marginLeft: 4,
+    marginRight: 20,
+    marginVertical: 8,
   },
   postText: {
     ...fonts.TouchableText,

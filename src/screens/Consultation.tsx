@@ -3,6 +3,7 @@ import React from 'react';
 import {images, fonts} from '../constant';
 import {Surface, useTheme} from 'react-native-paper';
 import {AuthButton, Block} from '../components';
+import {Location1, Pictures, Smile} from '../../assets/svg';
 
 const Consultation = () => {
   const theme = useTheme();
@@ -40,6 +41,11 @@ const Consultation = () => {
         ]}
         elevation={2}>
         <Text style={styles.textInput}>Add to your post</Text>
+        <View style={styles.icon}>
+          <Pictures />
+          <Location1 />
+          <Smile />
+        </View>
       </Surface>
       <AuthButton heading="Post" />
     </Block>
@@ -82,5 +88,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     borderRadius: 10,
     padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  icon: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    width: 100,
   },
 });
