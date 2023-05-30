@@ -7,9 +7,9 @@ import {
   MeetingCard,
   Search,
 } from '../components';
-import {MeetingDesign} from '../../assets/svg';
+import {Design, MeetingDesign} from '../../assets/svg';
 import {useTheme} from 'react-native-paper';
-const {height} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window');
 import {meetingData, days} from '../utils/data';
 import {useNavigation} from '@react-navigation/native';
 
@@ -19,18 +19,27 @@ const Events = () => {
   const navigation = useNavigation();
   return (
     <>
-      <View>
-        <MeetingDesign width="100%" height={height * 0.42} />
-        <DatePicker />
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: theme.colors.tertiaryContainer,
+          borderBottomLeftRadius: 20,
+          borderBottomRightRadius: 20,
+        }}>
+        <View style={styles.design}>
+          <Design />
+        </View>
         <View style={styles.search}>
           <Search placeholder="Search here..." />
         </View>
         <View style={styles.back}>
           <BackButton pageName="Meetings" />
         </View>
+        <DatePicker />
       </View>
       <Block withoutScroll={true}>
         <Animated.FlatList
+          showsVerticalScrollIndicator={false}
           data={meetingData}
           onScroll={Animated.event(
             [{nativeEvent: {contentOffset: {y: scrollY}}}],
@@ -78,5 +87,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 20,
     width: '45%',
+  },
+  design: {
+    position: 'absolute',
+    top: -height * 0.3,
+    left: -width * 0.1,
   },
 });

@@ -30,3 +30,4 @@ export {default as Location1} from './Location1.svg';
 export {default as Pictures} from './Pictures.svg';
 export {default as Share} from './Share.svg';
 export {default as Smile} from './Smile.svg';
+export {default as Design} from './Design.svg';

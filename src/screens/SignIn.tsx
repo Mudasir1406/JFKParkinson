@@ -54,12 +54,7 @@ const SignIn: React.FunctionComponent<props> = () => {
         <TouchableText
           text="Sign up"
           alignSelf="center"
-          onPress={() =>
-            setUser({
-              ...user,
-              name: 'asdsa',
-            })
-          }
+          onPress={() => navigation.navigate('SignUp')}
         />
       </View>
       <View style={styles.bottomButton}>

@@ -28,8 +28,8 @@ const Home: React.FunctionComponent<props> = () => {
   return (
     <Block>
       <HomeDesign
-        width={width * 1.002}
-        height={height * 0.3365}
+        width={width * 1.008}
+        height={height * 0.37}
         style={{position: 'absolute'}}
       />
       <View style={styles.header}>

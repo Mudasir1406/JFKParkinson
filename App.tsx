@@ -12,7 +12,7 @@ function App(): JSX.Element {
     return setIsThemeDark(!isThemeDark);
   }, [isThemeDark]);
   useEffect(() => {
-    SplashScreen.hide(); //hides the splash screen on app load.
+    SplashScreen.hide();
   }, []);
   const preferences = React.useMemo(
     () => ({
