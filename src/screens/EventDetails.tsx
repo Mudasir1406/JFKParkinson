@@ -1,32 +1,36 @@
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
 import {
-  Calender,
-  Location,
-  MeetingBanner,
-  MeetingDesign,
-  Time,
-  Zoom,
-} from '../../assets/svg';
-import {BackButton, Block, Search} from '../components';
+  Dimensions,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import React from 'react';
+import {Calender, Design, Location, Time, Zoom} from '../../assets/svg';
+import {BackButton, Block} from '../components';
 import {colors, fonts} from '../constant';
 import Animated, {Easing, FadeInDown} from 'react-native-reanimated';
 import {useTheme} from 'react-native-paper';
 
 type props = {};
-const {height} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window');
 
 const EventDetails: React.FunctionComponent<props> = () => {
   const theme = useTheme();
   return (
     <>
-      <View>
-        <MeetingBanner width="100%" height={height * 0.4725} />
+      <ImageBackground
+        style={styles.imageContanier}
+        source={require('../../assets/gindolce.jpg')}
+        resizeMode="cover">
+        <View style={styles.design}>
+          <Design width={width * 1.2} height={height * 0.5} />
+        </View>
 
         <View style={styles.back}>
-          <BackButton pageName="Meeting Details" />
+          <BackButton pageName="Meetings Details" />
         </View>
-      </View>
+      </ImageBackground>
       <Block contentContainerStyle={{padding: 15}}>
         <Animated.Text
           style={styles.heading}
@@ -89,15 +93,9 @@ const EventDetails: React.FunctionComponent<props> = () => {
 export default EventDetails;
 
 const styles = StyleSheet.create({
-  search: {
-    position: 'absolute',
-    right: 20,
-    width: '45%',
-  },
   back: {
     position: 'absolute',
     left: 20,
-    width: '45%',
   },
   heading: {
     ...fonts.eventDetailsHeading,
@@ -126,5 +124,15 @@ const styles = StyleSheet.create({
   linkContanier: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  design: {
+    position: 'absolute',
+    top: -height * 0.3,
+    left: -width * 0.1,
+  },
+  imageContanier: {
+    flex: 1,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
 });

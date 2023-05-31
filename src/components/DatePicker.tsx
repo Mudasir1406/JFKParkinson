@@ -11,7 +11,7 @@ const {height} = Dimensions.get('window');
 const DatePicker: React.FunctionComponent<props> = () => {
   const theme = useTheme();
   return (
-    <View style={{marginTop: 150}}>
+    <View style={{marginTop: height * 0.2}}>
       <View style={styles.dateContanier}>
         <Text style={[styles.textDate, {color: theme.colors.scrim}]}>Date</Text>
         <Text style={[styles.date, {color: theme.colors.scrim}]}>May 2023</Text>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   horizontalLine: {
     borderBottomWidth: 1,
-    width: '90%',
+    width: '100%',
     alignSelf: 'center',
   },
   day: {

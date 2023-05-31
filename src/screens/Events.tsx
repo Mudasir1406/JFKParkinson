@@ -7,10 +7,10 @@ import {
   MeetingCard,
   Search,
 } from '../components';
-import {Design, MeetingDesign} from '../../assets/svg';
+import {Design} from '../../assets/svg';
 import {useTheme} from 'react-native-paper';
 const {height, width} = Dimensions.get('window');
-import {meetingData, days} from '../utils/data';
+import {meetingData} from '../utils/data';
 import {useNavigation} from '@react-navigation/native';
 
 const Events = () => {
@@ -20,14 +20,12 @@ const Events = () => {
   return (
     <>
       <View
-        style={{
-          flex: 1,
-          backgroundColor: theme.colors.tertiaryContainer,
-          borderBottomLeftRadius: 20,
-          borderBottomRightRadius: 20,
-        }}>
+        style={[
+          styles.designContanier,
+          {backgroundColor: theme.colors.tertiaryContainer},
+        ]}>
         <View style={styles.design}>
-          <Design />
+          <Design width={width * 1.2} height={height * 0.5} />
         </View>
         <View style={styles.search}>
           <Search placeholder="Search here..." />
@@ -47,7 +45,8 @@ const Events = () => {
           )}
           keyExtractor={item => `${item.id}`}
           contentContainerStyle={{
-            padding: 20,
+            paddingHorizontal: 16,
+            paddingBottom: 16,
           }}
           renderItem={({item, index}) => {
             const inputRange = [-1, 0, 190 * index, 190 * (index + 2)];
@@ -92,5 +91,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -height * 0.3,
     left: -width * 0.1,
+  },
+  designContanier: {
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    paddingBottom: 20,
+    paddingHorizontal: 10,
   },
 });

@@ -16,7 +16,6 @@ export {default as Post} from './Post.svg';
 export {default as Stories} from './Stories.svg';
 export {default as OnboardingDesign} from './Onboarding.svg';
 export {default as OnboardingArrow} from './OnboardingArrow.svg';
-export {default as MeetingDesign} from './MeetingDesign.svg';
 export {default as Back} from './Back.svg';
 export {default as SearchIcon} from './SearchIcon.svg';
 export {default as Calender} from './Calendar.svg';

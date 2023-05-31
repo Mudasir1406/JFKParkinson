@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View, Dimensions} from 'react-native';
 import React from 'react';
 import {useTheme} from 'react-native-paper';
 import {Image} from 'react-native';
@@ -10,7 +10,7 @@ import Animated, {
   FadeOutLeft,
 } from 'react-native-reanimated';
 import TouchableText from './TouchableText';
-
+const {width, height} = Dimensions.get('window');
 type props = {
   date: string;
   title: string;
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   image: {
-    width: 150,
-    height: 150,
+    width: width * 0.37,
+    height: width * 0.37,
     borderRadius: 20,
   },
   date: {
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   title: {
     ...fonts.cardHeading,
-    maxWidth: '80%',
+    maxWidth: width * 0.45,
     marginLeft: 10,
   },
 });
