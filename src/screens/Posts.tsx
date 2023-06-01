@@ -6,7 +6,9 @@ const Posts = () => {
   return (
     <View>
       <Header title="Posts" />
-      <ScrollView contentContainerStyle={{paddingBottom: 100}}>
+      <ScrollView
+        contentContainerStyle={{paddingBottom: 100}}
+        showsVerticalScrollIndicator={false}>
         <PostCard />
         <PostCard />
         <PostCard />

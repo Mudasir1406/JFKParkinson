@@ -6,9 +6,15 @@ import {
   ScrollView,
   Pressable,
   ToastAndroid,
+  ImageBackground,
 } from 'react-native';
 import React from 'react';
-import {DrawerIcon, HomeDesign, NotificationIcon} from '../../assets/svg';
+import {
+  Design,
+  DrawerIcon,
+  HomeDesign,
+  NotificationIcon,
+} from '../../assets/svg';
 import {Block, EventHomeCard, TouchableText, HomeBanner} from '../components';
 import {colors, fonts, images} from '../constant';
 import {useTheme} from 'react-native-paper';
@@ -27,11 +33,21 @@ const Home: React.FunctionComponent<props> = () => {
   const {width, height} = Dimensions.get('window');
   return (
     <Block>
-      <HomeDesign
-        width={width * 1.008}
-        height={height * 0.37}
-        style={{position: 'absolute'}}
-      />
+      <View
+        style={[styles.contanier, {backgroundColor: theme.colors.tertiary}]}>
+        <ImageBackground source={images.gindolce} style={{flex: 1}}>
+          <View
+            style={{
+              backgroundColor: theme.colors.tertiary,
+              flex: 1,
+              opacity: 0.9,
+            }}
+          />
+        </ImageBackground>
+      </View>
+      <View style={styles.design}>
+        <Design />
+      </View>
       <View style={styles.header}>
         <Pressable style={styles.inner} onPress={() => console.log('sada')}>
           <DrawerIcon width={30} height={30} />
@@ -123,5 +139,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     margin: 20,
+  },
+  contanier: {
+    width: 300,
+    height: 300,
+    borderRadius: 500,
+    transform: [{scaleX: 1.5}],
+    overflow: 'hidden',
+    position: 'absolute',
+    top: -80,
+    left: 45,
+  },
+  design: {
+    transform: [{scaleY: -1}, {rotate: '-20 deg'}],
+    position: 'absolute',
+    top: -170,
+    right: -250,
   },
 });
