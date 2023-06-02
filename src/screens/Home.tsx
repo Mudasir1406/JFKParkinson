@@ -23,11 +23,7 @@ interface props {}
 
 const Home: React.FunctionComponent<props> = () => {
   const showTost = () => {
-    ToastAndroid.showWithGravity(
-      'hello',
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER,
-    );
+    ToastAndroid.show('hello', ToastAndroid.SHORT);
   };
   const theme = useTheme();
   const {width, height} = Dimensions.get('window');
@@ -64,7 +60,10 @@ const Home: React.FunctionComponent<props> = () => {
         <Text style={styles.heading}>Parkinson's Support Group Events</Text>
         <TouchableText text="View all >>" alignSelf="flex-end" />
       </View>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+      <ScrollView
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.scroll}>
         <EventHomeCard
           width={250}
           heading="Rock Steady Boxing at JFK – on Zoom"
@@ -89,15 +88,15 @@ const Home: React.FunctionComponent<props> = () => {
       <View style={styles.headingContanier}>
         <Text style={styles.heading}>New On Parkinson's</Text>
       </View>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row', marginHorizontal: 10}}>
         <EventHomeCard
-          width={170}
+          width={width * 0.43}
           heading="Stories"
           time="See Stories >"
           onPress={showTost}
         />
         <EventHomeCard
-          width={170}
+          width={width * 0.43}
           heading="Community "
           time="Join Community >"
         />
@@ -138,7 +137,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    margin: 20,
+    marginHorizontal: 20,
   },
   contanier: {
     width: 300,
@@ -155,5 +154,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -170,
     right: -250,
+  },
+  scroll: {
+    paddingHorizontal: 10,
   },
 });

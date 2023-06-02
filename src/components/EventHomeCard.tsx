@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   innerContanier: {
-    width: 250,
-    height: 150,
+    width: 270,
+    height: 160,
     padding: 10,
   },
   heading: {
@@ -55,13 +55,14 @@ const styles = StyleSheet.create({
   },
   back: {
     backgroundColor: 'black',
-    height: 150,
+    height: 160,
     position: 'absolute',
     opacity: 0.4,
+    borderRadius: 20,
   },
   ripple: {
-    marginLeft: 20,
     marginVertical: 10,
     borderRadius: 20,
+    marginHorizontal: 10,
   },
 });
