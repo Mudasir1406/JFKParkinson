@@ -1,14 +1,117 @@
-import {StyleSheet, Text, View, Image, TextInput} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  ImageBackground,
+  Pressable,
+  ScrollView,
+} from 'react-native';
 import React from 'react';
-import {images, fonts} from '../constant';
+import {images, fonts, colors} from '../constant';
 import {Surface, useTheme} from 'react-native-paper';
-import {AuthButton, Block} from '../components';
+import {AuthButton, Block, SponsorCards, TouchableText} from '../components';
+import {Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
 
 const Consultation = () => {
   const theme = useTheme();
-  return <Block></Block>;
+  return (
+    <>
+      <View>
+        <View
+          style={[styles.contanier, {backgroundColor: theme.colors.tertiary}]}
+        />
+        <View style={styles.design}>
+          <Design />
+        </View>
+        <View style={styles.header}>
+          <Pressable style={styles.inner} onPress={() => console.log('sada')}>
+            <DrawerIcon width={30} height={30} />
+            <Text style={styles.text}>Consultation</Text>
+          </Pressable>
+          <NotificationIcon
+            width={30}
+            height={30}
+            fill={theme.colors.onSecondary}
+          />
+        </View>
+      </View>
+      <ScrollView
+        contentContainerStyle={{
+          top: 50,
+          paddingHorizontal: 20,
+        }}>
+        <Text style={[styles.headingSponsor, {color: theme.colors.scrim}]}>
+          Sponsors
+        </Text>
+        <View style={{flexDirection: 'row'}}>
+          <SponsorCards />
+          <SponsorCards />
+          <SponsorCards />
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <SponsorCards />
+          <SponsorCards />
+          <SponsorCards />
+        </View>
+        <Text style={[styles.headingSponsor, {color: theme.colors.scrim}]}>
+          Doctor's Corner
+        </Text>
+      </ScrollView>
+    </>
+  );
 };
 
 export default Consultation;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  header: {
+    flexDirection: 'row',
+    marginVertical: '10%',
+    marginHorizontal: '6%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  inner: {
+    margin: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  text: {
+    ...fonts.headerHeading,
+    marginLeft: 10,
+    color: colors.white,
+  },
+
+  contanier: {
+    width: 300,
+    height: 300,
+    borderRadius: 500,
+    transform: [{scaleX: 1.5}],
+    overflow: 'hidden',
+    position: 'absolute',
+    top: '-100%',
+    left: 45,
+  },
+  design: {
+    transform: [{scaleY: -1}, {rotate: '200 deg'}],
+    position: 'absolute',
+    top: -170,
+    left: -190,
+  },
+  heading: {
+    ...fonts.homeHeading,
+    maxWidth: '60%',
+  },
+  headingContanier: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+  },
+  headingSponsor: {
+    ...fonts.sponsor,
+    marginTop: 10,
+  },
+});

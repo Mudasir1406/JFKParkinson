@@ -43,4 +43,8 @@ export default fonts = {
     fontFamily: 'Poppins-Regular',
     fontSize: 20,
   },
+  sponsor: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 24,
+  },
 };
