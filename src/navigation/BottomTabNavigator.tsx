@@ -72,8 +72,8 @@ const BottomTabBar: React.FunctionComponent<props> = ({
               inner={!isFocused}
               useArt
               style={{
-                shadowOffset: {width: 5, height: 5},
-                shadowOpacity: 1,
+                shadowOffset: {width: 1, height: 1},
+                shadowOpacity: 0.6,
                 shadowColor: theme.colors.shadow,
                 shadowRadius: 10,
                 borderRadius: 10,
@@ -102,9 +102,6 @@ const BottomTabBar: React.FunctionComponent<props> = ({
                 }}
                 activeOpacity={0.8}>
                 <Icon />
-                {/* <Text style={{color: isFocused ? colors.bule : colors.lightBrown}}>
-                    {route?.name}
-                  </Text> */}
               </TouchableOpacity>
             </Shadow>
           );

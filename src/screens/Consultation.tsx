@@ -11,14 +11,20 @@ import {
 import React from 'react';
 import {images, fonts, colors} from '../constant';
 import {Surface, useTheme} from 'react-native-paper';
-import {AuthButton, Block, SponsorCards, TouchableText} from '../components';
+import {
+  AuthButton,
+  Block,
+  DoctorsCard,
+  SponsorCards,
+  TouchableText,
+} from '../components';
 import {Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
 
 const Consultation = () => {
   const theme = useTheme();
   return (
     <>
-      <View>
+      <View style={{marginBottom: 60}}>
         <View
           style={[styles.contanier, {backgroundColor: theme.colors.tertiary}]}
         />
@@ -39,7 +45,6 @@ const Consultation = () => {
       </View>
       <ScrollView
         contentContainerStyle={{
-          top: 50,
           paddingHorizontal: 20,
         }}>
         <Text style={[styles.headingSponsor, {color: theme.colors.scrim}]}>
@@ -58,6 +63,21 @@ const Consultation = () => {
         <Text style={[styles.headingSponsor, {color: theme.colors.scrim}]}>
           Doctor's Corner
         </Text>
+        <DoctorsCard
+          time="DO Movement Disorders and Neurology JFK University Medical Center"
+          title="Doctor John Micheal"
+          onPress={() => {}}
+        />
+        <DoctorsCard
+          time="DO Movement Disorders and Neurology JFK University Medical Center"
+          title="Doctor John Micheal"
+          onPress={() => {}}
+        />
+        <DoctorsCard
+          time="DO Movement Disorders and Neurology JFK University Medical Center"
+          title="Doctor John Micheal"
+          onPress={() => {}}
+        />
       </ScrollView>
     </>
   );
@@ -112,6 +132,6 @@ const styles = StyleSheet.create({
   },
   headingSponsor: {
     ...fonts.sponsor,
-    marginTop: 10,
+    marginTop: 20,
   },
 });
