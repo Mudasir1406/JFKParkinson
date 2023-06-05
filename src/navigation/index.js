@@ -6,8 +6,11 @@ import {useUserContext} from '../context/UserContex';
 // //import navigators
 import AppNavigator from './AppNavigator';
 import AuthNavigator from './AuthNavigator';
+import DrawerNavigator from './DrawerNavigator';
+import {useDrawerContext} from '../context/DrawerContex';
 export default AppContainer = ({theme}) => {
   const {user, setUser} = useUserContext();
+  const {isOpen} = useDrawerContext();
   //   const {loading, setLoading} = useLoading();
   //   const {user, setUser} = useUser();
   //   useEffect(() => {
@@ -31,6 +34,7 @@ export default AppContainer = ({theme}) => {
       <NavigationContainer theme={theme}>
         {user ? <AppNavigator /> : <AuthNavigator />}
       </NavigationContainer>
+      {isOpen && <DrawerNavigator />}
     </>
   );
 };

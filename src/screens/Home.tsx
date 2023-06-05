@@ -18,10 +18,12 @@ import {
 import {Block, EventHomeCard, TouchableText, HomeBanner} from '../components';
 import {colors, fonts, images} from '../constant';
 import {useTheme} from 'react-native-paper';
+import {useDrawerContext} from '../context/DrawerContex';
 
 interface props {}
 
 const Home: React.FunctionComponent<props> = () => {
+  const {isOpen, setIsOpen} = useDrawerContext();
   const showTost = () => {
     ToastAndroid.show('hello', ToastAndroid.SHORT);
   };
@@ -45,7 +47,7 @@ const Home: React.FunctionComponent<props> = () => {
         <Design />
       </View>
       <View style={styles.header}>
-        <Pressable style={styles.inner} onPress={() => console.log('sada')}>
+        <Pressable style={styles.inner} onPress={() => setIsOpen(true)}>
           <DrawerIcon width={30} height={30} />
           <Text style={styles.text}>Home</Text>
         </Pressable>
