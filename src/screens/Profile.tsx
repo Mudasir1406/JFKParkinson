@@ -3,13 +3,13 @@ import React from 'react';
 import {Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
 import {useTheme} from 'react-native-paper';
 import {fonts, colors} from '../constant';
-import {ProfileTextInput} from '../components';
+import {Block, ProfilePicture, ProfileTextInput} from '../components';
 
 const Profile: React.FunctionComponent = () => {
   const theme = useTheme();
 
   return (
-    <>
+    <Block>
       <View style={{marginBottom: 60}}>
         <View
           style={[styles.contanier, {backgroundColor: theme.colors.tertiary}]}
@@ -29,11 +29,15 @@ const Profile: React.FunctionComponent = () => {
           />
         </View>
       </View>
+      <View style={styles.profileImage}>
+        <ProfilePicture />
+      </View>
       <ProfileTextInput name="User" heading="Name" />
       <ProfileTextInput name="Email" heading="Email" />
       <ProfileTextInput name="Email" heading="Number" />
       <ProfileTextInput name="Email" heading="Disease" />
-    </>
+      <Text style={styles.heading}>Today's Diet Plan</Text>
+    </Block>
   );
 };
 
@@ -73,5 +77,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -170,
     left: -190,
+  },
+  profileImage: {
+    alignSelf: 'center',
+    marginTop: -70,
+  },
+  heading: {
+    ...fonts.postName,
+    color: colors.black,
+    marginHorizontal: '6%',
+    marginVertical: 10,
   },
 });

@@ -17,8 +17,10 @@ const ProfileTextInput: React.FunctionComponent<Props> = ({name, heading}) => {
       <Text style={styles.heading}>{heading}</Text>
       <View style={styles.inner}>
         <TextInput
-          style={[styles.input, {color: theme.colors.outline}]}
-          placeholder="Jhone"
+          style={[styles.input, {color: theme.colors.scrim}]}
+          placeholder="John's Profile"
+          placeholderTextColor={theme.colors.outlineVariant}
+          selectionColor={theme.colors.primary}
         />
         <Icon width={22} height={22} />
       </View>
@@ -42,6 +44,7 @@ const styles = StyleSheet.create({
   input: {
     width: '90%',
     ...fonts.placeholderText,
+    height: 50,
   },
   heading: {
     ...fonts.postName,
