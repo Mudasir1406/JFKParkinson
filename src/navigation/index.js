@@ -32,9 +32,10 @@ export default AppContainer = ({theme}) => {
     <>
       {/* {loading && <Loading />} */}
       <NavigationContainer theme={theme}>
+        {isOpen && <DrawerNavigator />}
+
         {user ? <AppNavigator /> : <AuthNavigator />}
       </NavigationContainer>
-      {isOpen && <DrawerNavigator />}
     </>
   );
 };

@@ -14,3 +14,4 @@ export {default as Header} from './Header';
 export {default as PostCard} from './PostCard';
 export {default as SponsorCards} from './SponsorCards';
 export {default as DoctorsCard} from './DoctorsCard';
+export {default as ProfileTextInput} from './ProfileTextInput';

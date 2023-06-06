@@ -6,5 +6,6 @@ export type RootStackParams={
     Home:any;
     BottomTab:any;
     Onboarding:any;
-    EventDetails:any
+    EventDetails:any;
+    Profile:any;
 }

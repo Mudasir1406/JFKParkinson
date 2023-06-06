@@ -11,10 +11,12 @@ import {
   Easing,
 } from 'react-native';
 import {useDrawerContext} from '../context/DrawerContex';
+import {useNavigation} from '@react-navigation/native';
 const {width, height} = Dimensions.get('window');
 interface DrawerModalProps {}
 
 const DrawerNavigator: React.FC<DrawerModalProps> = () => {
+  const navigation = useNavigation();
   const [animation] = useState(new Animated.Value(0));
   const {isOpen, setIsOpen} = useDrawerContext();
   const handleModalOpen = () => {
@@ -64,7 +66,15 @@ const DrawerNavigator: React.FC<DrawerModalProps> = () => {
             styles.drawer,
             {transform: [{translateX: drawerTranslateX}]},
           ]}>
-          <Text style={styles.drawerContent}>Your drawer content here</Text>
+          <TouchableOpacity>
+            <Text
+              onPress={() => {
+                setIsOpen(false);
+                navigation.navigate('Profile');
+              }}>
+              Drawer
+            </Text>
+          </TouchableOpacity>
         </Animated.View>
       </TouchableOpacity>
     </Modal>

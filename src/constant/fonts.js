@@ -47,4 +47,8 @@ export default fonts = {
     fontFamily: 'Poppins-Regular',
     fontSize: 24,
   },
+  placeholderText: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 12,
+  },
 };
