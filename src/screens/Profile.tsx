@@ -1,13 +1,14 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
+import {Back, Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
 import {useTheme} from 'react-native-paper';
 import {fonts, colors} from '../constant';
-import {Block, ProfilePicture, ProfileTextInput} from '../components';
+import {Block, DietPlan, ProfilePicture, ProfileTextInput} from '../components';
+import {useNavigation} from '@react-navigation/native';
 
 const Profile: React.FunctionComponent = () => {
   const theme = useTheme();
-
+  const navigation = useNavigation();
   return (
     <Block>
       <View style={{marginBottom: 60}}>
@@ -18,8 +19,8 @@ const Profile: React.FunctionComponent = () => {
           <Design />
         </View>
         <View style={styles.header}>
-          <Pressable style={styles.inner} onPress={() => console.log('sada')}>
-            <DrawerIcon width={30} height={30} />
+          <Pressable style={styles.inner} onPress={() => navigation.goBack()}>
+            <Back width={30} height={30} fill={theme.colors.onSecondary} />
             <Text style={styles.text}>Profile</Text>
           </Pressable>
           <NotificationIcon
@@ -36,7 +37,13 @@ const Profile: React.FunctionComponent = () => {
       <ProfileTextInput name="Email" heading="Email" />
       <ProfileTextInput name="Email" heading="Number" />
       <ProfileTextInput name="Email" heading="Disease" />
-      <Text style={styles.heading}>Today's Diet Plan</Text>
+      <Text style={[styles.heading, {color: theme.colors.tertiary}]}>
+        Today's Diet Plan
+      </Text>
+      <DietPlan breakFast="aaa" lunch="" dinner="" />
+      <Text style={[styles.heading, {color: theme.colors.tertiary}]}>
+        Today's Steps
+      </Text>
     </Block>
   );
 };
@@ -47,7 +54,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     marginVertical: '10%',
-    marginHorizontal: '6%',
+    marginHorizontal: '4%',
     justifyContent: 'space-between',
     alignItems: 'center',
   },

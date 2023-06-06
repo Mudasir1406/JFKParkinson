@@ -7,6 +7,7 @@ import {
   ImageBackground,
   Pressable,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import {images, fonts, colors} from '../constant';
@@ -19,8 +20,10 @@ import {
   TouchableText,
 } from '../components';
 import {Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
+import {useDrawerContext} from '../context/DrawerContex';
 
 const Consultation = () => {
+  const {setIsOpen} = useDrawerContext();
   const theme = useTheme();
   return (
     <>
@@ -33,7 +36,11 @@ const Consultation = () => {
         </View>
         <View style={styles.header}>
           <Pressable style={styles.inner} onPress={() => console.log('sada')}>
-            <DrawerIcon width={30} height={30} />
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => setIsOpen(true)}>
+              <DrawerIcon width={30} height={30} />
+            </TouchableOpacity>
             <Text style={styles.text}>Consultation</Text>
           </Pressable>
           <NotificationIcon

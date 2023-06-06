@@ -16,3 +16,4 @@ export {default as SponsorCards} from './SponsorCards';
 export {default as DoctorsCard} from './DoctorsCard';
 export {default as ProfileTextInput} from './ProfileTextInput';
 export {default as ProfilePicture} from './ProfilePicture';
+export {default as DietPlan} from './DietPlan';
