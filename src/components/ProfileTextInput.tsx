@@ -5,11 +5,16 @@ import * as icon from '../../assets/svg';
 import {useTheme} from 'react-native-paper';
 
 type Props = {
-  name: string;
-  heading: string;
+  name?: string;
+  heading?: string;
+  placeholder?: string;
 };
 
-const ProfileTextInput: React.FunctionComponent<Props> = ({name, heading}) => {
+const ProfileTextInput: React.FunctionComponent<Props> = ({
+  name,
+  heading,
+  placeholder,
+}) => {
   const theme = useTheme();
   const Icon = icon[name];
   return (
@@ -18,11 +23,11 @@ const ProfileTextInput: React.FunctionComponent<Props> = ({name, heading}) => {
       <View style={styles.inner}>
         <TextInput
           style={[styles.input, {color: theme.colors.scrim}]}
-          placeholder="John's Profile"
+          placeholder={placeholder}
           placeholderTextColor={theme.colors.outlineVariant}
           selectionColor={theme.colors.primary}
         />
-        <Icon width={22} height={22} />
+        {name && <Icon width={22} height={22} />}
       </View>
       <View style={[styles.line, {backgroundColor: theme.colors.outline}]} />
     </View>
@@ -34,7 +39,7 @@ export default ProfileTextInput;
 const styles = StyleSheet.create({
   contanier: {
     padding: 4,
-    marginHorizontal: '8%',
+    marginHorizontal: '6%',
     marginTop: 10,
   },
   line: {

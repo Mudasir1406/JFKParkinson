@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     marginVertical: '10%',
-    marginHorizontal: '6%',
+    marginHorizontal: '5%',
     justifyContent: 'space-between',
     alignItems: 'center',
   },

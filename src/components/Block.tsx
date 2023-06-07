@@ -61,7 +61,7 @@ const Block: React.FunctionComponent<props> = ({
           style={[scrollStyle, {flex: 1}]}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={[contentContainerStyle, {paddingBottom: 90}]}
-          keyboardShouldPersistTaps="handled">
+          keyboardShouldPersistTaps="never">
           {children}
         </ScrollView>
       )}

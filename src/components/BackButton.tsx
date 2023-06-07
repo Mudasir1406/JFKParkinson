@@ -2,22 +2,34 @@ import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {fonts} from '../constant';
 import {useTheme} from 'react-native-paper';
-import {Back} from '../../assets/svg';
+import {Back, DrawerIcon} from '../../assets/svg';
 import {useNavigation} from '@react-navigation/native';
+import {useDrawerContext} from '../context/DrawerContex';
 type props = {
   pageName: string;
+  isDrawer: boolean;
 };
 
-const BackButton: React.FunctionComponent<props> = ({pageName}) => {
+const BackButton: React.FunctionComponent<props> = ({pageName, isDrawer}) => {
   const theme = useTheme();
   const navigation = useNavigation();
+  const {isOpen, setIsOpen} = useDrawerContext();
   return (
     <Pressable
       style={styles.constanier}
       onPress={() => {
+        if (isDrawer) {
+          setIsOpen(true);
+          return;
+        }
         if (navigation.canGoBack()) navigation.goBack();
       }}>
-      <Back width={30} height={30} fill={theme.colors.onSecondary} />
+      {isDrawer ? (
+        <DrawerIcon />
+      ) : (
+        <Back width={30} height={30} fill={theme.colors.onSecondary} />
+      )}
+
       <Text style={[styles.text, {color: theme.colors.onSecondary}]}>
         {pageName}
       </Text>

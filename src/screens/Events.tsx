@@ -31,7 +31,7 @@ const Events = () => {
           <Search placeholder="Search here..." />
         </View>
         <View style={styles.back}>
-          <BackButton pageName="Meetings" />
+          <BackButton pageName="Meetings" isDrawer={true} />
         </View>
         <DatePicker />
       </View>
