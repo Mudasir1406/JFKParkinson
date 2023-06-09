@@ -12,7 +12,7 @@ const Header: React.FunctionComponent<Props> = ({title}) => {
   const {setIsOpen} = useDrawerContext();
   return (
     <View style={[styles.contanier, {backgroundColor: theme.colors.tertiary}]}>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <View style={styles.inner}>
         <TouchableOpacity activeOpacity={0.8} onPress={() => setIsOpen(true)}>
           <DrawerIcon fill={theme.colors.scrim} />
         </TouchableOpacity>
@@ -20,7 +20,7 @@ const Header: React.FunctionComponent<Props> = ({title}) => {
           {title}
         </Text>
       </View>
-      <NotificationIcon fill={theme.colors.secondary} />
+      <NotificationIcon fill={theme.colors.onSecondary} />
     </View>
   );
 };
@@ -51,4 +51,5 @@ const styles = StyleSheet.create({
     ...fonts.headerHeading,
     marginLeft: 10,
   },
+  inner: {flexDirection: 'row', alignItems: 'center'},
 });

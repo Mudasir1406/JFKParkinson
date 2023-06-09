@@ -12,6 +12,9 @@ import {
 } from 'react-native';
 import {useDrawerContext} from '../context/DrawerContex';
 import {useNavigation} from '@react-navigation/native';
+import {Logo} from '../../assets/svg';
+import {fonts} from '../constant';
+import {AuthButton, Block} from '../components';
 const {width, height} = Dimensions.get('window');
 interface DrawerModalProps {}
 
@@ -60,23 +63,81 @@ const DrawerNavigator: React.FC<DrawerModalProps> = () => {
       <TouchableOpacity
         style={styles.overlay}
         activeOpacity={1}
-        onPress={handleModalClose}>
-        <Animated.View
-          style={[
-            styles.drawer,
-            {transform: [{translateX: drawerTranslateX}]},
-          ]}>
-          <TouchableOpacity>
-            <Text
-              onPress={() => {
-                setIsOpen(false);
-                navigation.navigate('Profile');
-              }}>
-              Drawer
-            </Text>
-          </TouchableOpacity>
-        </Animated.View>
-      </TouchableOpacity>
+        onPress={handleModalClose}
+      />
+      <Animated.View
+        style={[styles.drawer, {transform: [{translateX: drawerTranslateX}]}]}>
+        <View style={{alignItems: 'center', marginBottom: 20}}>
+          <Logo />
+        </View>
+        <Block>
+          <Text
+            style={styles.text}
+            onPress={() => {
+              setIsOpen(false);
+              navigation.navigate('Profile');
+            }}>
+            Profile
+          </Text>
+          <Text
+            style={styles.text}
+            onPress={() => {
+              setIsOpen(false);
+              navigation.navigate('Profile');
+            }}>
+            Latest PD News
+          </Text>
+          <Text
+            style={styles.text}
+            onPress={() => {
+              setIsOpen(false);
+              navigation.navigate('Profile');
+            }}>
+            Articles
+          </Text>
+          <Text
+            style={styles.text}
+            onPress={() => {
+              setIsOpen(false);
+              navigation.navigate('Profile');
+            }}>
+            Support Groups
+          </Text>
+          <Text
+            style={styles.text}
+            onPress={() => {
+              setIsOpen(false);
+              navigation.navigate('Profile');
+            }}>
+            People In The News
+          </Text>
+          <Text
+            style={styles.text}
+            onPress={() => {
+              setIsOpen(false);
+              navigation.navigate('Profile');
+            }}>
+            Zoom Recordings
+          </Text>
+          <Text
+            style={styles.text}
+            onPress={() => {
+              setIsOpen(false);
+              navigation.navigate('Profile');
+            }}>
+            Terms And Conditions
+          </Text>
+          <Text
+            style={styles.text}
+            onPress={() => {
+              setIsOpen(false);
+              navigation.navigate('Profile');
+            }}>
+            Privacy Policy
+          </Text>
+        </Block>
+        <AuthButton heading="Logout" />
+      </Animated.View>
     </Modal>
   );
 };
@@ -91,13 +152,25 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     left: 0,
-    width: width * 0.7,
+    width: width * 0.65,
     backgroundColor: 'white',
+    height: height * 0.75,
+    padding: 30,
+    marginTop: height * 0.1,
+    borderTopLeftRadius: 50,
+    borderBottomRightRadius: 50,
   },
   drawerContent: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  draweContanier: {
+    alignItems: 'center',
+  },
+  text: {
+    ...fonts.deawerItem,
+    lineHeight: 40,
   },
 });
 

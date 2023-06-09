@@ -7,43 +7,22 @@ import {
   View,
   Dimensions,
   TextInput,
-  Platform,
-  ScrollView,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-  SafeAreaView,
 } from 'react-native';
 import React from 'react';
-import {AnimatedFAB, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {colors, fonts, images} from '../constant';
-import {
-  Add,
-  Design,
-  DrawerIcon,
-  Email,
-  NotificationIcon,
-} from '../../assets/svg';
+import {Back, Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
 import {useDrawerContext} from '../context/DrawerContex';
-import {StoryCard} from '../components';
+import {AuthButton, Block, ProfileTextInput} from '../components';
 import {useNavigation} from '@react-navigation/native';
 const {width, height} = Dimensions.get('window');
-type ScrollViewNativeEvent = NativeSyntheticEvent<NativeScrollEvent>;
-const Stories = () => {
+const CreateStories: React.FunctionComponent = () => {
   const theme = useTheme();
   const navigation = useNavigation();
   const {setIsOpen} = useDrawerContext();
-  const [isExtended, setIsExtended] = React.useState(true);
-
-  const onScroll = (nativeEvent: ScrollViewNativeEvent) => {
-    const currentScrollPosition =
-      Math.floor(nativeEvent?.nativeEvent?.contentOffset?.y) ?? 0;
-
-    setIsExtended(currentScrollPosition <= 0);
-  };
-
   return (
     <>
-      <View style={{marginBottom: 80}}>
+      <View style={{marginBottom: 90}}>
         <View
           style={[styles.contanier, {backgroundColor: theme.colors.tertiary}]}
         />
@@ -51,44 +30,36 @@ const Stories = () => {
           <Design />
         </View>
         <View style={styles.header}>
-          <Pressable style={styles.inner} onPress={() => console.log('sada')}>
+          <View style={styles.inner}>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => setIsOpen(true)}>
-              <DrawerIcon width={30} height={30} />
+              onPress={() => {
+                if (navigation.canGoBack()) navigation.goBack();
+              }}>
+              <Back width={30} height={30} fill={theme.colors.onSecondary} />
             </TouchableOpacity>
-            <Text style={styles.text}>Stories</Text>
-          </Pressable>
-          <NotificationIcon
-            width={30}
-            height={30}
-            fill={theme.colors.onSecondary}
-          />
+            <Text style={styles.text}>Make Your Story</Text>
+          </View>
+          <Text style={styles.text}>Post</Text>
         </View>
       </View>
-      <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
-        <StoryCard />
-        <StoryCard />
-        <StoryCard />
-        <StoryCard />
-        <StoryCard />
-        <StoryCard />
-      </ScrollView>
-      <AnimatedFAB
-        icon={props => <Add />}
-        label="Add your story"
-        extended={isExtended}
-        onPress={() => navigation.navigate('CreateStory')}
-        visible={true}
-        animateFrom="right"
-        iconMode="static"
-        style={styles.fabStyle}
-      />
+      <Block alignItems="center" viewStyle={{top: 20}}>
+        <View
+          style={[styles.image, {borderColor: theme.colors.outlineVariant}]}>
+          <AuthButton heading="Upload Image" />
+        </View>
+        <ProfileTextInput placeholder="Enter Title" />
+        <TextInput
+          style={[styles.description, {borderColor: theme.colors.outline}]}
+          multiline={true}
+          placeholder="Write Your Story..."
+        />
+      </Block>
     </>
   );
 };
 
-export default Stories;
+export default CreateStories;
 
 const styles = StyleSheet.create({
   header: {
@@ -99,7 +70,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inner: {
-    margin: 5,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -138,14 +108,5 @@ const styles = StyleSheet.create({
   description: {
     marginBottom: 50,
     marginHorizontal: '5%',
-  },
-  fabContainer: {
-    flexGrow: 1,
-  },
-  fabStyle: {
-    bottom: 16,
-    right: 16,
-    position: 'absolute',
-    justifyContent: 'space-between',
   },
 });

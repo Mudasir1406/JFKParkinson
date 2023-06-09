@@ -29,3 +29,6 @@ export {default as Pictures} from './Pictures.svg';
 export {default as Share} from './Share.svg';
 export {default as Smile} from './Smile.svg';
 export {default as Design} from './Design.svg';
+export {default as Disease} from './Disease.svg';
+export {default as Add} from './Add.svg';
+export {default as Mobile} from './Mobile.svg';

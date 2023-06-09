@@ -9,3 +9,4 @@ export {default as Stories} from './Stories';
 export {default as Onboarding} from './Onbording';
 export {default as EventDetails} from './EventDetails';
 export {default as Profile} from './Profile';
+export {default as CreateStory} from './CreateStory';

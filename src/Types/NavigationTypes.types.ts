@@ -8,4 +8,5 @@ export type RootStackParams={
     Onboarding:any;
     EventDetails:any;
     Profile:any;
+    CreateStory:any;
 }

@@ -51,4 +51,8 @@ export default fonts = {
     fontFamily: 'Poppins-Regular',
     fontSize: 14,
   },
+  deawerItem: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 16,
+  },
 };
