@@ -1,7 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {EventDetails, Onboarding, Profile} from '../screens';
+import {EventDetails, Onboarding, Profile, Story} from '../screens';
 import {RootStackParams} from '../Types/NavigationTypes.types';
 import BottomTab from './BottomTabNavigator';
 import CreateStories from '../screens/CreateStory';
@@ -23,6 +23,7 @@ const AppNavigator = () => {
       <Stack.Screen name="EventDetails" component={EventDetails} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="CreateStory" component={CreateStories} />
+      <Stack.Screen name="Story" component={Story} />
     </Stack.Navigator>
   );
 };

@@ -67,7 +67,7 @@ const Stories = () => {
         </View>
       </View>
       <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
-        <StoryCard />
+        <StoryCard onPress={() => navigation.navigate('Story')} />
         <StoryCard />
         <StoryCard />
         <StoryCard />

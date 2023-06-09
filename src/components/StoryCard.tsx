@@ -18,7 +18,10 @@ type props = {
 const StoryCard: React.FunctionComponent<props> = ({onPress}) => {
   const theme = useTheme();
   return (
-    <TouchableRipple onPress={onPress}>
+    <TouchableRipple
+      onPress={onPress}
+      style={styles.ripple}
+      rippleColor={theme.colors.primary}>
       <ImageBackground source={images.gindolce} style={styles.contanier}>
         <View style={styles.layer} />
         <Text
@@ -46,11 +49,10 @@ export default StoryCard;
 
 const styles = StyleSheet.create({
   contanier: {
-    margin: 12,
-    padding: 12,
     height: height / 4,
-    borderRadius: 20,
     overflow: 'hidden',
+    padding: 12,
+    borderRadius: 20,
   },
   heading: {
     ...fonts.homeHeading,
@@ -81,5 +83,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: height / 4,
     width: width,
+  },
+  ripple: {
+    margin: 12,
+    borderRadius: 20,
+    overflow: 'hidden',
   },
 });

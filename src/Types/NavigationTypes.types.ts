@@ -9,4 +9,5 @@ export type RootStackParams={
     EventDetails:any;
     Profile:any;
     CreateStory:any;
+    Story:any;
 }
