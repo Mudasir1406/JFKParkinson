@@ -55,4 +55,8 @@ export default fonts = {
     fontFamily: 'Poppins-Regular',
     fontSize: 16,
   },
+  smallText: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 11,
+  },
 };
