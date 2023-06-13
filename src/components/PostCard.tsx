@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, Image, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import Animated from 'react-native-reanimated';
 import {fonts, images} from '../constant';
@@ -13,7 +20,7 @@ const PostCard: React.FunctionComponent<props> = () => {
     <Surface
       style={[styles.container, {backgroundColor: theme.colors.onSecondary}]}
       elevation={2}>
-      <Animated.View>
+      <TouchableOpacity>
         <View style={styles.headerContanier}>
           <Image source={images.image1} style={styles.profileImage} />
           <View>
@@ -43,7 +50,7 @@ const PostCard: React.FunctionComponent<props> = () => {
           <Text style={styles.timeText}>50</Text>
           <Share width={20} height={20} />
         </View>
-      </Animated.View>
+      </TouchableOpacity>
     </Surface>
   );
 };

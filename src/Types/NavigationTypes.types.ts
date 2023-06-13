@@ -10,4 +10,5 @@ export type RootStackParams={
     Profile:any;
     CreateStory:any;
     Story:any;
+    Comments:any;
 }

@@ -11,7 +11,14 @@ const Header: React.FunctionComponent<Props> = ({title}) => {
   const theme = useTheme();
   const {setIsOpen} = useDrawerContext();
   return (
-    <View style={[styles.contanier, {backgroundColor: theme.colors.tertiary}]}>
+    <View
+      style={[
+        styles.contanier,
+        {
+          backgroundColor: theme.colors.tertiary,
+          shadowColor: theme.colors.tertiary,
+        },
+      ]}>
       <View style={styles.inner}>
         <TouchableOpacity activeOpacity={0.8} onPress={() => setIsOpen(true)}>
           <DrawerIcon fill={theme.colors.scrim} />
@@ -33,19 +40,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     elevation: 5,
     padding: 20,
-    shadowColor: '#000',
+
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    borderRadius: 5,
-    marginBottom: 10,
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
     justifyContent: 'space-between',
     overflow: 'hidden',
+    borderBottomEndRadius: 10,
   },
   text: {
     ...fonts.headerHeading,
