@@ -12,3 +12,4 @@ export {default as Profile} from './Profile';
 export {default as CreateStory} from './CreateStory';
 export {default as Story} from './Story';
 export {default as Comments} from './Comments';
+export {default as Notifications} from './Notifications';

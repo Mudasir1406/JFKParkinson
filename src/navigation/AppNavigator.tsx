@@ -1,7 +1,14 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {Comments, EventDetails, Onboarding, Profile, Story} from '../screens';
+import {
+  Comments,
+  EventDetails,
+  Notifications,
+  Onboarding,
+  Profile,
+  Story,
+} from '../screens';
 import {RootStackParams} from '../Types/NavigationTypes.types';
 import BottomTab from './BottomTabNavigator';
 import CreateStories from '../screens/CreateStory';
@@ -15,7 +22,7 @@ const AppNavigator = () => {
       screenOptions={{
         headerShown: false,
         animation: 'slide_from_right',
-        animationDuration: 2000,
+        animationDuration: 1000,
       }}>
       <Stack.Screen name="BottomTab" component={BottomTab} />
 
@@ -25,6 +32,7 @@ const AppNavigator = () => {
       <Stack.Screen name="CreateStory" component={CreateStories} />
       <Stack.Screen name="Story" component={Story} />
       <Stack.Screen name="Comments" component={Comments} />
+      <Stack.Screen name="Notifications" component={Notifications} />
     </Stack.Navigator>
   );
 };

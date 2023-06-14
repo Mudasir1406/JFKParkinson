@@ -19,11 +19,13 @@ import {Block, EventHomeCard, TouchableText, HomeBanner} from '../components';
 import {colors, fonts, images} from '../constant';
 import {useTheme} from 'react-native-paper';
 import {useDrawerContext} from '../context/DrawerContex';
+import {useNavigation} from '@react-navigation/native';
 
 interface props {}
 
 const Home: React.FunctionComponent<props> = () => {
   const {isOpen, setIsOpen} = useDrawerContext();
+  const navigation = useNavigation();
   const showTost = () => {
     ToastAndroid.show('hello', ToastAndroid.SHORT);
   };
@@ -51,11 +53,13 @@ const Home: React.FunctionComponent<props> = () => {
           <DrawerIcon width={30} height={30} />
           <Text style={styles.text}>Home</Text>
         </Pressable>
-        <NotificationIcon
-          width={30}
-          height={30}
-          fill={theme.colors.onSecondary}
-        />
+        <Pressable onPress={() => navigation.navigate('Notifications')}>
+          <NotificationIcon
+            width={30}
+            height={30}
+            fill={theme.colors.onSecondary}
+          />
+        </Pressable>
       </View>
       <HomeBanner />
       <View style={styles.headingContanier}>

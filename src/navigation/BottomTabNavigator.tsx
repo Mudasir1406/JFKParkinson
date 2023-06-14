@@ -120,6 +120,7 @@ const BottomTab = () => {
         tabBarStyle: {
           position: 'absolute',
         },
+        tabBarHideOnKeyboard: true,
       }}
       tabBar={props => <BottomTabBar {...props} />}>
       <Tab.Screen name="Events" component={Events} />

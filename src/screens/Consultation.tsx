@@ -35,14 +35,14 @@ const Consultation = () => {
           <Design />
         </View>
         <View style={styles.header}>
-          <Pressable style={styles.inner} onPress={() => console.log('sada')}>
+          <View style={styles.inner}>
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => setIsOpen(true)}>
               <DrawerIcon width={30} height={30} />
             </TouchableOpacity>
             <Text style={styles.text}>Consultation</Text>
-          </Pressable>
+          </View>
           <NotificationIcon
             width={30}
             height={30}

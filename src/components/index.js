@@ -19,3 +19,4 @@ export {default as ProfilePicture} from './ProfilePicture';
 export {default as DietPlan} from './DietPlan';
 export {default as StoryCard} from './StoryCard.tsx';
 export {default as CommentsCard} from './CommentsCard';
+export {default as NotificationCard} from './NotificationCard';

@@ -68,7 +68,8 @@ const Events = () => {
                 />
               </Animated.View>
             );
-          }}></Animated.FlatList>
+          }}
+        />
       </Block>
     </>
   );
