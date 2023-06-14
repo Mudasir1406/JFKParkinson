@@ -2,9 +2,10 @@ import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import React from 'react';
 import {Header, PostCard} from '../components';
 import {useNavigation} from '@react-navigation/native';
+import {PostNavigationType} from '../Types/NavigationTypes.types';
 
 const Posts = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<PostNavigationType['navigation']>();
   return (
     <View>
       <Header title="Posts" />

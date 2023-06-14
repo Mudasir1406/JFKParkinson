@@ -14,12 +14,16 @@ import {colors, fonts, images} from '../constant';
 import {useTheme} from 'react-native-paper';
 import {Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {
+  BottomTabNavigationType,
+  OnboardingNavigationType,
+} from '../Types/NavigationTypes.types';
 
 const {width, height} = Dimensions.get('window');
 const Onbording: React.FunctionComponent = () => {
   const theme = useTheme();
   const [dots, setDots] = useState<string[]>(['1', '2', '3']);
-  const navigation = useNavigation();
+  const navigation = useNavigation<OnboardingNavigationType['navigation']>();
   const [active, setActive] = useState(1);
   return (
     <View>

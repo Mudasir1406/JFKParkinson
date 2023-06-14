@@ -14,12 +14,14 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {Logo, TopDesign} from '../../assets/svg';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParams} from '../Types/NavigationTypes.types';
+import {
+  RootStackParamsApp,
+  SignUpNavigationType,
+} from '../Types/NavigationTypes.types';
 interface props {}
 const SignUp: React.FunctionComponent<props> = () => {
   const theme = useTheme();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParams>>();
+  const navigation = useNavigation<SignUpNavigationType['navigation']>();
   return (
     <Block>
       <TopDesign />

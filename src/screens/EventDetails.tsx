@@ -28,7 +28,7 @@ const EventDetails: React.FunctionComponent<props> = () => {
         </View>
 
         <View style={styles.back}>
-          <BackButton pageName="Meetings Details" />
+          <BackButton pageName="Meetings Details" isDrawer={false} />
         </View>
       </ImageBackground>
       <Block contentContainerStyle={{padding: 15}}>

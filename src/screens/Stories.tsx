@@ -26,11 +26,12 @@ import {
 import {useDrawerContext} from '../context/DrawerContex';
 import {StoryCard} from '../components';
 import {useNavigation} from '@react-navigation/native';
+import {StoriesNavigationType} from '../Types/NavigationTypes.types';
 const {width, height} = Dimensions.get('window');
 type ScrollViewNativeEvent = NativeSyntheticEvent<NativeScrollEvent>;
 const Stories = () => {
   const theme = useTheme();
-  const navigation = useNavigation();
+  const navigation = useNavigation<StoriesNavigationType['navigation']>();
   const {setIsOpen} = useDrawerContext();
   const [isExtended, setIsExtended] = React.useState(true);
 

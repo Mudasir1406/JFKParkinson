@@ -13,14 +13,16 @@ import {fonts} from '../constant';
 import {Logo, TopDesign} from '../../assets/svg';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
-import {RootStackParams} from '../Types/NavigationTypes.types';
+import {
+  ForgetPasswordNavigationType,
+  RootStackParamsApp,
+} from '../Types/NavigationTypes.types';
 interface props {
   navigation: any;
 }
 const ForgetPassword: React.FunctionComponent<props> = () => {
   const theme = useTheme();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParams>>();
+  const navigation = useNavigation<ForgetPasswordNavigationType>();
   return (
     <Block>
       <TopDesign />
@@ -33,7 +35,6 @@ const ForgetPassword: React.FunctionComponent<props> = () => {
       <TouchableText
         text="Please enter your email and you will recive a password reset link if your account exist"
         alignSelf="center"
-        //onPress={() => navigation.navigate('ForgetPassword')}
       />
       <AuthTextInput placeholder="Your Email" name="Email" />
 

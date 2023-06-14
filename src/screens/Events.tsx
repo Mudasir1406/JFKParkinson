@@ -12,11 +12,12 @@ import {useTheme} from 'react-native-paper';
 const {height, width} = Dimensions.get('window');
 import {meetingData} from '../utils/data';
 import {useNavigation} from '@react-navigation/native';
+import {EventsNavigationType} from '../Types/NavigationTypes.types';
 
 const Events = () => {
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const theme = useTheme();
-  const navigation = useNavigation();
+  const navigation = useNavigation<EventsNavigationType['navigation']>();
   return (
     <>
       <View

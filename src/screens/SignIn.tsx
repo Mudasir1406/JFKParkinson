@@ -13,7 +13,10 @@ import {fonts} from '../constant';
 import {Logo, TopDesign} from '../../assets/svg';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
-import {RootStackParams} from '../Types/NavigationTypes.types';
+import {
+  RootStackParamsApp,
+  SignInNavigationType,
+} from '../Types/NavigationTypes.types';
 import {useUserContext} from '../context/UserContex';
 interface props {
   navigation: any;
@@ -21,8 +24,7 @@ interface props {
 const SignIn: React.FunctionComponent<props> = () => {
   const theme = useTheme();
   const {user, setUser} = useUserContext();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParams>>();
+  const navigation = useNavigation<SignInNavigationType['navigation']>();
   return (
     <Block>
       <TopDesign />

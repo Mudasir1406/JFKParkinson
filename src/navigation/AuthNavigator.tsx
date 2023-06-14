@@ -2,9 +2,9 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {ForgetPassword, SignIn, SignUp} from '../screens';
-import {RootStackParams} from '../Types/NavigationTypes.types';
+import {RootStackParamsAuth} from '../Types/NavigationTypes.types';
 
-const Stack = createNativeStackNavigator<RootStackParams>();
+const Stack = createNativeStackNavigator<RootStackParamsAuth>();
 
 const AuthNavigator = () => {
   return (

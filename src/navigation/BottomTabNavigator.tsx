@@ -5,14 +5,14 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Consultation, Events, Home, Post, Stories} from '../screens';
 import * as SvgIcons from '../../assets/svg';
 import {useTheme} from 'react-native-paper';
-
+import {RootBottomTabParams} from '../Types/NavigationTypes.types';
 type props = {
   state: any;
   navigation: any;
   descriptors: any;
 };
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<RootBottomTabParams>();
 const BottomTabBar: React.FunctionComponent<props> = ({
   state,
   navigation,

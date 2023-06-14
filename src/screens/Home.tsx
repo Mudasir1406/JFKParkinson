@@ -20,12 +20,13 @@ import {colors, fonts, images} from '../constant';
 import {useTheme} from 'react-native-paper';
 import {useDrawerContext} from '../context/DrawerContex';
 import {useNavigation} from '@react-navigation/native';
+import {HomeNavigationType} from '../Types/NavigationTypes.types';
 
 interface props {}
 
 const Home: React.FunctionComponent<props> = () => {
   const {isOpen, setIsOpen} = useDrawerContext();
-  const navigation = useNavigation();
+  const navigation = useNavigation<HomeNavigationType['navigation']>();
   const showTost = () => {
     ToastAndroid.show('hello', ToastAndroid.SHORT);
   };
