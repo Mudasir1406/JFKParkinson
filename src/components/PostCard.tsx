@@ -12,15 +12,17 @@ import {fonts, images} from '../constant';
 import {Surface, useTheme} from 'react-native-paper';
 import {Comment, Heart, Share} from '../../assets/svg';
 
-type props = {};
+type props = {
+  onPress?: () => void;
+};
 const {width, height} = Dimensions.get('window');
-const PostCard: React.FunctionComponent<props> = () => {
+const PostCard: React.FunctionComponent<props> = ({onPress}) => {
   const theme = useTheme();
   return (
     <Surface
       style={[styles.container, {backgroundColor: theme.colors.onSecondary}]}
       elevation={2}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
         <View style={styles.headerContanier}>
           <Image source={images.image1} style={styles.profileImage} />
           <View>

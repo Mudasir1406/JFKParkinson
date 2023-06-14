@@ -6,8 +6,9 @@ import {colors, fonts} from '../constant';
 import {useDrawerContext} from '../context/DrawerContex';
 type Props = {
   title: string;
+  backButton?: boolean;
 };
-const Header: React.FunctionComponent<Props> = ({title}) => {
+const Header: React.FunctionComponent<Props> = ({title, backButton}) => {
   const theme = useTheme();
   const {setIsOpen} = useDrawerContext();
   return (
@@ -21,9 +22,13 @@ const Header: React.FunctionComponent<Props> = ({title}) => {
       ]}>
       <View style={styles.inner}>
         <TouchableOpacity activeOpacity={0.8} onPress={() => setIsOpen(true)}>
-          <DrawerIcon fill={theme.colors.scrim} />
+          {backButton ? (
+            <Back fill={theme.colors.onSecondary} />
+          ) : (
+            <DrawerIcon />
+          )}
         </TouchableOpacity>
-        <Text style={[styles.text, {color: theme.colors.primary}]}>
+        <Text style={[styles.text, {color: theme.colors.onSecondary}]}>
           {title}
         </Text>
       </View>
@@ -47,8 +52,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    borderBottomRightRadius: 10,
-    borderBottomLeftRadius: 10,
     justifyContent: 'space-between',
     overflow: 'hidden',
     borderBottomEndRadius: 10,
@@ -56,6 +59,10 @@ const styles = StyleSheet.create({
   text: {
     ...fonts.headerHeading,
     marginLeft: 10,
+    textAlignVertical: 'bottom',
   },
-  inner: {flexDirection: 'row', alignItems: 'center'},
+  inner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
