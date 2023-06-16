@@ -13,3 +13,5 @@ export {default as CreateStory} from './CreateStory';
 export {default as Story} from './Story';
 export {default as Comments} from './Comments';
 export {default as Notifications} from './Notifications';
+export {default as TermsAndConditions} from './TermsAndComditions';
+export {default as PravicyPolicy} from './PravicyPolicy';

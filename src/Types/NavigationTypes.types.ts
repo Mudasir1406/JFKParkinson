@@ -31,6 +31,8 @@ export type RootStackParamsAuth={
     SignUp: any;
     SignIn: any;
     ForgetPassword: any;
+    TermsAndConditions:any;
+    PrivacyPolicy:any;
 }
 
 //AppNavigator Screens

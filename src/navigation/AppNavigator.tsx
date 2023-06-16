@@ -9,11 +9,11 @@ import {
   Profile,
   Story,
 } from '../screens';
-import {RootStackParams} from '../Types/NavigationTypes.types';
+import {RootStackParamsApp} from '../Types/NavigationTypes.types';
 import BottomTab from './BottomTabNavigator';
 import CreateStories from '../screens/CreateStory';
 
-const Stack = createNativeStackNavigator<RootStackParams>();
+const Stack = createNativeStackNavigator<RootStackParamsApp>();
 
 const AppNavigator = () => {
   return (

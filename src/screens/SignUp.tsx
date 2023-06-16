@@ -41,10 +41,18 @@ const SignUp: React.FunctionComponent<props> = () => {
         <TouchableText text="JFK Parkinson's" alignSelf="center" />
       </View>
       <View style={styles.bottomTextContanier}>
-        <TouchableText text="Terms of Service" alignSelf="center" />
+        <TouchableText
+          text="Terms and Conditions"
+          alignSelf="center"
+          onPress={() => navigation.navigate('TermsAndConditions')}
+        />
         <Text style={styles.bottomText}>And</Text>
 
-        <TouchableText text="Privacy Policy" alignSelf="center" />
+        <TouchableText
+          text="Privacy Policy"
+          alignSelf="center"
+          onPress={() => navigation.navigate('PrivacyPolicy')}
+        />
       </View>
       <AuthButton heading="Sign Up" />
       <View style={styles.bottomTextContanier}>
