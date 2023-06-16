@@ -8,11 +8,11 @@ import {
 import React from 'react';
 import {colors, fonts} from '../constant';
 import {useTheme} from 'react-native-paper';
-import {Back, Design, NotificationIcon} from '../../assets/svg';
+import {Back, Design} from '../../assets/svg';
 import {Block, NotificationCard} from '../components';
 import {useNavigation} from '@react-navigation/native';
 
-const Notifications = () => {
+const Notifications: React.FunctionComponent = () => {
   const theme = useTheme();
   const navigation = useNavigation();
   return (

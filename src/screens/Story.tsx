@@ -17,7 +17,7 @@ import {useDrawerContext} from '../context/DrawerContex';
 import {useNavigation} from '@react-navigation/native';
 const {width, height} = Dimensions.get('window');
 
-const Story = () => {
+const Story: React.FunctionComponent = () => {
   const theme = useTheme();
   const navigation = useNavigation();
   const {setIsOpen} = useDrawerContext();

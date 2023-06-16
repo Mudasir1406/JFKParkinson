@@ -111,7 +111,7 @@ const BottomTabBar: React.FunctionComponent<props> = ({
   );
 };
 
-const BottomTab = () => {
+const BottomTab: React.FunctionComponent = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
