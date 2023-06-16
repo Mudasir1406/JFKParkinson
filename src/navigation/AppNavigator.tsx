@@ -8,10 +8,12 @@ import {
   Onboarding,
   Profile,
   Story,
+  TermsAndConditions,
 } from '../screens';
 import {RootStackParamsApp} from '../Types/NavigationTypes.types';
 import BottomTab from './BottomTabNavigator';
 import CreateStories from '../screens/CreateStory';
+import PrivacyPolicy from '../screens/PravicyPolicy';
 
 const Stack = createNativeStackNavigator<RootStackParamsApp>();
 
@@ -33,6 +35,8 @@ const AppNavigator = () => {
       <Stack.Screen name="Story" component={Story} />
       <Stack.Screen name="Comments" component={Comments} />
       <Stack.Screen name="Notifications" component={Notifications} />
+      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+      <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
     </Stack.Navigator>
   );
 };

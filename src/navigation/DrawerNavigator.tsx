@@ -15,11 +15,12 @@ import {useNavigation} from '@react-navigation/native';
 import {Logo} from '../../assets/svg';
 import {fonts} from '../constant';
 import {AuthButton, Block} from '../components';
+import {HomeNavigationType} from '../Types/NavigationTypes.types';
 const {width, height} = Dimensions.get('window');
 interface DrawerModalProps {}
 
 const DrawerNavigator: React.FC<DrawerModalProps> = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<HomeNavigationType['navigation']>();
   const [animation] = useState(new Animated.Value(0));
   const {isOpen, setIsOpen} = useDrawerContext();
   const handleModalOpen = () => {
@@ -123,7 +124,7 @@ const DrawerNavigator: React.FC<DrawerModalProps> = () => {
             style={styles.text}
             onPress={() => {
               setIsOpen(false);
-              navigation.navigate('Profile');
+              navigation.navigate('TermsAndConditions');
             }}>
             Terms And Conditions
           </Text>
@@ -131,7 +132,7 @@ const DrawerNavigator: React.FC<DrawerModalProps> = () => {
             style={styles.text}
             onPress={() => {
               setIsOpen(false);
-              navigation.navigate('Profile');
+              navigation.navigate('PrivacyPolicy');
             }}>
             Privacy Policy
           </Text>

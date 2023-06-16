@@ -11,6 +11,9 @@ export type RootStackParamsApp={
     Story:any;
     Comments:any;
     Notifications:any;
+    TermsAndConditions:any;
+    PrivacyPolicy:any;
+
 }
 
 export type RootBottomTabParams={
