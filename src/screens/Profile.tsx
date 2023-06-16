@@ -33,10 +33,22 @@ const Profile: React.FunctionComponent = () => {
       <View style={styles.profileImage}>
         <ProfilePicture />
       </View>
-      <ProfileTextInput name="User" heading="Name" />
-      <ProfileTextInput name="Email" heading="Email" />
-      <ProfileTextInput name="Email" heading="Number" />
-      <ProfileTextInput name="Email" heading="Disease" />
+      <ProfileTextInput name="User" heading="Name" placeholder="John Doe" />
+      <ProfileTextInput
+        name="Email"
+        heading="Email"
+        placeholder="Johndoe@doe.com"
+      />
+      <ProfileTextInput
+        name="Mobile"
+        heading="Number"
+        placeholder="(XXX) XXX-XXXX"
+      />
+      <ProfileTextInput
+        name="Disease"
+        heading="Disease"
+        placeholder="Parkinsons"
+      />
       <Text style={[styles.heading, {color: theme.colors.tertiary}]}>
         Today's Diet Plan
       </Text>

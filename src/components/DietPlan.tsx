@@ -2,7 +2,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {List, useTheme} from 'react-native-paper';
 import {fonts} from '../constant';
-import {Email} from '../../assets/svg';
+import {Arrow, Email} from '../../assets/svg';
 
 type props = {
   breakFast: string;
@@ -19,8 +19,19 @@ const DietPlan: React.FunctionComponent<props> = ({
   return (
     <List.Section style={styles.contanier}>
       <List.Accordion
+        onPress={() => console.log('Press')}
         title="Break Fast"
-        right={props => <Email />}
+        right={props => {
+          if (props.isExpanded)
+            return (
+              <View style={styles.arrow}>
+                <Arrow />
+              </View>
+            );
+          else {
+            return <Arrow />;
+          }
+        }}
         style={[
           styles.accordionContanier,
           {borderColor: theme.colors.outline},
@@ -31,6 +42,17 @@ const DietPlan: React.FunctionComponent<props> = ({
 
       <List.Accordion
         title="Lunch"
+        right={props => {
+          if (props.isExpanded)
+            return (
+              <View style={styles.arrow}>
+                <Arrow />
+              </View>
+            );
+          else {
+            return <Arrow />;
+          }
+        }}
         style={[
           styles.accordionContanier,
           {borderColor: theme.colors.outline},
@@ -40,6 +62,17 @@ const DietPlan: React.FunctionComponent<props> = ({
       </List.Accordion>
       <List.Accordion
         title="Dinner"
+        right={props => {
+          if (props.isExpanded)
+            return (
+              <View style={styles.arrow}>
+                <Arrow />
+              </View>
+            );
+          else {
+            return <Arrow />;
+          }
+        }}
         style={[
           styles.accordionContanier,
           {borderColor: theme.colors.outline},
@@ -67,4 +100,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
   },
+  arrow: {transform: [{rotateX: '180 deg'}]},
 });
