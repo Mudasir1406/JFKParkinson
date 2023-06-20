@@ -13,6 +13,7 @@ export type RootStackParamsApp={
     Notifications:any;
     TermsAndConditions:any;
     PrivacyPolicy:any;
+    ZoomRecordings:any;
 
 }
 

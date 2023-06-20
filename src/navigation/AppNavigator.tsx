@@ -9,6 +9,7 @@ import {
   Profile,
   Story,
   TermsAndConditions,
+  ZoomRecordings,
 } from '../screens';
 import {RootStackParamsApp} from '../Types/NavigationTypes.types';
 import BottomTab from './BottomTabNavigator';
@@ -37,6 +38,7 @@ const AppNavigator = () => {
       <Stack.Screen name="Notifications" component={Notifications} />
       <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
       <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
+      <Stack.Screen name="ZoomRecordings" component={ZoomRecordings} />
     </Stack.Navigator>
   );
 };
