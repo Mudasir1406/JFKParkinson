@@ -11,7 +11,9 @@ const VedioCard: React.FunctionComponent<props> = () => {
     <View style={styles.contanier}>
       <Image source={images.gindolce} style={styles.image} />
       <View style={styles.inner}>
-        <Text style={[styles.heading, {color: theme.colors.scrim}]}>
+        <Text
+          style={[styles.heading, {color: theme.colors.scrim}]}
+          numberOfLines={3}>
           Parkinson's Disease
         </Text>
       </View>
@@ -23,7 +25,7 @@ export default VedioCard;
 
 const styles = StyleSheet.create({
   image: {
-    height: height / 4,
+    height: height / 3.5,
     borderRadius: 20,
     width: width * 0.95,
   },
@@ -33,6 +35,8 @@ const styles = StyleSheet.create({
   },
   heading: {
     ...fonts.eventDetailsHeading,
+    marginHorizontal: 10,
+    maxWidth: width * 0.8,
   },
   inner: {
     alignSelf: 'flex-start',

@@ -15,6 +15,8 @@ import {RootStackParamsApp} from '../Types/NavigationTypes.types';
 import BottomTab from './BottomTabNavigator';
 import CreateStories from '../screens/CreateStory';
 import PrivacyPolicy from '../screens/PravicyPolicy';
+import Articles from '../screens/Articles';
+import Article from '../screens/Article';
 
 const Stack = createNativeStackNavigator<RootStackParamsApp>();
 
@@ -39,6 +41,8 @@ const AppNavigator = () => {
       <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
       <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
       <Stack.Screen name="ZoomRecordings" component={ZoomRecordings} />
+      <Stack.Screen name="Articles" component={Articles} />
+      <Stack.Screen name="Article" component={Article} />
     </Stack.Navigator>
   );
 };

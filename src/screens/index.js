@@ -16,3 +16,5 @@ export {default as Notifications} from './Notifications';
 export {default as TermsAndConditions} from './TermsAndComditions';
 export {default as PravicyPolicy} from './PravicyPolicy';
 export {default as ZoomRecordings} from './ZoomRecordings';
+export {default as Artical} from './Article';
+export {default as Articals} from './Articles';

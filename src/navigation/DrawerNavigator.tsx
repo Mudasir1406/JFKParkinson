@@ -92,7 +92,7 @@ const DrawerNavigator: React.FC<DrawerModalProps> = () => {
             style={styles.text}
             onPress={() => {
               setIsOpen(false);
-              navigation.navigate('Profile');
+              navigation.navigate('Articles');
             }}>
             Articles
           </Text>

@@ -4,6 +4,8 @@ import {useTheme} from 'react-native-paper';
 import {Back, DrawerIcon, NotificationIcon} from '../../assets/svg';
 import {colors, fonts} from '../constant';
 import {useDrawerContext} from '../context/DrawerContex';
+import {useNavigation} from '@react-navigation/native';
+import {NotificationsNavigationType} from '../Types/NavigationTypes.types';
 type Props = {
   title: string;
   backButton?: boolean;
@@ -11,6 +13,7 @@ type Props = {
 const Header: React.FunctionComponent<Props> = ({title, backButton}) => {
   const theme = useTheme();
   const {setIsOpen} = useDrawerContext();
+  const navigation = useNavigation<NotificationsNavigationType['navigation']>();
   return (
     <View
       style={[
@@ -32,7 +35,11 @@ const Header: React.FunctionComponent<Props> = ({title, backButton}) => {
           {title}
         </Text>
       </View>
-      <NotificationIcon fill={theme.colors.onSecondary} />
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('Notifications')}>
+        <NotificationIcon fill={theme.colors.onSecondary} />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -55,6 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     overflow: 'hidden',
     borderBottomEndRadius: 10,
+    borderBottomStartRadius: 10,
   },
   text: {
     ...fonts.headerHeading,

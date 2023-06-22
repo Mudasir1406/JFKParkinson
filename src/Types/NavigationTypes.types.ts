@@ -14,6 +14,8 @@ export type RootStackParamsApp={
     TermsAndConditions:any;
     PrivacyPolicy:any;
     ZoomRecordings:any;
+    Articles:any;
+    Article:any;
 
 }
 
@@ -49,6 +51,7 @@ export type CreateStoryNavigationType = NativeStackScreenProps<RootStackParamsAp
 export type StoryNavigationType = NativeStackScreenProps<RootStackParamsApp, 'Story'>;
 export type CommentsNavigationType = NativeStackScreenProps<RootStackParamsApp, 'Comments'>;
 export type NotificationsNavigationType = NativeStackScreenProps<RootStackParamsApp, 'Notifications'>;
+export type ArticlesNavigationType = NativeStackScreenProps<RootStackParamsApp, 'Articles'>;
 
 //Bottom Tab Screens
 export type EventsNavigationType = BottomTabScreenProps<RootBottomTabParams, 'Events'>;
