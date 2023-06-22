@@ -1,21 +1,23 @@
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
+import {Block, SupportGroupCard} from '../components';
 import {colors, fonts} from '../constant';
-import {useNavigation} from '@react-navigation/native';
 import {useTheme} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 import {Back, Design} from '../../assets/svg';
-import {Block, VedioCard} from '../components';
-import {HomeNavigationType} from '../Types/NavigationTypes.types';
 
-const LatestPdNews = () => {
-  const navigation = useNavigation<HomeNavigationType['navigation']>();
+const SupportsGroup = () => {
   const theme = useTheme();
+  const navigation = useNavigation();
+  const data = [
+    {id: 1, title: 'Benefits of JFK Support Groups'},
+    {id: 2, title: 'Support Groups Meetings'},
+    {id: 3, title: 'People with Parkinsons'},
+    {id: 4, title: 'Newly Diagnosed'},
+    {id: 5, title: 'Care partners Support Groups'},
+    {id: 6, title: 'DBS Support Groups'},
+    // Add more data items as needed
+  ];
   return (
     <>
       <View style={{marginBottom: 90}}>
@@ -32,27 +34,28 @@ const LatestPdNews = () => {
               onPress={() => navigation.goBack()}>
               <Back width={30} height={30} fill={theme.colors.onSecondary} />
             </TouchableOpacity>
-            <Text style={styles.text}>Articals</Text>
+            <Text style={styles.text}>Support Groups</Text>
           </View>
         </View>
       </View>
-      <Block>
-        <Pressable onPress={() => navigation.navigate('Article')}>
-          <VedioCard />
-        </Pressable>
-
-        <VedioCard />
-        <VedioCard />
-        <VedioCard />
-        <VedioCard />
-      </Block>
+      <FlatList
+        data={data}
+        renderItem={item => <SupportGroupCard heading={item.item.title} />}
+        keyExtractor={item => item?.id?.toString()}
+        numColumns={2}
+        contentContainerStyle={styles.containerFlatList}
+      />
     </>
   );
 };
 
-export default LatestPdNews;
+export default SupportsGroup;
 
 const styles = StyleSheet.create({
+  containerFlatList: {
+    paddingHorizontal: 10,
+    paddingTop: 10,
+  },
   header: {
     flexDirection: 'row',
     marginVertical: '10%',

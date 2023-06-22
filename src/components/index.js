@@ -21,3 +21,4 @@ export {default as StoryCard} from './StoryCard.tsx';
 export {default as CommentsCard} from './CommentsCard';
 export {default as NotificationCard} from './NotificationCard';
 export {default as VedioCard} from './VedioCard';
+export {default as SupportGroupCard} from './SupportGroupCard';

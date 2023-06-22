@@ -16,7 +16,7 @@ export type RootStackParamsApp={
     ZoomRecordings:any;
     Articles:any;
     Article:any;
-
+    SupportsGroup:any;
 }
 
 export type RootBottomTabParams={

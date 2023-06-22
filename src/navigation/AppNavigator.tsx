@@ -8,6 +8,7 @@ import {
   Onboarding,
   Profile,
   Story,
+  SupportsGroup,
   TermsAndConditions,
   ZoomRecordings,
 } from '../screens';
@@ -43,6 +44,7 @@ const AppNavigator = () => {
       <Stack.Screen name="ZoomRecordings" component={ZoomRecordings} />
       <Stack.Screen name="Articles" component={Articles} />
       <Stack.Screen name="Article" component={Article} />
+      <Stack.Screen name="SupportsGroup" component={SupportsGroup} />
     </Stack.Navigator>
   );
 };
