@@ -20,3 +20,4 @@ export {default as Artical} from './Article';
 export {default as Articals} from './Articles';
 export {default as SupportsGroup} from './SupportsGroup';
 export {default as PeopleInTheNews} from './PeopleInTheNews';
+export {default as LatestNews} from './LatestNews';

@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   Comments,
   EventDetails,
+  LatestNews,
   Notifications,
   Onboarding,
   PeopleInTheNews,
@@ -47,6 +48,7 @@ const AppNavigator = () => {
       <Stack.Screen name="Article" component={Article} />
       <Stack.Screen name="SupportsGroup" component={SupportsGroup} />
       <Stack.Screen name="PeopleInTheNews" component={PeopleInTheNews} />
+      <Stack.Screen name="LatestNews" component={LatestNews} />
     </Stack.Navigator>
   );
 };
