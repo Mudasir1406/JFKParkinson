@@ -8,19 +8,24 @@ type props = {
   heading: string;
   loading?: boolean;
   onPress?: () => void;
+  marginHorizontal?: number;
 };
 
 const AuthButton: React.FunctionComponent<props> = ({
   heading,
   loading,
   onPress,
+  marginHorizontal,
 }) => {
   const theme = useTheme();
 
   return (
     <Animated.View
       entering={FadeInDown.duration(1000)}
-      style={styles.contanier}>
+      style={[
+        styles.contanier,
+        {marginHorizontal: marginHorizontal ? marginHorizontal : 35},
+      ]}>
       <Button
         onPress={onPress}
         mode="elevated"
@@ -43,7 +48,7 @@ const styles = StyleSheet.create({
   contanier: {
     flexDirection: 'row',
     marginVertical: 20,
-    marginHorizontal: 35,
+
     alignItems: 'center',
     height: 55,
   },

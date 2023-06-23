@@ -6,6 +6,7 @@ import {
   EventDetails,
   Notifications,
   Onboarding,
+  PeopleInTheNews,
   Profile,
   Story,
   SupportsGroup,
@@ -45,6 +46,7 @@ const AppNavigator = () => {
       <Stack.Screen name="Articles" component={Articles} />
       <Stack.Screen name="Article" component={Article} />
       <Stack.Screen name="SupportsGroup" component={SupportsGroup} />
+      <Stack.Screen name="PeopleInTheNews" component={PeopleInTheNews} />
     </Stack.Navigator>
   );
 };

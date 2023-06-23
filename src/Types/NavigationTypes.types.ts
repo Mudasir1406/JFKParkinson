@@ -17,6 +17,7 @@ export type RootStackParamsApp={
     Articles:any;
     Article:any;
     SupportsGroup:any;
+    PeopleInTheNews:any
 }
 
 export type RootBottomTabParams={
