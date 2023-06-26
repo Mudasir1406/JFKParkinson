@@ -1,3 +1,4 @@
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import React, {createContext, useState, useContext} from 'react';
 
 interface User {
@@ -6,8 +7,8 @@ interface User {
 }
 
 interface UserContextType {
-  user: User | null;
-  setUser: (user: User | null) => void;
+  user: FirebaseAuthTypes.User | null;
+  setUser: (user: FirebaseAuthTypes.User | null) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -27,7 +28,7 @@ interface UserContextProviderProps {
 const UserContextProvider: React.FC<UserContextProviderProps> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
 
   const value: UserContextType = {
     user,
