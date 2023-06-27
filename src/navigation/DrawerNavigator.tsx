@@ -16,6 +16,7 @@ import {Logo} from '../../assets/svg';
 import {fonts} from '../constant';
 import {AuthButton, Block} from '../components';
 import {HomeNavigationType} from '../Types/NavigationTypes.types';
+import {signOut} from '../services/Auth';
 const {width, height} = Dimensions.get('window');
 interface DrawerModalProps {}
 
@@ -137,7 +138,7 @@ const DrawerNavigator: React.FC<DrawerModalProps> = () => {
             Privacy Policy
           </Text>
         </Block>
-        <AuthButton heading="Logout" />
+        <AuthButton heading="Logout" onPress={signOut} />
       </Animated.View>
     </Modal>
   );

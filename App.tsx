@@ -6,6 +6,7 @@ import {CombinedDarkTheme, CombinedDefaultTheme} from './src/Theme/AppTheme';
 import SplashScreen from 'react-native-splash-screen';
 import UserContextProvider from './src/context/UserContex';
 import DrawerContextProvider from './src/context/DrawerContex';
+import LoadingContextProvider from './src/context/LoadingContext';
 function App(): JSX.Element {
   const [isThemeDark, setIsThemeDark] = React.useState(false);
   let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
@@ -14,7 +15,6 @@ function App(): JSX.Element {
   }, [isThemeDark]);
   useEffect(() => {
     SplashScreen.hide();
-    console.log(SplashScreen.hide()); //hides the splash screen on app load.
   }, []);
   const preferences = React.useMemo(
     () => ({
@@ -24,15 +24,17 @@ function App(): JSX.Element {
     [toggleTheme, isThemeDark],
   );
   return (
-    <DrawerContextProvider>
-      <UserContextProvider>
-        <PreferencesContext.Provider value={preferences}>
-          <Provider theme={theme}>
-            <AppContanier theme={theme} />
-          </Provider>
-        </PreferencesContext.Provider>
-      </UserContextProvider>
-    </DrawerContextProvider>
+    <LoadingContextProvider>
+      <DrawerContextProvider>
+        <UserContextProvider>
+          <PreferencesContext.Provider value={preferences}>
+            <Provider theme={theme}>
+              <AppContanier theme={theme} />
+            </Provider>
+          </PreferencesContext.Provider>
+        </UserContextProvider>
+      </DrawerContextProvider>
+    </LoadingContextProvider>
   );
 }
 

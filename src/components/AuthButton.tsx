@@ -9,6 +9,7 @@ type props = {
   loading?: boolean;
   onPress?: () => void;
   marginHorizontal?: number;
+  disabled?: boolean;
 };
 
 const AuthButton: React.FunctionComponent<props> = ({
@@ -16,9 +17,9 @@ const AuthButton: React.FunctionComponent<props> = ({
   loading,
   onPress,
   marginHorizontal,
+  disabled,
 }) => {
   const theme = useTheme();
-
   return (
     <Animated.View
       entering={FadeInDown.duration(1000)}
@@ -30,7 +31,7 @@ const AuthButton: React.FunctionComponent<props> = ({
         onPress={onPress}
         mode="elevated"
         loading={loading}
-        disabled={loading}
+        disabled={disabled}
         textColor={colors.white}
         buttonColor={theme.colors.tertiary}
         style={styles.button}>
@@ -47,8 +48,7 @@ export default AuthButton;
 const styles = StyleSheet.create({
   contanier: {
     flexDirection: 'row',
-    marginVertical: 20,
-
+    marginVertical: 8,
     alignItems: 'center',
     height: 55,
   },

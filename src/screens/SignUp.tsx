@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Block,
   AuthTextInput,
@@ -8,20 +8,67 @@ import {
   ProviderLoginButton,
 } from '../components';
 import Heading from '../components/Heading';
-import {Text, useTheme} from 'react-native-paper';
+import {HelperText, Text, useTheme} from 'react-native-paper';
 import {fonts} from '../constant';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {Logo, TopDesign} from '../../assets/svg';
 import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {
-  RootStackParamsApp,
-  SignUpNavigationType,
-} from '../Types/NavigationTypes.types';
+import {SignUpNavigationType} from '../Types/NavigationTypes.types';
+import {signUpProps} from '../Types/AuthTypes.types';
+import {isValidEmail, isValidName} from '../utils/Validator';
+import {signUp} from '../services/Auth';
+import {useLoadingContext} from '../context/LoadingContext';
 interface props {}
 const SignUp: React.FunctionComponent<props> = () => {
   const theme = useTheme();
   const navigation = useNavigation<SignUpNavigationType['navigation']>();
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const {loading, setLoading} = useLoadingContext();
+  const [isError, setIsError] = useState({
+    email: false,
+    name: false,
+    password: false,
+  });
+  const [user, setUser] = useState<signUpProps>({
+    name: '',
+    email: '',
+    password: '',
+    isChecked: false,
+  });
+  const handleOnChangeText = (name: string, value: string | boolean) => {
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+  useEffect(() => {
+    if (user.name !== '')
+      setIsError({
+        ...isError,
+        name: !isValidName(user.name),
+      });
+    if (user.email !== '') {
+      setIsError({
+        ...isError,
+        email: !isValidEmail(user.email),
+      });
+    }
+    if (user.password !== '') {
+      setIsError({
+        ...isError,
+        password: user.password.length <= 5 ? true : false,
+      });
+    }
+  }, [user]);
+
+  const handleSignUp = () => {
+    setLoading(true);
+    signUp(user)
+      .then(res => console.log(res))
+      .catch(err => console.error(err))
+      .finally(() => setLoading(false));
+  };
+
   return (
     <Block>
       <TopDesign />
@@ -32,11 +79,37 @@ const SignUp: React.FunctionComponent<props> = () => {
         <Logo width={140} height={130} />
       </View>
       <Heading heading="Welcome" />
-      <AuthTextInput placeholder="Name" name="User" />
-      <AuthTextInput placeholder="Your Email" name="Email" />
-      <AuthTextInput placeholder="Password" name="Eye" />
+      <AuthTextInput
+        placeholder="Name"
+        name="User"
+        KeyboardType="name-phone-pad"
+        onChangeText={(e: string) => handleOnChangeText('name', e)}
+        errorText="Name is invalid "
+        visible={isError.name}
+      />
+      <AuthTextInput
+        placeholder="Your Email"
+        name="Email"
+        KeyboardType="email-address"
+        onChangeText={(e: string) => handleOnChangeText('email', e)}
+        errorText="Please enter a valid email"
+        visible={isError.email}
+      />
+      <AuthTextInput
+        placeholder="Password"
+        name={secureTextEntry ? 'EyeOpen' : 'Eye'}
+        secureTextEntry={secureTextEntry}
+        onPress={() => setSecureTextEntry(!secureTextEntry)}
+        onChangeText={(e: string) => handleOnChangeText('password', e)}
+        errorText="Password must contain at least 6 characters"
+        visible={isError.password}
+      />
       <View style={styles.bottomTextContanier}>
-        <BouncyCheckbox onPress={(isChecked: boolean) => {}} />
+        <BouncyCheckbox
+          onPress={(isChecked: boolean) =>
+            handleOnChangeText('isChecked', isChecked)
+          }
+        />
         <Text style={styles.bottomText}>I agree to the</Text>
         <TouchableText text="JFK Parkinson's" alignSelf="center" />
       </View>
@@ -54,7 +127,25 @@ const SignUp: React.FunctionComponent<props> = () => {
           onPress={() => navigation.navigate('PrivacyPolicy')}
         />
       </View>
-      <AuthButton heading="Sign Up" />
+      <HelperText
+        type="error"
+        visible={!user.isChecked}
+        padding="none"
+        style={styles.helper}>
+        Please accept the terms and conditions
+      </HelperText>
+      <AuthButton
+        heading="Sign Up"
+        disabled={
+          !user.isChecked ||
+          isError.email ||
+          isError.name ||
+          isError.password ||
+          loading
+        }
+        loading={loading}
+        onPress={handleSignUp}
+      />
       <View style={styles.bottomTextContanier}>
         <Text style={styles.bottomText}>Do not have an account?</Text>
         <TouchableText
@@ -103,6 +194,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
+    marginTop: 8,
   },
+  helper: {alignSelf: 'center'},
 });
