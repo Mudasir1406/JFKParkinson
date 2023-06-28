@@ -4,3 +4,7 @@ export type signUpProps={
     password: string;
     isChecked: boolean
 }
+export type signInProps={
+    email: string;
+    password: string;
+}

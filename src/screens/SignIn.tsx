@@ -1,5 +1,5 @@
-import {StyleSheet, View} from 'react-native';
-import React from 'react';
+import {Alert, StyleSheet, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {
   Block,
   AuthTextInput,
@@ -8,23 +8,67 @@ import {
   ProviderLoginButton,
 } from '../components';
 import Heading from '../components/Heading';
-import {Text, useTheme} from 'react-native-paper';
+import {Snackbar, Text, useTheme} from 'react-native-paper';
 import {fonts} from '../constant';
 import {Logo, TopDesign} from '../../assets/svg';
 import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
-import {
-  RootStackParamsApp,
-  SignInNavigationType,
-} from '../Types/NavigationTypes.types';
-import {useUserContext} from '../context/UserContex';
+import {SignInNavigationType} from '../Types/NavigationTypes.types';
+import {signInProps} from '../Types/AuthTypes.types';
+import {isValidEmail} from '../utils/Validator';
+import {signIn} from '../services/Auth';
+import {err} from 'react-native-svg/lib/typescript/xml';
+import {useLoadingContext} from '../context/LoadingContext';
 interface props {
   navigation: any;
 }
 const SignIn: React.FunctionComponent<props> = () => {
   const theme = useTheme();
-  const {user, setUser} = useUserContext();
   const navigation = useNavigation<SignInNavigationType['navigation']>();
+  const [visible, setVisible] = useState(false);
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
+
+  const {loading, setLoading} = useLoadingContext();
+  const [user, setUser] = useState<signInProps>({
+    email: '',
+    password: '',
+  });
+  const [isError, setIsError] = useState({
+    email: false,
+    password: false,
+  });
+  const handleOnChangeText = (name: string, value: string | boolean) => {
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+  const handleSignIn = () => {
+    setLoading(true);
+    signIn(user.email, user.password)
+      .then(() => setVisible(true))
+      .catch(err =>
+        Alert.alert(
+          err.code.slice(5, err.code.length),
+          err.message.slice(22, err.message.length),
+        ),
+      )
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    if (user.email !== '') {
+      setIsError({
+        ...isError,
+        email: !isValidEmail(user.email),
+      });
+    }
+    if (user.password !== '') {
+      setIsError({
+        ...isError,
+        password: user.password.length <= 5 ? true : false,
+      });
+    }
+  }, [user]);
   return (
     <Block>
       <TopDesign />
@@ -35,8 +79,22 @@ const SignIn: React.FunctionComponent<props> = () => {
         <Logo width={140} height={130} />
       </View>
       <Heading heading="Welcome" />
-      <AuthTextInput placeholder="Your Email" name="Email" />
-      <AuthTextInput placeholder="Password" name="Eye" />
+      <AuthTextInput
+        placeholder="Your Email"
+        name="Email"
+        onChangeText={e => handleOnChangeText('email', e)}
+        errorText="Please enter a valid email"
+        visible={isError.email}
+      />
+      <AuthTextInput
+        placeholder="Password"
+        onChangeText={e => handleOnChangeText('password', e)}
+        errorText="Password must contain at least 6 characters"
+        visible={isError.password}
+        secureTextEntry={secureTextEntry}
+        onPress={() => setSecureTextEntry(!secureTextEntry)}
+        name={secureTextEntry ? 'EyeOpen' : 'Eye'}
+      />
       <TouchableText
         text="Forgot Your Password?"
         alignSelf="center"
@@ -44,12 +102,9 @@ const SignIn: React.FunctionComponent<props> = () => {
       />
       <AuthButton
         heading="Sign In"
-        onPress={() =>
-          setUser({
-            ...user,
-            name: 'asdsa',
-          })
-        }
+        onPress={handleSignIn}
+        disabled={isError.email || isError.password}
+        loading={loading}
       />
       <View style={styles.bottomTextContanier}>
         <Text style={styles.bottomText}>Do not have an account?</Text>

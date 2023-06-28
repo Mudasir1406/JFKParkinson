@@ -65,9 +65,15 @@ export const signUp = async (user:signUpProps) => {
   };
 
   export const signIn = async (email :string, password:string) => {
-    if (!email?.trim() || !password) {
-      throw new Error('Email & Password could not be empty.');
+    if (!email || !password) {
+      Alert.alert("Email and password is required","Please enter a valid email and password");
+      return
     }
-  
+    
     return auth().signInWithEmailAndPassword(email?.trim(), password);
+  };
+
+  export const sentPasswordResetEmail = async (email:string) => {
+    if (!email) Alert.alert('Invalid Email ','Email is required');
+    return auth().sendPasswordResetEmail(email);
   };
