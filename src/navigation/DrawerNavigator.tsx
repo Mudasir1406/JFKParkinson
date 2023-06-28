@@ -9,6 +9,7 @@ import {
   Text,
   Dimensions,
   Easing,
+  Alert,
 } from 'react-native';
 import {useDrawerContext} from '../context/DrawerContex';
 import {useNavigation} from '@react-navigation/native';
@@ -59,7 +60,16 @@ const DrawerNavigator: React.FC<DrawerModalProps> = () => {
     inputRange: [0, 1],
     outputRange: [-width * 0.7, 0],
   });
-
+  const handleSignout = () => {
+    signOut()
+      .then(() => setIsOpen(false))
+      .catch(err =>
+        Alert.alert(
+          err.code.slice(5, err.code.length),
+          err.message.slice(22, err.message.length),
+        ),
+      );
+  };
   return (
     <Modal visible={isOpen} transparent>
       <TouchableOpacity
@@ -138,7 +148,7 @@ const DrawerNavigator: React.FC<DrawerModalProps> = () => {
             Privacy Policy
           </Text>
         </Block>
-        <AuthButton heading="Logout" onPress={signOut} />
+        <AuthButton heading="Logout" onPress={handleSignout} />
       </Animated.View>
     </Modal>
   );
