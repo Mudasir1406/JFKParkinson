@@ -1,4 +1,11 @@
-import {Pressable, StyleSheet, Text, View, Dimensions} from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  ImageSourcePropType,
+} from 'react-native';
 import React from 'react';
 import {useTheme} from 'react-native-paper';
 import {Image} from 'react-native';
@@ -14,21 +21,33 @@ type props = {
   title: string;
   time: string;
   onPress: () => void;
+  source: ImageSourcePropType;
+  index: number;
 };
 
 const DoctorsCard: React.FunctionComponent<props> = ({
   time,
   title,
   onPress,
+  source,
+  index,
 }) => {
   const theme = useTheme();
   return (
     <Pressable onPress={onPress}>
       <Animated.View
         style={[styles.contanier, {borderColor: theme.colors.outline}]}
-        entering={BounceInRight.duration(1000)}
+        entering={BounceInRight.duration(1000 * (index + 1))}
         exiting={FadeOutLeft.duration(1000).easing(Easing.linear)}>
-        <Image source={images.healing} style={styles.image}></Image>
+        <Image
+          source={
+            source
+              ? typeof source === 'number'
+                ? source
+                : {uri: source}
+              : images.gindolce
+          }
+          style={styles.image}></Image>
         <View>
           <Text
             style={[styles.title, {color: theme.colors.scrim}]}

@@ -9,7 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {images, fonts, colors} from '../constant';
 import {Surface, useTheme} from 'react-native-paper';
 import {
@@ -21,10 +21,25 @@ import {
 } from '../components';
 import {Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
 import {useDrawerContext} from '../context/DrawerContex';
+import {getDoctorsData} from '../services/consultation';
+import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
+import {useNavigation} from '@react-navigation/native';
+import {ConsultationNavigationType} from '../Types/NavigationTypes.types';
 
 const Consultation = () => {
   const {setIsOpen} = useDrawerContext();
   const theme = useTheme();
+  const navigation = useNavigation<ConsultationNavigationType['navigation']>();
+  const [doctorsData, setDoctorsData] =
+    useState<
+      FirebaseFirestoreTypes.QueryDocumentSnapshot<FirebaseFirestoreTypes.DocumentData>[]
+    >();
+  useEffect(() => {
+    getDoctorsData()
+      .then(data => setDoctorsData(data))
+      .catch(err => console.log(err))
+      .finally(() => {});
+  }, []);
   return (
     <>
       <View style={{marginBottom: 60}}>
@@ -43,11 +58,16 @@ const Consultation = () => {
             </TouchableOpacity>
             <Text style={styles.text}>Consultation</Text>
           </View>
-          <NotificationIcon
-            width={30}
-            height={30}
-            fill={theme.colors.onSecondary}
-          />
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Notifications')}
+            style={{zIndex: 1000}}
+            activeOpacity={0.8}>
+            <NotificationIcon
+              width={30}
+              height={30}
+              fill={theme.colors.onSecondary}
+            />
+          </TouchableOpacity>
         </View>
       </View>
       <ScrollView
@@ -70,21 +90,16 @@ const Consultation = () => {
         <Text style={[styles.headingSponsor, {color: theme.colors.scrim}]}>
           Doctor's Corner
         </Text>
-        <DoctorsCard
-          time="DO Movement Disorders and Neurology JFK University Medical Center"
-          title="Doctor John Micheal"
-          onPress={() => {}}
-        />
-        <DoctorsCard
-          time="DO Movement Disorders and Neurology JFK University Medical Center"
-          title="Doctor John Micheal"
-          onPress={() => {}}
-        />
-        <DoctorsCard
-          time="DO Movement Disorders and Neurology JFK University Medical Center"
-          title="Doctor John Micheal"
-          onPress={() => {}}
-        />
+        {doctorsData?.map((item, index) => (
+          <DoctorsCard
+            time={item.data()?.details}
+            title={item.data()?.name}
+            onPress={() => {}}
+            key={index}
+            source={item.data()?.image}
+            index={index}
+          />
+        ))}
       </ScrollView>
     </>
   );

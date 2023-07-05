@@ -36,7 +36,7 @@ const Story: React.FunctionComponent = () => {
       <TouchableOpacity
         style={styles.back}
         activeOpacity={0.8}
-        onPress={() => navigation.goBack()}>
+        onPress={() => navigation?.goBack()}>
         <Back fill={theme.colors.onSecondary} width={30} height={30} />
         <Text style={[styles.headerText, {color: theme.colors.onSecondary}]}>
           Stories

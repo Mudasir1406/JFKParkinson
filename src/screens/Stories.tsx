@@ -60,11 +60,15 @@ const Stories = () => {
             </TouchableOpacity>
             <Text style={styles.text}>Stories</Text>
           </Pressable>
-          <NotificationIcon
-            width={30}
-            height={30}
-            fill={theme.colors.onSecondary}
-          />
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate('Notifications')}>
+            <NotificationIcon
+              width={30}
+              height={30}
+              fill={theme.colors.onSecondary}
+            />
+          </TouchableOpacity>
         </View>
       </View>
       <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>

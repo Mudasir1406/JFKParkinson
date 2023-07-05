@@ -32,7 +32,7 @@ export type RootBottomTabParams={
     Comments:any;
     CreateStory:any;
     Story:any;
-
+    Notifications:any;
 
 }
 
