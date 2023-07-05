@@ -7,6 +7,8 @@ import {
   Pressable,
   ToastAndroid,
   ImageBackground,
+  AppState,
+  DevSettings,
 } from 'react-native';
 import React from 'react';
 import {
@@ -28,7 +30,8 @@ const Home: React.FunctionComponent<props> = () => {
   const {isOpen, setIsOpen} = useDrawerContext();
   const navigation = useNavigation<HomeNavigationType['navigation']>();
   const showTost = () => {
-    ToastAndroid.show('hello', ToastAndroid.SHORT);
+    ToastAndroid.show(AppState.currentState, ToastAndroid.SHORT);
+    return DevSettings.reload();
   };
   const theme = useTheme();
   const {width, height} = Dimensions.get('window');
@@ -65,7 +68,11 @@ const Home: React.FunctionComponent<props> = () => {
       <HomeBanner />
       <View style={styles.headingContanier}>
         <Text style={styles.heading}>Parkinson's Support Group Events</Text>
-        <TouchableText text="View all >>" alignSelf="flex-end" />
+        <TouchableText
+          text="View all >>"
+          alignSelf="flex-end"
+          onPress={() => navigation.navigate('Events')}
+        />
       </View>
       <ScrollView
         horizontal={true}

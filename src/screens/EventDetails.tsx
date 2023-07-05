@@ -1,6 +1,7 @@
 import {
   Dimensions,
   ImageBackground,
+  Linking,
   StyleSheet,
   Text,
   View,
@@ -17,6 +18,15 @@ const {height, width} = Dimensions.get('window');
 
 const EventDetails: React.FunctionComponent<props> = () => {
   const theme = useTheme();
+  const handleLinkPress = async () => {
+    console.log('handleLinkPress');
+    const supported = await Linking.canOpenURL(
+      'https://us02web.zoom.us/j/2128260907',
+    );
+    // if (supported) {
+    await Linking.openURL('https://us02web.zoom.us/j/2128260907');
+    // }
+  };
   return (
     <>
       <ImageBackground
@@ -81,6 +91,7 @@ const EventDetails: React.FunctionComponent<props> = () => {
           </Animated.Text>
           <Animated.Text
             entering={FadeInDown.duration(2000).easing(Easing.bounce)}
+            onPress={handleLinkPress}
             style={[styles.location, {color: theme.colors.tertiary}]}>
             https://us02web.zoom.us/j/2128260907
           </Animated.Text>

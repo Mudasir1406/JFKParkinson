@@ -19,6 +19,7 @@ export type RootStackParamsApp={
     SupportsGroup:any;
     PeopleInTheNews:any;
     LatestNews:any
+    Events:any;
 }
 
 export type RootBottomTabParams={

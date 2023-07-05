@@ -1,5 +1,5 @@
 import {StyleSheet, View, Dimensions, Animated} from 'react-native';
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   BackButton,
   Block,
@@ -17,12 +17,18 @@ import {EventsNavigationType} from '../Types/NavigationTypes.types';
 const Events = () => {
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const theme = useTheme();
+  const [date, setDate] = useState<Date>(new Date());
   const navigation = useNavigation<EventsNavigationType['navigation']>();
+  const handleDate = (e: Date) => {
+    setDate(e);
+    console.log(e);
+  };
   return (
     <>
       <View
         style={[
           styles.designContanier,
+
           {backgroundColor: theme.colors.tertiaryContainer},
         ]}>
         <View style={styles.design}>
@@ -34,7 +40,7 @@ const Events = () => {
         <View style={styles.back}>
           <BackButton pageName="Meetings" isDrawer={true} />
         </View>
-        <DatePicker />
+        <DatePicker setDate={handleDate} date={date} />
       </View>
       <Block withoutScroll={true}>
         <Animated.FlatList
