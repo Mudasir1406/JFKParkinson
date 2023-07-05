@@ -37,7 +37,7 @@ const DoctorsCard: React.FunctionComponent<props> = ({
     <Pressable onPress={onPress}>
       <Animated.View
         style={[styles.contanier, {borderColor: theme.colors.outline}]}
-        entering={BounceInRight.duration(1000 * (index + 1))}
+        entering={BounceInRight.duration(500 * (index + 1))}
         exiting={FadeOutLeft.duration(1000).easing(Easing.linear)}>
         <Image
           source={

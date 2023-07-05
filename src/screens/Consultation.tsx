@@ -2,27 +2,16 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
-  TextInput,
-  ImageBackground,
-  Pressable,
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {images, fonts, colors} from '../constant';
 import {Surface, useTheme} from 'react-native-paper';
-import {
-  AuthButton,
-  Block,
-  DoctorsCard,
-  SponsorCards,
-  TouchableText,
-} from '../components';
+import {DoctorsCard, SponsorCards} from '../components';
 import {Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
 import {useDrawerContext} from '../context/DrawerContex';
-import {getDoctorsData} from '../services/consultation';
-import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
+import {DoctorsDataResponse, getDoctorsData} from '../services/consultation';
 import {useNavigation} from '@react-navigation/native';
 import {ConsultationNavigationType} from '../Types/NavigationTypes.types';
 
@@ -30,13 +19,12 @@ const Consultation = () => {
   const {setIsOpen} = useDrawerContext();
   const theme = useTheme();
   const navigation = useNavigation<ConsultationNavigationType['navigation']>();
-  const [doctorsData, setDoctorsData] =
-    useState<
-      FirebaseFirestoreTypes.QueryDocumentSnapshot<FirebaseFirestoreTypes.DocumentData>[]
-    >();
+  const [doctorsData, setDoctorsData] = useState<DoctorsDataResponse[] | []>(
+    [],
+  );
   useEffect(() => {
     getDoctorsData()
-      .then(data => setDoctorsData(data))
+      .then((data: DoctorsDataResponse[] | []) => setDoctorsData(data))
       .catch(err => console.log(err))
       .finally(() => {});
   }, []);
@@ -92,11 +80,11 @@ const Consultation = () => {
         </Text>
         {doctorsData?.map((item, index) => (
           <DoctorsCard
-            time={item.data()?.details}
-            title={item.data()?.name}
+            time={item?.details}
+            title={item?.name}
             onPress={() => {}}
             key={index}
-            source={item.data()?.image}
+            source={item?.image}
             index={index}
           />
         ))}
