@@ -23,3 +23,4 @@ export {default as NotificationCard} from './NotificationCard';
 export {default as VedioCard} from './VedioCard';
 export {default as SupportGroupCard} from './SupportGroupCard';
 export {default as PeopleInTheNewsCards} from './PeopleInTheNewsCards';
+export {default as EmptyText} from './EmptyText';

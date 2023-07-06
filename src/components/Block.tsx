@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactElement} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -17,7 +17,7 @@ interface props {
   contentContainerStyle?: ViewStyle;
   justifyContent?: FlexStyle['justifyContent'];
   alignItems?: FlexStyle['alignItems'];
-  children?: string | JSX.Element | JSX.Element[];
+  children?: string | JSX.Element | JSX.Element[] | null;
   backgroundColor?: string;
   scrollStyle?: ViewStyle;
   withoutScroll?: boolean;

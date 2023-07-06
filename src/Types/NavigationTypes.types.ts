@@ -1,11 +1,12 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import { GetMeetingResponse } from "../services/meetings";
 export type RootStackParamsApp={
     
     Home:any;
     BottomTab:any;
     Onboarding:any;
-    EventDetails:any;
+    EventDetails:{ details:GetMeetingResponse};
     Profile:any;
     CreateStory:any;
     Story:any;
@@ -28,7 +29,7 @@ export type RootBottomTabParams={
     Home:any;
     Consultation:any;
     Stories:any;
-    EventDetails:any;
+    EventDetails:{ details:GetMeetingResponse};
     Comments:any;
     CreateStory:any;
     Story:any;

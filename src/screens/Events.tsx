@@ -1,28 +1,41 @@
 import {StyleSheet, View, Dimensions, Animated} from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   BackButton,
   Block,
   DatePicker,
+  EmptyText,
   MeetingCard,
   Search,
 } from '../components';
 import {Design} from '../../assets/svg';
-import {useTheme} from 'react-native-paper';
+import {Text, useTheme} from 'react-native-paper';
 const {height, width} = Dimensions.get('window');
-import {meetingData} from '../utils/data';
 import {useNavigation} from '@react-navigation/native';
 import {EventsNavigationType} from '../Types/NavigationTypes.types';
+import {GetMeetingResponse, getMeetings} from '../services/meetings';
+import moment from 'moment';
 
 const Events = () => {
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const theme = useTheme();
-  const [date, setDate] = useState<Date>(new Date());
+  const [date, setDate] = useState<string>(
+    moment().format('dddd, MMM D, YYYY'),
+  );
+  const [meetingData, setMeetingData] = useState<GetMeetingResponse[] | []>([]);
   const navigation = useNavigation<EventsNavigationType['navigation']>();
-  const handleDate = (e: Date) => {
+  const handleDate = (e: string) => {
     setDate(e);
-    console.log(e);
   };
+
+  useEffect(() => {
+    getMeetings(date).then((data: GetMeetingResponse[] | []) =>
+      setMeetingData(data),
+    );
+
+    return () => {};
+  }, [date]);
+
   return (
     <>
       <View
@@ -43,40 +56,46 @@ const Events = () => {
         <DatePicker setDate={handleDate} date={date} />
       </View>
       <Block withoutScroll={true}>
-        <Animated.FlatList
-          showsVerticalScrollIndicator={false}
-          data={meetingData}
-          onScroll={Animated.event(
-            [{nativeEvent: {contentOffset: {y: scrollY}}}],
-            {useNativeDriver: true},
-          )}
-          keyExtractor={item => `${item.id}`}
-          contentContainerStyle={{
-            paddingHorizontal: 16,
-            paddingBottom: 16,
-          }}
-          renderItem={({item, index}) => {
-            const inputRange = [-1, 0, 190 * index, 190 * (index + 2)];
-            const scale = scrollY.interpolate({
-              inputRange,
-              outputRange: [1, 1, 1, 0],
-            });
-            const opacity = scrollY.interpolate({
-              inputRange: [-1, 0, 190 * index, 190 * (index + 0.5)],
-              outputRange: [1, 1, 0.9, 0],
-            });
-            return (
-              <Animated.View style={{transform: [{scale}], opacity}}>
-                <MeetingCard
-                  date={item.date}
-                  time={item.time}
-                  title={item.title}
-                  onPress={() => navigation.navigate('EventDetails')}
-                />
-              </Animated.View>
-            );
-          }}
-        />
+        {meetingData.length > 0 ? (
+          <Animated.FlatList
+            showsVerticalScrollIndicator={false}
+            data={meetingData}
+            onScroll={Animated.event(
+              [{nativeEvent: {contentOffset: {y: scrollY}}}],
+              {useNativeDriver: true},
+            )}
+            keyExtractor={(item, index) => `${index}`}
+            contentContainerStyle={{
+              paddingHorizontal: 16,
+              paddingBottom: 16,
+            }}
+            renderItem={({item, index}) => {
+              const inputRange = [-1, 0, 190 * index, 190 * (index + 2)];
+              const scale = scrollY.interpolate({
+                inputRange,
+                outputRange: [1, 1, 1, 0],
+              });
+              const opacity = scrollY.interpolate({
+                inputRange: [-1, 0, 190 * index, 190 * (index + 0.5)],
+                outputRange: [1, 1, 0.9, 0],
+              });
+              return (
+                <Animated.View style={{transform: [{scale}], opacity}}>
+                  <MeetingCard
+                    date={item.date}
+                    time={item.time}
+                    title={item.heading}
+                    onPress={() =>
+                      navigation.navigate('EventDetails', {details: item})
+                    }
+                  />
+                </Animated.View>
+              );
+            }}
+          />
+        ) : (
+          <EmptyText text="No Meetings on This Day"></EmptyText>
+        )}
       </Block>
     </>
   );

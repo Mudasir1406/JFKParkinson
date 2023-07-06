@@ -1,15 +1,16 @@
 import moment from 'moment';
 
-export function getMonthDays(month: number, year: number): { day: string; date: number }[] {
+export function getMonthDays(month: number, year: number): { day: string; dayLong: string; date: number }[] {
   const startDate = moment(`${year}-${month.toString().padStart(2, '0')}-01`);
   const endDate = moment(startDate).endOf('month');
 
-  const daysOfMonth: { day: string; date: number }[] = [];
+  const daysOfMonth: { day: string; dayLong: string; date: number }[] = [];
 
   while (startDate.isSameOrBefore(endDate, 'day')) {
     const day = startDate.format('ddd');
+    const dayLong = startDate.format('dddd'); // Add dayLong property
     const date = startDate.date();
-    daysOfMonth.push({ day, date });
+    daysOfMonth.push({ day, dayLong, date }); // Include dayLong property in the object
     startDate.add(1, 'day');
   }
 

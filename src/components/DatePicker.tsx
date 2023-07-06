@@ -12,10 +12,11 @@ import {Modal, useTheme} from 'react-native-paper';
 import {colors, fonts} from '../constant';
 import {convertToDate, getMonthDays, getYearMonths} from '../utils/date';
 import {Arrow} from '../../assets/svg';
+import moment from 'moment';
 
 type props = {
-  setDate: (e: Date) => void;
-  date: Date;
+  setDate: (e: string) => void;
+  date: string;
 };
 const {height} = Dimensions.get('window');
 
@@ -29,23 +30,23 @@ const DatePicker: React.FunctionComponent<props> = ({setDate, date}) => {
   );
   const [monthValues, setMonthValues] = useState(new Date().getMonth());
   const [year, setYear] = useState<number>(new Date().getFullYear());
-  const [pickedDate, setpickedDate] = useState<number>(1);
+  const [pickedDate, setpickedDate] = useState<number>(
+    Number(moment().format('D')),
+  );
   const {width: screenWidth} = Dimensions.get('window');
-  const [formatedDate, setFormatedDate] = useState({
-    date: 1,
-    day: '',
-    month: '',
-    year: 2023,
-  });
-  const [days, setDays] = useState<{day: string; date: number}[]>([]);
+  const [day, setDay] = useState<string>(moment().format('dddd'));
+  const [days, setDays] = useState<
+    {day: string; dayLong: string; date: number}[]
+  >([]);
   useEffect(() => {
     const daysData = getMonthDays(monthValues, year);
     setDays(daysData);
+    setDay(daysData[0].dayLong);
+    setpickedDate(daysData[0].date);
   }, [month, year]);
 
   useEffect(() => {
-    const convertedDate = convertToDate(`${pickedDate} ${month} ${year}`);
-    setDate(convertedDate);
+    setDate(`${day}, ${month} ${pickedDate}, ${year}`);
   }, [pickedDate, month, year]);
   return (
     <>
@@ -81,7 +82,11 @@ const DatePicker: React.FunctionComponent<props> = ({setDate, date}) => {
                 return (
                   <View key={index}>
                     <Text style={styles.day}>{item.day}</Text>
-                    <Pressable onPress={() => setpickedDate(item.date)}>
+                    <Pressable
+                      onPress={() => {
+                        setpickedDate(item.date);
+                        setDay(item.dayLong);
+                      }}>
                       <Text
                         style={[
                           styles.number,

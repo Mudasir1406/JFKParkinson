@@ -12,19 +12,19 @@ import {BackButton, Block} from '../components';
 import {colors, fonts} from '../constant';
 import Animated, {Easing, FadeInDown} from 'react-native-reanimated';
 import {useTheme} from 'react-native-paper';
+import {useRoute} from '@react-navigation/native';
+import {EventDetailsNavigationType} from '../Types/NavigationTypes.types';
 
 type props = {};
 const {height, width} = Dimensions.get('window');
 
 const EventDetails: React.FunctionComponent<props> = () => {
   const theme = useTheme();
+  const route = useRoute<EventDetailsNavigationType['route']>();
   const handleLinkPress = async () => {
-    console.log('handleLinkPress');
-    const supported = await Linking.canOpenURL(
-      'https://us02web.zoom.us/j/2128260907',
-    );
+    const supported = await Linking.canOpenURL(route.params.details.zoomlink);
     // if (supported) {
-    await Linking.openURL('https://us02web.zoom.us/j/2128260907');
+    await Linking.openURL(route.params.details.zoomlink);
     // }
   };
   return (
@@ -45,7 +45,7 @@ const EventDetails: React.FunctionComponent<props> = () => {
         <Animated.Text
           style={styles.heading}
           entering={FadeInDown.duration(2000).easing(Easing.bounce)}>
-          Rock Steady Boxing at JFK - on Zoom
+          {route.params.details.heading}
         </Animated.Text>
         <Animated.Text
           style={styles.heading}
@@ -58,7 +58,7 @@ const EventDetails: React.FunctionComponent<props> = () => {
             entering={FadeInDown.duration(2000).easing(Easing.bounce)}>
             <Calender />
             <Animated.Text style={[styles.date, {color: theme.colors.primary}]}>
-              Monday, May 1, 2023
+              {route.params.details.date}
             </Animated.Text>
           </Animated.View>
           <Animated.View
@@ -67,20 +67,23 @@ const EventDetails: React.FunctionComponent<props> = () => {
             <Time />
             <Animated.Text
               style={[styles.time, {color: theme.colors.outlineVariant}]}>
-              1:00pm - 2:30pm
+              {route.params.details.time}
             </Animated.Text>
           </Animated.View>
         </View>
-        <Animated.View
-          entering={FadeInDown.duration(2000).easing(Easing.bounce)}
-          style={styles.linkContanier}>
-          <Location />
-          <Animated.Text
-            style={[styles.location, {color: theme.colors.outlineVariant}]}>
-            Location: HMH JFK UNIVERSITY MEDICAL CENTER, 70 JAMES STREET,
-            EDISON, NJ 08840
-          </Animated.Text>
-        </Animated.View>
+        {route.params.details?.location ? (
+          <Animated.View
+            entering={FadeInDown.duration(2000).easing(Easing.bounce)}
+            style={styles.linkContanier}>
+            <Location />
+            <Animated.Text
+              style={[styles.location, {color: theme.colors.outlineVariant}]}>
+              {route.params.details.location}
+            </Animated.Text>
+          </Animated.View>
+        ) : (
+          <></>
+        )}
 
         <View style={styles.linkContanier}>
           <Zoom />
@@ -93,9 +96,21 @@ const EventDetails: React.FunctionComponent<props> = () => {
             entering={FadeInDown.duration(2000).easing(Easing.bounce)}
             onPress={handleLinkPress}
             style={[styles.location, {color: theme.colors.tertiary}]}>
-            https://us02web.zoom.us/j/2128260907
+            {route.params.details.zoomlink}
           </Animated.Text>
         </View>
+        {route.params.details.note ? (
+          <Animated.View
+            entering={FadeInDown.duration(2000).easing(Easing.bounce)}
+            style={styles.linkContanier}>
+            <Animated.Text
+              style={[styles.location, {color: theme.colors.outlineVariant}]}>
+              Note: {route.params.details.note}
+            </Animated.Text>
+          </Animated.View>
+        ) : (
+          <></>
+        )}
       </Block>
     </>
   );

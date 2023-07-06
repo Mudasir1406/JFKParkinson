@@ -3,7 +3,7 @@ import { ImageSourcePropType } from 'react-native';
 
 export const getDoctorsData=async() =>
 {
-    return await  firestore().collection('Doctors').get() .then((snapshot) => {
+    return await  firestore().collection('Doctors').get().then((snapshot) => {
         const users = snapshot.docs.map((doc) => doc.data() as DoctorsDataResponse);
         return users;
       })
