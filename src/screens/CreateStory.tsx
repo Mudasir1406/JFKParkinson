@@ -8,18 +8,53 @@ import {
   Dimensions,
   TextInput,
 } from 'react-native';
-import React from 'react';
-import {useTheme} from 'react-native-paper';
-import {colors, fonts, images} from '../constant';
-import {Back, Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
-import {useDrawerContext} from '../context/DrawerContex';
+import React, {useState} from 'react';
+import {Button, Dialog, Portal, useTheme} from 'react-native-paper';
+import {colors, fonts} from '../constant';
+import {Back, Design} from '../../assets/svg';
 import {AuthButton, Block, ProfileTextInput} from '../components';
+import ImagePicker from 'react-native-image-crop-picker';
 import {useNavigation} from '@react-navigation/native';
 const {width, height} = Dimensions.get('window');
 const CreateStories: React.FunctionComponent = () => {
   const theme = useTheme();
   const navigation = useNavigation();
-  const {setIsOpen} = useDrawerContext();
+  const [visible, setVisible] = useState<boolean>(true);
+  const hideDialog = () => setVisible(false);
+
+  const openGallery = () => {
+    ImagePicker.openPicker({
+      width: 400,
+      height: 400,
+      cropping: true,
+      freeStyleCropEnabled: true,
+    })
+      .then(async image => {
+        // setNewNote({
+        //   ...newNote,
+        //   path: image.path,
+        // });
+      })
+      .catch(error => console.log(error));
+  };
+
+  const openCamera = () => {
+    ImagePicker.openCamera({
+      width: 400,
+      height: 400,
+      cropping: true,
+      freeStyleCropEnabled: true,
+      includeBase64: true,
+    })
+      .then(image => {
+        // setNewNote({
+        //   ...newNote,
+        //   path: image.path,
+        // });
+      })
+      .catch(error => console.log(error));
+  };
+
   return (
     <>
       <View style={{marginBottom: 90}}>
@@ -46,15 +81,34 @@ const CreateStories: React.FunctionComponent = () => {
       <Block alignItems="center" viewStyle={{top: 20}}>
         <View
           style={[styles.image, {borderColor: theme.colors.outlineVariant}]}>
-          <AuthButton heading="Upload Image" />
+          <AuthButton
+            heading="Upload Image"
+            onPress={() => {
+              setVisible(true);
+            }}
+          />
         </View>
-        <ProfileTextInput placeholder="Enter Title" />
-        <TextInput
-          style={[styles.description, {borderColor: theme.colors.outline}]}
-          multiline={true}
-          placeholder="Write Your Story..."
-        />
+        <ProfileTextInput placeholder="Enter Title of your story" />
+        <View style={[styles.storyInput, {borderColor: theme.colors.outline}]}>
+          <TextInput
+            style={[styles.description, {borderColor: theme.colors.outline}]}
+            multiline={true}
+            placeholder="let them know about Your Story..."
+          />
+        </View>
       </Block>
+      <Portal>
+        <Dialog visible={visible} onDismiss={hideDialog}>
+          <Dialog.Title>Add Image</Dialog.Title>
+          <Dialog.Content>
+            <Text>Upload an Image to added to your Story</Text>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={openCamera}>Open Camera</Button>
+            <Button onPress={openGallery}>Upload From Gallery</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </>
   );
 };
@@ -106,7 +160,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   description: {
-    marginBottom: 50,
+    marginBottom: '70%',
     marginHorizontal: '5%',
+  },
+  storyInput: {
+    padding: 4,
+    borderWidth: 1,
+    borderRadius: 10,
+
+    maxWidth: '95%',
+    alignSelf: 'center',
+    width: '95%',
   },
 });

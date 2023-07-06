@@ -39,12 +39,12 @@ export default ProfileTextInput;
 const styles = StyleSheet.create({
   contanier: {
     padding: 4,
-    marginHorizontal: '6%',
     marginTop: 10,
+    maxWidth: '100%',
+    alignSelf: 'center',
   },
   line: {
     height: 1.5,
-    width: '100%',
   },
   input: {
     width: '90%',

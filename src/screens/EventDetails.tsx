@@ -85,20 +85,24 @@ const EventDetails: React.FunctionComponent<props> = () => {
           <></>
         )}
 
-        <View style={styles.linkContanier}>
-          <Zoom />
-          <Animated.Text
-            entering={FadeInDown.duration(2000).easing(Easing.bounce)}
-            style={[styles.location, {color: theme.colors.outlineVariant}]}>
-            Zoom Link:
-          </Animated.Text>
-          <Animated.Text
-            entering={FadeInDown.duration(2000).easing(Easing.bounce)}
-            onPress={handleLinkPress}
-            style={[styles.location, {color: theme.colors.tertiary}]}>
-            {route.params.details.zoomlink}
-          </Animated.Text>
-        </View>
+        {route.params.details.zoomlink ? (
+          <View style={styles.linkContanier}>
+            <Zoom />
+            <Animated.Text
+              entering={FadeInDown.duration(2000).easing(Easing.bounce)}
+              style={[styles.location, {color: theme.colors.outlineVariant}]}>
+              Zoom Link:
+            </Animated.Text>
+            <Animated.Text
+              entering={FadeInDown.duration(2000).easing(Easing.bounce)}
+              onPress={handleLinkPress}
+              style={[styles.location, {color: theme.colors.tertiary}]}>
+              {route.params.details.zoomlink}
+            </Animated.Text>
+          </View>
+        ) : (
+          <></>
+        )}
         {route.params.details.note ? (
           <Animated.View
             entering={FadeInDown.duration(2000).easing(Easing.bounce)}
