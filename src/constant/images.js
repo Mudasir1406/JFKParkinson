@@ -8,4 +8,5 @@ export default images = {
   rainbow: require('../../assets/rainbow.jpg'),
   shutter: require('../../assets/shutter.jpg'),
   onbordingImage: require('../../assets/OnboardingImage.png'),
+  logoGif: require('../../assets/Logo.gif'),
 };
