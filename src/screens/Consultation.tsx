@@ -8,7 +8,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import {images, fonts, colors} from '../constant';
 import {Surface, useTheme} from 'react-native-paper';
-import {DoctorsCard, SponsorCards} from '../components';
+import {DoctorsCard, Loading, SponsorCards} from '../components';
 import {Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
 import {useDrawerContext} from '../context/DrawerContex';
 import {DoctorsDataResponse, getDoctorsData} from '../services/consultation';
@@ -78,16 +78,20 @@ const Consultation = () => {
         <Text style={[styles.headingSponsor, {color: theme.colors.scrim}]}>
           Doctor's Corner
         </Text>
-        {doctorsData?.map((item, index) => (
-          <DoctorsCard
-            time={item?.details}
-            title={item?.name}
-            onPress={() => {}}
-            key={index}
-            source={item?.image}
-            index={index}
-          />
-        ))}
+        {doctorsData.length > 0 ? (
+          doctorsData?.map((item, index) => (
+            <DoctorsCard
+              time={item?.details}
+              title={item?.name}
+              onPress={() => {}}
+              key={index}
+              source={item?.image}
+              index={index}
+            />
+          ))
+        ) : (
+          <Loading />
+        )}
       </ScrollView>
     </>
   );
