@@ -37,3 +37,18 @@ export function getYearMonths(year: number): { month: string; shortName: string;
     const year = parseInt(parts[2]);
     return new Date(year, month, day);
   }
+
+  export function formatDate(timestampInSeconds: number): string {
+    const timestampInMillis = timestampInSeconds * 1000; // Convert seconds to milliseconds
+    const date = new Date(timestampInMillis);
+  
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    };
+  
+    return date.toLocaleString('en-US', options);
+  }

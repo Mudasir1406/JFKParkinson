@@ -9,7 +9,14 @@ export type RootStackParamsApp={
     EventDetails:{ details:GetMeetingResponse};
     Profile:any;
     CreateStory:any;
-    Story:any;
+    Story:{
+        heading:string;
+        userProfileImage:string | number;
+        userName:string;
+        date:string;
+        description:string;
+        image:string | number;
+    };
     Comments:any;
     Notifications:any;
     TermsAndConditions:any;
@@ -32,7 +39,14 @@ export type RootBottomTabParams={
     EventDetails:{ details:GetMeetingResponse};
     Comments:any;
     CreateStory:any;
-    Story:any;
+    Story:{
+        heading:string;
+        userProfileImage:string | number;
+        userName:string;
+        date:string;
+        description:string;
+        image:string | number;
+    };
     Notifications:any;
 
 }

@@ -1,19 +1,16 @@
 import {
-  ImageBackground,
   Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   Dimensions,
-  TextInput,
-  Platform,
   ScrollView,
   NativeSyntheticEvent,
   NativeScrollEvent,
-  SafeAreaView,
+  Image,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {AnimatedFAB, useTheme} from 'react-native-paper';
 import {colors, fonts, images} from '../constant';
 import {
@@ -24,9 +21,12 @@ import {
   NotificationIcon,
 } from '../../assets/svg';
 import {useDrawerContext} from '../context/DrawerContex';
-import {StoryCard} from '../components';
+import {Loading, StoryCard} from '../components';
 import {useNavigation} from '@react-navigation/native';
 import {StoriesNavigationType} from '../Types/NavigationTypes.types';
+import {getAllStories} from '../services/Story';
+import {GetStoryDataType} from '../Types/Story.types';
+import {formatDate} from '../utils/date';
 const {width, height} = Dimensions.get('window');
 type ScrollViewNativeEvent = NativeSyntheticEvent<NativeScrollEvent>;
 const Stories = () => {
@@ -34,13 +34,19 @@ const Stories = () => {
   const navigation = useNavigation<StoriesNavigationType['navigation']>();
   const {setIsOpen} = useDrawerContext();
   const [isExtended, setIsExtended] = React.useState(true);
-
+  const [stories, setStories] = useState<GetStoryDataType[] | []>([]);
   const onScroll = (nativeEvent: ScrollViewNativeEvent) => {
     const currentScrollPosition =
       Math.floor(nativeEvent?.nativeEvent?.contentOffset?.y) ?? 0;
 
     setIsExtended(currentScrollPosition <= 0);
   };
+
+  useEffect(() => {
+    getAllStories().then((data: GetStoryDataType[] | []) => {
+      setStories(data);
+    });
+  }, []);
 
   return (
     <>
@@ -52,14 +58,14 @@ const Stories = () => {
           <Design />
         </View>
         <View style={styles.header}>
-          <Pressable style={styles.inner} onPress={() => console.log('sada')}>
+          <View style={styles.inner}>
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => setIsOpen(true)}>
               <DrawerIcon width={30} height={30} />
             </TouchableOpacity>
             <Text style={styles.text}>Stories</Text>
-          </Pressable>
+          </View>
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => navigation.navigate('Notifications')}>
@@ -72,12 +78,30 @@ const Stories = () => {
         </View>
       </View>
       <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
-        <StoryCard onPress={() => navigation.navigate('Story')} />
-        <StoryCard />
-        <StoryCard />
-        <StoryCard />
-        <StoryCard />
-        <StoryCard />
+        {stories.length > 0 ? (
+          stories?.map((story, index) => (
+            <StoryCard
+              key={index}
+              heading={story?.title}
+              userName={story?.userName}
+              date={formatDate(story.timestamp.seconds)}
+              source={story?.image}
+              profileImage={story.userProfileImage || ''}
+              onPress={() =>
+                navigation.navigate('Story', {
+                  heading: story?.title,
+                  userName: story?.userName,
+                  date: formatDate(story.timestamp.seconds),
+                  description: story?.description,
+                  userProfileImage: story?.userProfileImage,
+                  image: story.image,
+                })
+              }
+            />
+          ))
+        ) : (
+          <Loading />
+        )}
       </ScrollView>
       <AnimatedFAB
         icon={props => <Add />}

@@ -4,6 +4,7 @@ import {
   ImageBackground,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import React from 'react';
@@ -13,35 +14,64 @@ const {width, height} = Dimensions.get('window');
 
 type props = {
   onPress?: () => void;
+  heading: string;
+  userName: string;
+  date: string;
+  source: string | number;
+  profileImage: string | number;
 };
 
-const StoryCard: React.FunctionComponent<props> = ({onPress}) => {
+const StoryCard: React.FunctionComponent<props> = ({
+  onPress,
+  heading,
+  userName,
+  date,
+  source,
+  profileImage,
+}) => {
   const theme = useTheme();
   return (
-    <TouchableRipple
+    <TouchableOpacity
       onPress={onPress}
       style={styles.ripple}
-      rippleColor={theme.colors.primary}>
-      <ImageBackground source={images.gindolce} style={styles.contanier}>
+      activeOpacity={0.8}>
+      <ImageBackground
+        source={
+          source
+            ? typeof source === 'number'
+              ? source
+              : {uri: source}
+            : images.profileImage
+        }
+        style={styles.contanier}>
         <View style={styles.layer} />
         <Text
           style={[styles.heading, {color: theme.colors.onError}]}
           numberOfLines={2}>
-          A Story of My Life with Parkinson
+          {heading}
         </Text>
         <View style={styles.profileContanier}>
-          <Image source={images.image1} style={styles.profileImage} />
+          <Image
+            source={
+              profileImage
+                ? typeof profileImage === 'number'
+                  ? profileImage
+                  : {uri: profileImage}
+                : images.profileImage
+            }
+            style={styles.profileImage}
+          />
           <View>
             <Text style={[styles.user, {color: theme.colors.onSecondary}]}>
-              John Doe
+              {userName}
             </Text>
             <Text style={[styles.date, {color: theme.colors.onSecondary}]}>
-              Yeaterday 12:02 Pm
+              {date}
             </Text>
           </View>
         </View>
       </ImageBackground>
-    </TouchableRipple>
+    </TouchableOpacity>
   );
 };
 
