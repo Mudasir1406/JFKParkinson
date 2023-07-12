@@ -77,3 +77,13 @@ export const signUp = async (user:signUpProps) => {
     if (!email) Alert.alert('Invalid Email ','Email is required');
     return auth().sendPasswordResetEmail(email);
   };
+
+  export const updateProfilePicture=async (url:string,uid:string)=>{
+    if(url!=='')
+    {
+      return firestore().collection('users').doc(uid).update({
+        photoURL:url
+      })
+    }
+
+  }

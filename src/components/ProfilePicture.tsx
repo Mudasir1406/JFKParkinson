@@ -2,10 +2,24 @@ import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {images} from '../constant';
 
-const ProfilePicture: React.FunctionComponent = () => {
+type Props = {
+  onPress: () => void;
+  source: string;
+};
+const ProfilePicture: React.FunctionComponent<Props> = ({onPress, source}) => {
+  console.log(source);
   return (
-    <TouchableOpacity activeOpacity={0.8}>
-      <Image style={styles.profilePicture} source={images.gindolce} />
+    <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
+      <Image
+        style={styles.profilePicture}
+        source={
+          source
+            ? typeof source === 'number'
+              ? source
+              : {uri: source}
+            : images.profileImage
+        }
+      />
     </TouchableOpacity>
   );
 };
