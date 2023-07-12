@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { GetMeetingResponse } from "../services/meetings";
+import { GetPostDataType } from "./PostTypes.types";
 export type RootStackParamsApp={
     
     Home:any;
@@ -17,7 +18,7 @@ export type RootStackParamsApp={
         description:string;
         image:string | number;
     };
-    Comments:any;
+    Comments:{details:GetPostDataType};
     Notifications:any;
     TermsAndConditions:any;
     PrivacyPolicy:any;
@@ -38,7 +39,7 @@ export type RootBottomTabParams={
     Consultation:any;
     Stories:any;
     EventDetails:{ details:GetMeetingResponse};
-    Comments:any;
+    Comments:{details:GetPostDataType};
     CreateStory:any;
     Story:{
         heading:string;

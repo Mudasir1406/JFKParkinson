@@ -42,7 +42,7 @@ const Posts: React.FunctionComponent<PostNavigationType> = () => {
         keyExtractor={item => `${item.timestamp}-${item.userUid}`}
         renderItem={({item, index}) => (
           <PostCard
-            onPress={() => navigation.navigate('Comments')}
+            onPress={() => navigation.navigate('Comments', {details: item})}
             userName={item.userName}
             userProfileImage={
               item?.userProfileImage ? item.userProfileImage : ''
