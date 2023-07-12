@@ -10,31 +10,46 @@ import {
   AppState,
   DevSettings,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Design,
   DrawerIcon,
   HomeDesign,
   NotificationIcon,
 } from '../../assets/svg';
-import {Block, EventHomeCard, TouchableText, HomeBanner} from '../components';
+import {
+  Block,
+  EventHomeCard,
+  TouchableText,
+  HomeBanner,
+  EmptyText,
+} from '../components';
 import {colors, fonts, images} from '../constant';
 import {useTheme} from 'react-native-paper';
 import {useDrawerContext} from '../context/DrawerContex';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigationType} from '../Types/NavigationTypes.types';
+import {GetMeetingResponse, getMeetings} from '../services/meetings';
+import moment from 'moment';
 
-interface props {}
-
-const Home: React.FunctionComponent<props> = () => {
+const Home: React.FunctionComponent<HomeNavigationType> = () => {
   const {isOpen, setIsOpen} = useDrawerContext();
   const navigation = useNavigation<HomeNavigationType['navigation']>();
-  const showTost = () => {
-    ToastAndroid.show(AppState.currentState, ToastAndroid.SHORT);
-    return DevSettings.reload();
-  };
+  const [meetingData, setMeetingData] = useState<GetMeetingResponse[] | []>([]);
+
   const theme = useTheme();
   const {width, height} = Dimensions.get('window');
+
+  useEffect(() => {
+    getMeetings(moment().format('dddd, MMM D, YYYY')).then(
+      (data: GetMeetingResponse[] | []) => {
+        setMeetingData(data);
+        console.log(data);
+      },
+    );
+
+    return () => {};
+  }, []);
   return (
     <Block>
       <View
@@ -78,26 +93,22 @@ const Home: React.FunctionComponent<props> = () => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.scroll}>
-        <EventHomeCard
-          width={250}
-          heading="Rock Steady Boxing at JFK – on Zoom"
-          time="Monday, Jan 3, 2022 1:00pm – 2:30pm"
-        />
-        <EventHomeCard
-          width={250}
-          heading="Rock Steady Boxing at JFK – on Zoom"
-          time="Monday, Jan 3, 2022 1:00pm – 2:30pm"
-        />
-        <EventHomeCard
-          width={250}
-          heading="Rock Steady Boxing at JFK – on Zoom"
-          time="Monday, Jan 3, 2022 1:00pm – 2:30pm"
-        />
-        <EventHomeCard
-          width={250}
-          heading="Rock Steady Boxing at JFK – on Zoom"
-          time="Monday, Jan 3, 2022 1:00pm – 2:30pm"
-        />
+        {meetingData.length > 0 ? (
+          meetingData?.map((item, index) => (
+            <EventHomeCard
+              key={index}
+              width={250}
+              heading={item.heading}
+              time={`${item.date} ${item.time}`}
+              source={images.premier}
+              onPress={() =>
+                navigation.navigate('EventDetails', {details: item})
+              }
+            />
+          ))
+        ) : (
+          <EmptyText text="No Meetings on This Day"></EmptyText>
+        )}
       </ScrollView>
       <View style={styles.headingContanier}>
         <Text style={styles.heading}>New On Parkinson's</Text>
@@ -107,17 +118,16 @@ const Home: React.FunctionComponent<props> = () => {
           width={width * 0.43}
           heading="Stories"
           time="See Stories >"
-          onPress={showTost}
+          onPress={() => navigation.navigate('Stories')}
+          source={images.healing}
         />
         <EventHomeCard
           width={width * 0.43}
           heading="Community "
           time="Join Community >"
+          onPress={() => navigation.navigate('Post')}
+          source={images.image1}
         />
-      </View>
-      <View style={styles.headingContanier}>
-        <Text style={styles.heading}>Parkinson's Support Group Events</Text>
-        <TouchableText text="View all >>" alignSelf="flex-end" />
       </View>
     </Block>
   );

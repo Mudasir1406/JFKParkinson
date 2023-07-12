@@ -30,6 +30,8 @@ export type RootStackParamsApp={
     LatestNews:any
     Events:any;
     CreatePost:any;
+    Stories:any;
+    Post:any;
 }
 
 export type RootBottomTabParams={

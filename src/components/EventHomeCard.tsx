@@ -1,4 +1,10 @@
-import {StyleSheet, Text, View, ImageBackground} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  ImageSourcePropType,
+} from 'react-native';
 import React from 'react';
 import {colors, fonts, images} from '../constant';
 import {Surface, TouchableRipple} from 'react-native-paper';
@@ -7,6 +13,7 @@ interface props {
   time: string;
   heading: string;
   onPress?: () => void;
+  source: ImageSourcePropType;
 }
 
 const EventHomeCard: React.FunctionComponent<props> = ({
@@ -14,12 +21,19 @@ const EventHomeCard: React.FunctionComponent<props> = ({
   heading,
   time,
   onPress,
+  source,
 }) => {
   return (
     <TouchableRipple onPress={onPress} style={[styles.ripple, {width: width}]}>
       <Surface elevation={2} style={[styles.contanier, {width: width}]}>
         <ImageBackground
-          source={images.gindolce}
+          source={
+            source
+              ? typeof source === 'number'
+                ? source
+                : {uri: source}
+              : images.profileImage
+          }
           style={[styles.innerContanier, {width: width}]}>
           <View style={[styles.back, {width: width}]} />
           <Text style={styles.heading}>{heading}</Text>

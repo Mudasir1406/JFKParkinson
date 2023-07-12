@@ -2,6 +2,7 @@ import firestore from '@react-native-firebase/firestore';
 import { ImageSourcePropType } from 'react-native';
 
 export const getMeetings=async(date:string)=>{
+  console.log(date)
     return await firestore().collection('Meetings').where('date','==',date).get().then((snapshot) => {
         const meetings = snapshot.docs.map((doc) => doc.data() as GetMeetingResponse);
         return meetings;
