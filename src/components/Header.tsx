@@ -24,7 +24,9 @@ const Header: React.FunctionComponent<Props> = ({title, backButton}) => {
         },
       ]}>
       <View style={styles.inner}>
-        <TouchableOpacity activeOpacity={0.8} onPress={() => setIsOpen(true)}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => (backButton ? navigation.goBack() : setIsOpen(true))}>
           {backButton ? (
             <Back fill={theme.colors.onSecondary} />
           ) : (

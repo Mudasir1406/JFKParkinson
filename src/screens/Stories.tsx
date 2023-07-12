@@ -12,14 +12,8 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {AnimatedFAB, useTheme} from 'react-native-paper';
-import {colors, fonts, images} from '../constant';
-import {
-  Add,
-  Design,
-  DrawerIcon,
-  Email,
-  NotificationIcon,
-} from '../../assets/svg';
+import {colors, fonts} from '../constant';
+import {Add, Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
 import {useDrawerContext} from '../context/DrawerContex';
 import {Loading, StoryCard} from '../components';
 import {useNavigation} from '@react-navigation/native';
@@ -44,6 +38,7 @@ const Stories = () => {
 
   useEffect(() => {
     getAllStories().then((data: GetStoryDataType[] | []) => {
+      console.log(data);
       setStories(data);
     });
   }, []);
@@ -78,7 +73,7 @@ const Stories = () => {
         </View>
       </View>
       <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
-        {stories.length > 0 ? (
+        {stories?.length > 0 ? (
           stories?.map((story, index) => (
             <StoryCard
               key={index}

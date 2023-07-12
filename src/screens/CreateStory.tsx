@@ -259,7 +259,7 @@ const CreateStories: React.FunctionComponent = () => {
       </Block>
       <Portal>
         <Dialog visible={visible} onDismiss={hideDialog}>
-          <Dialog.Title>Add Image</Dialog.Title>
+          <Dialog.Title>Upload Image</Dialog.Title>
           <Dialog.Content>
             <Text>Upload an Image to added to your Story</Text>
           </Dialog.Content>

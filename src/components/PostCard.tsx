@@ -11,12 +11,29 @@ import Animated from 'react-native-reanimated';
 import {fonts, images} from '../constant';
 import {Surface, useTheme} from 'react-native-paper';
 import {Comment, Heart, Share} from '../../assets/svg';
+import {formatDate} from '../utils/date';
 
 type props = {
   onPress?: () => void;
+  userName: string;
+  time: number;
+  text: string;
+  likes: number;
+  comments: number;
+  userProfileImage: string;
+  image: string;
 };
 const {width, height} = Dimensions.get('window');
-const PostCard: React.FunctionComponent<props> = ({onPress}) => {
+const PostCard: React.FunctionComponent<props> = ({
+  onPress,
+  userName,
+  time,
+  text,
+  likes,
+  comments,
+  userProfileImage,
+  image,
+}) => {
   const theme = useTheme();
   return (
     <Surface
@@ -24,21 +41,38 @@ const PostCard: React.FunctionComponent<props> = ({onPress}) => {
       elevation={2}>
       <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
         <View style={styles.headerContanier}>
-          <Image source={images.image1} style={styles.profileImage} />
+          <Image
+            source={
+              userProfileImage
+                ? typeof userProfileImage === 'number'
+                  ? userProfileImage
+                  : {uri: userProfileImage}
+                : images.profileImage
+            }
+            style={styles.profileImage}
+          />
           <View>
             <Text style={[styles.nameText, {color: theme.colors.scrim}]}>
-              Person Name
+              {userName}
             </Text>
             <Text
               style={[styles.timeText, {color: theme.colors.outlineVariant}]}>
-              08:06 am
+              {formatDate(time)}
             </Text>
           </View>
         </View>
         <Text style={[styles.postText, {color: theme.colors.outlineVariant}]}>
-          Hi I'm sindy
+          {text}
         </Text>
-        <Image source={images.image2} style={styles.postImage}></Image>
+        <Image
+          source={
+            image
+              ? typeof image === 'number'
+                ? image
+                : {uri: image}
+              : images.profileImage
+          }
+          style={styles.postImage}></Image>
         <View
           style={[
             styles.HorizontalLine,
@@ -47,9 +81,9 @@ const PostCard: React.FunctionComponent<props> = ({onPress}) => {
         />
         <View style={styles.footerContanier}>
           <Heart width={20} height={20} />
-          <Text style={styles.timeText}>1341</Text>
+          <Text style={styles.timeText}>{likes}</Text>
           <Comment width={20} height={20} />
-          <Text style={styles.timeText}>50</Text>
+          <Text style={styles.timeText}>{comments}</Text>
           <Share width={20} height={20} />
         </View>
       </TouchableOpacity>
@@ -63,7 +97,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-
     padding: 20,
     margin: 10,
     borderRadius: 10,

@@ -11,9 +11,7 @@ const Comments: React.FunctionComponent = () => {
       <Header title="Comments" backButton={true} />
       <PostCard />
       <Text style={styles.share}>250 shares</Text>
-      <Text style={[styles.text, {color: theme.colors.scrim}]}>
-        All Comments
-      </Text>
+      <Text style={[styles.text, {color: theme.colors.scrim}]}>Comments</Text>
       <CommentsCard />
     </Block>
   );

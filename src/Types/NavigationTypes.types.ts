@@ -28,6 +28,7 @@ export type RootStackParamsApp={
     PeopleInTheNews:any;
     LatestNews:any
     Events:any;
+    CreatePost:any;
 }
 
 export type RootBottomTabParams={
@@ -48,6 +49,8 @@ export type RootBottomTabParams={
         image:string | number;
     };
     Notifications:any;
+    CreatePost:any;
+
 
 }
 
@@ -70,6 +73,7 @@ export type StoryNavigationType = NativeStackScreenProps<RootStackParamsApp, 'St
 export type CommentsNavigationType = NativeStackScreenProps<RootStackParamsApp, 'Comments'>;
 export type NotificationsNavigationType = NativeStackScreenProps<RootStackParamsApp, 'Notifications'>;
 export type ArticlesNavigationType = NativeStackScreenProps<RootStackParamsApp, 'Articles'>;
+export type CreatePostNavigationType = NativeStackScreenProps<RootStackParamsApp, 'CreatePost'>;
 
 //Bottom Tab Screens
 export type EventsNavigationType = BottomTabScreenProps<RootBottomTabParams, 'Events'>;

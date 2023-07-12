@@ -20,6 +20,7 @@ import CreateStories from '../screens/CreateStory';
 import PrivacyPolicy from '../screens/PravicyPolicy';
 import Articles from '../screens/Articles';
 import Article from '../screens/Article';
+import CreatePost from '../screens/CreatePost';
 
 const Stack = createNativeStackNavigator<RootStackParamsApp>();
 
@@ -49,6 +50,7 @@ const AppNavigator = () => {
       <Stack.Screen name="SupportsGroup" component={SupportsGroup} />
       <Stack.Screen name="PeopleInTheNews" component={PeopleInTheNews} />
       <Stack.Screen name="LatestNews" component={LatestNews} />
+      <Stack.Screen name="CreatePost" component={CreatePost} />
     </Stack.Navigator>
   );
 };

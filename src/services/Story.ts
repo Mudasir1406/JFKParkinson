@@ -2,6 +2,7 @@ import firestore from '@react-native-firebase/firestore';
 import { uploadImage } from './Storage';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { GetStoryDataType } from '../Types/Story.types';
+import Toast  from 'react-native-toast-message';
 
 
 export const addStoryToFirestore = async(image:string,title:string,description:string,user:FirebaseAuthTypes.User|null)=>{
@@ -11,18 +12,31 @@ export const addStoryToFirestore = async(image:string,title:string,description:s
         description:description,
         image:url,
         timestamp:firestore.Timestamp.now(),
-        userName:user?.displayName,
-        userProfileImage:user?.photoURL,
-        
+        userUid:user?.uid,
     })
 }
-
-export const getAllStories= async ()=>{
-    return await firestore().collection('Story').get().then(snapshot =>{
-        const story=snapshot.docs.map((doc)=>doc.data() as GetStoryDataType)
-        return story;
-    }) .catch((error) => {
-        console.error('Error fetching Stories:', error);
-        return [] as GetStoryDataType[]; 
+export const getAllStories = async () => {
+    return firestore()
+      .collection('Story')
+      .get()
+      .then((snapshot) => {
+        const promises = snapshot.docs.map(async (doc) => {
+          const userSnapshot = await firestore()
+            .collection('users')
+            .where('uid', '==', doc.data().userUid)
+            .get();
+          const userData = userSnapshot.docs[0]?.data();
+          return {
+            ...doc.data(),
+            userName: userData?.fullName,
+            userProfileImage: userData?.photoURL
+          } as GetStoryDataType;
+        });
+  
+        return Promise.all(promises);
+      })
+      .catch((error) => {
+        Toast.show({type:'tomatoToast',text1:error?.message})
+        return [] as GetStoryDataType[];
       });
-}
+  };

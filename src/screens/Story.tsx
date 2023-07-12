@@ -55,7 +55,9 @@ const Story: React.FunctionComponent<StoryNavigationType> = ({route}) => {
         {route.params?.heading}
       </Text>
 
-      <ScrollView contentContainerStyle={styles.textContanier}>
+      <ScrollView
+        contentContainerStyle={styles.textContanier}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.profileContanier}>
           <Image
             source={
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     padding: 20,
     paddingBottom: height / 5,
-    minHeight: height / 2,
+    minHeight: height * 0.65,
     marginTop: 20,
     elevation: 5,
   },
