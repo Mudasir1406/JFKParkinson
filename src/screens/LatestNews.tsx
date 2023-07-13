@@ -5,17 +5,25 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Back, Design} from '../../assets/svg';
 import {useTheme} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
-import {colors, fonts} from '../constant';
-import {Block, VedioCard} from '../components';
+import {colors, fonts, images} from '../constant';
+import {Block, Loading, NewsCards, VedioCard} from '../components';
 import {ArticlesNavigationType} from '../Types/NavigationTypes.types';
+import {GetNewsResponse} from '../Types/News.types';
+import {getNews} from '../services/LatestNews';
 
 const LatestNews = () => {
   const theme = useTheme();
   const navigation = useNavigation<ArticlesNavigationType['navigation']>();
+  const [news, setNews] = useState<GetNewsResponse[] | []>([]);
+  useEffect(() => {
+    getNews().then(data => {
+      setNews(data);
+    });
+  }, []);
   return (
     <>
       <View style={{marginBottom: 90}}>
@@ -37,14 +45,18 @@ const LatestNews = () => {
         </View>
       </View>
       <Block>
-        <Pressable onPress={() => navigation.navigate('Article')}>
-          <VedioCard />
-        </Pressable>
-
-        <VedioCard />
-        <VedioCard />
-        <VedioCard />
-        <VedioCard />
+        {news.length > 0 ? (
+          news.map((item, index) => (
+            <NewsCards
+              heading={item?.heading}
+              source={item?.image}
+              key={index}
+              link={item.link}
+            />
+          ))
+        ) : (
+          <Loading />
+        )}
       </Block>
     </>
   );

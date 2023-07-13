@@ -26,3 +26,4 @@ export {default as PeopleInTheNewsCards} from './PeopleInTheNewsCards';
 export {default as EmptyText} from './EmptyText';
 export {default as Toast} from './Toast';
 export {default as Loading} from './Loading';
+export {default as NewsCards} from './NewsCards';

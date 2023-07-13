@@ -1,23 +1,23 @@
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Block, SupportGroupCard} from '../components';
 import {colors, fonts} from '../constant';
 import {useTheme} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {Back, Design} from '../../assets/svg';
+import {GetSupportData} from '../Types/SupportData.types';
+import {getSupportsGroup} from '../services/SupportGroups';
 
 const SupportsGroup = () => {
   const theme = useTheme();
   const navigation = useNavigation();
-  const data = [
-    {id: 1, title: 'Benefits of JFK Support Groups'},
-    {id: 2, title: 'Support Groups Meetings'},
-    {id: 3, title: 'People with Parkinsons'},
-    {id: 4, title: 'Newly Diagnosed'},
-    {id: 5, title: 'Care partners Support Groups'},
-    {id: 6, title: 'DBS Support Groups'},
-    // Add more data items as needed
-  ];
+  const [supportData, setSupportData] = useState<GetSupportData[] | []>([]);
+  useEffect(() => {
+    getSupportsGroup().then(data => {
+      setSupportData(data);
+    });
+  }, []);
+
   return (
     <>
       <View style={{marginBottom: 90}}>
@@ -39,9 +39,9 @@ const SupportsGroup = () => {
         </View>
       </View>
       <FlatList
-        data={data}
-        renderItem={item => <SupportGroupCard heading={item.item.title} />}
-        keyExtractor={item => item?.id?.toString()}
+        data={supportData}
+        renderItem={item => <SupportGroupCard heading={item?.item?.heading} />}
+        keyExtractor={item => `${item.heading}`}
         numColumns={2}
         contentContainerStyle={styles.containerFlatList}
       />

@@ -9,7 +9,6 @@ import {
 import React from 'react';
 import {colors, fonts, images} from '../constant';
 import {Back, Design} from '../../assets/svg';
-import {useNavigation} from '@react-navigation/native';
 import {useTheme} from 'react-native-paper';
 import {Block} from '../components';
 import {
@@ -51,7 +50,8 @@ const Artical: React.FunctionComponent<ArticleNavigationType> = ({
             numberOfLines={3}>
             {route.params?.details.heading}
           </Text>
-          <Text style={styles.content}>{`${route.params.details.text}`}</Text>
+          <Text
+            style={styles.content}>{`${route?.params?.details?.text}`}</Text>
         </View>
       </Block>
     </>
