@@ -30,9 +30,17 @@ const PeopleInTheNews = () => {
         </View>
       </View>
       <Block>
-        <PeopleInTheNewsCards />
-        <PeopleInTheNewsCards />
-        <PeopleInTheNewsCards />
+        <PeopleInTheNewsCards
+          heading="DONNA M"
+          url="https://foxsportsradionewjersey.com/"
+          text="Our Parkinson’s Community (particularly the ParkinSINGS choir) was featured on the radio. Our wonderful ParkinSINGS choir member, Donna, shared some insightful information and performed a taste of her solo for our performance this Wednesday. To listen in click the button below"
+        />
+        <PeopleInTheNewsCards
+          heading="HUGH M"
+          url="https://www.youtube.com/watch?v=wNCMJO8UJqk&t=1s"
+          text="HUGH M Edison Parkinson’s Patient Finds Hope in Song and Boxing April 7, 2021. When Hugh McCourt, 78, agreed to join a choir, he did so reluctantly. His speech language pathologist was starting ParkinSINGS, a program for those with Parkinson’s disease and Parkinson-Plus syndromes.Watch Hugh’s Story:
+Check out this beautiful and educational video about Parkinson’s featuring our very own, Hugh M!:"
+        />
       </Block>
     </>
   );

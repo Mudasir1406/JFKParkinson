@@ -1,28 +1,31 @@
-import {Image, StyleSheet, Text, View, Dimensions} from 'react-native';
+import {Image, StyleSheet, Text, View, Dimensions, Linking} from 'react-native';
 import React from 'react';
 import {colors, fonts, images} from '../constant';
 import AuthButton from './AuthButton';
 import {Button, useTheme} from 'react-native-paper';
 
-type Props = {};
+type Props = {
+  heading: string;
+  text: string;
+  url: string;
+};
 const {width, height} = Dimensions.get('window');
-const PeopleInTheNewsCards: React.FunctionComponent<Props> = () => {
+const PeopleInTheNewsCards: React.FunctionComponent<Props> = ({
+  heading,
+  text,
+  url,
+}) => {
   const theme = useTheme();
   return (
     <View style={styles.contanier}>
-      <Image source={images.gindolce} style={styles.image} />
-      <Text style={styles.heading}>DONNA M</Text>
-      <Text style={styles.content}>
-        Our Parkinson’s Community (particularly the ParkinSINGS choir) was
-        featured on the radio. Our wonderful ParkinSINGS choir member, Donna,
-        shared some insightful information and performed a taste of her solo for
-        our performance this Wednesday. To listen in click the button below
-      </Text>
+      <Text style={styles.heading}>{heading}</Text>
+      <Text style={styles.content}>{text}</Text>
       <Button
         mode="elevated"
         style={{width: 150, marginVertical: 10}}
         textColor={colors.white}
-        buttonColor={theme.colors.tertiary}>
+        buttonColor={theme.colors.tertiary}
+        onPress={() => Linking.openURL(url)}>
         Click here
       </Button>
     </View>

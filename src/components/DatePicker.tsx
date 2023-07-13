@@ -40,6 +40,7 @@ const DatePicker: React.FunctionComponent<props> = ({setDate, date}) => {
   >([]);
   useEffect(() => {
     const daysData = getMonthDays(monthValues, year);
+    console.log(daysData);
     setDays(daysData);
     setDay(daysData[0].dayLong);
     setpickedDate(daysData[0].date);
@@ -111,7 +112,7 @@ const DatePicker: React.FunctionComponent<props> = ({setDate, date}) => {
           </View>
         </ScrollView>
       </View>
-      <Modal visible={isModalOpen}>
+      <Modal visible={isModalOpen} onDismiss={() => setIsModalOpen(false)}>
         <View style={styles.modalStyle}>
           <ScrollView showsVerticalScrollIndicator={false}>
             {getYearMonths(year).map((month, index: number) => (
@@ -128,7 +129,9 @@ const DatePicker: React.FunctionComponent<props> = ({setDate, date}) => {
           </ScrollView>
         </View>
       </Modal>
-      <Modal visible={isModalOpenYear}>
+      <Modal
+        visible={isModalOpenYear}
+        onDismiss={() => setIsModalOpenYear(false)}>
         <View style={styles.modalStyle}>
           <ScrollView showsVerticalScrollIndicator={false}>
             {[2023, 2024, 2025, 2026, 2027].map((item, index: number) => (
