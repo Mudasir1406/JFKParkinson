@@ -2,6 +2,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { GetMeetingResponse } from "../services/meetings";
 import { GetPostDataType } from "./PostTypes.types";
+import { GetArticalResponse } from "./Articals";
 export type RootStackParamsApp={
     
     Home:any;
@@ -24,7 +25,7 @@ export type RootStackParamsApp={
     PrivacyPolicy:any;
     ZoomRecordings:any;
     Articles:any;
-    Article:any;
+    Article:{details:GetArticalResponse};
     SupportsGroup:any;
     PeopleInTheNews:any;
     LatestNews:any
@@ -76,6 +77,7 @@ export type StoryNavigationType = NativeStackScreenProps<RootStackParamsApp, 'St
 export type CommentsNavigationType = NativeStackScreenProps<RootStackParamsApp, 'Comments'>;
 export type NotificationsNavigationType = NativeStackScreenProps<RootStackParamsApp, 'Notifications'>;
 export type ArticlesNavigationType = NativeStackScreenProps<RootStackParamsApp, 'Articles'>;
+export type ArticleNavigationType = NativeStackScreenProps<RootStackParamsApp, 'Article'>;
 export type CreatePostNavigationType = NativeStackScreenProps<RootStackParamsApp, 'CreatePost'>;
 
 //Bottom Tab Screens

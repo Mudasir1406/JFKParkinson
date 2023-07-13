@@ -7,7 +7,6 @@ type Props = {
   source: string;
 };
 const ProfilePicture: React.FunctionComponent<Props> = ({onPress, source}) => {
-  console.log(source);
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
       <Image

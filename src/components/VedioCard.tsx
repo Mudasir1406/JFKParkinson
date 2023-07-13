@@ -3,18 +3,24 @@ import React from 'react';
 import {fonts, images} from '../constant';
 import {useTheme} from 'react-native-paper';
 
-type props = {};
+type props = {
+  heading: string;
+};
 const {width, height} = Dimensions.get('window');
-const VedioCard: React.FunctionComponent<props> = () => {
+const VedioCard: React.FunctionComponent<props> = ({heading}) => {
   const theme = useTheme();
   return (
     <View style={styles.contanier}>
-      <Image source={images.gindolce} style={styles.image} />
+      <Image
+        source={images.gindolce}
+        style={styles.image}
+        resizeMode="contain"
+      />
       <View style={styles.inner}>
         <Text
           style={[styles.heading, {color: theme.colors.scrim}]}
           numberOfLines={3}>
-          Parkinson's Disease
+          {heading}
         </Text>
       </View>
     </View>
@@ -25,7 +31,7 @@ export default VedioCard;
 
 const styles = StyleSheet.create({
   image: {
-    height: height / 3.5,
+    height: height / 5,
     borderRadius: 20,
     width: width * 0.95,
   },

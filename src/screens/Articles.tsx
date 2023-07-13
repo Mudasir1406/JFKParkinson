@@ -5,17 +5,26 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Back, Design} from '../../assets/svg';
 import {useTheme} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {colors, fonts} from '../constant';
-import {Block, VedioCard} from '../components';
+import {Block, Loading, VedioCard} from '../components';
 import {ArticlesNavigationType} from '../Types/NavigationTypes.types';
+import {getArticals} from '../services/Articals';
+import {GetArticalResponse} from '../Types/Articals';
 
 const Articals = () => {
   const theme = useTheme();
   const navigation = useNavigation<ArticlesNavigationType['navigation']>();
+  const [articals, setArticals] = useState<GetArticalResponse[] | []>([]);
+
+  useEffect(() => {
+    getArticals().then((data: GetArticalResponse[]) => {
+      setArticals(data);
+    });
+  }, []);
   return (
     <>
       <View style={{marginBottom: 90}}>
@@ -37,14 +46,19 @@ const Articals = () => {
         </View>
       </View>
       <Block>
-        <Pressable onPress={() => navigation.navigate('Article')}>
-          <VedioCard />
-        </Pressable>
-
-        <VedioCard />
-        <VedioCard />
-        <VedioCard />
-        <VedioCard />
+        {articals.length > 0 ? (
+          articals.map((item, index) => {
+            return (
+              <Pressable
+                onPress={() => navigation.navigate('Article', {details: item})}
+                key={index}>
+                <VedioCard heading={item.heading} />
+              </Pressable>
+            );
+          })
+        ) : (
+          <Loading />
+        )}
       </Block>
     </>
   );

@@ -39,12 +39,11 @@ const Home: React.FunctionComponent<HomeNavigationType> = () => {
 
   const theme = useTheme();
   const {width, height} = Dimensions.get('window');
-
+  //moment().format('dddd, MMM D, YYYY')
   useEffect(() => {
-    getMeetings(moment().format('dddd, MMM D, YYYY')).then(
+    getMeetings('Wednesday, Jul 12, 2023').then(
       (data: GetMeetingResponse[] | []) => {
         setMeetingData(data);
-        console.log(data);
       },
     );
 

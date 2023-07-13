@@ -17,7 +17,10 @@ export const addPostToFirestore = async(image:string | undefined,text:string,use
         comments:0,
         shares:0,
         
-    }).then((res)=>{console.log(res)}).catch(err => console.error(err))
+    }).then((res)=>{
+    //  console.log(res)
+    
+    }).catch(err => console.error(err))
 }
 
 export const getPost=async ()=>{

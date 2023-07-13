@@ -12,10 +12,16 @@ import {Back, Design} from '../../assets/svg';
 import {useNavigation} from '@react-navigation/native';
 import {useTheme} from 'react-native-paper';
 import {Block} from '../components';
+import {
+  ArticleNavigationType,
+  ArticlesNavigationType,
+} from '../Types/NavigationTypes.types';
 const {width, height} = Dimensions.get('window');
 
-const Artical = () => {
-  const navigation = useNavigation();
+const Artical: React.FunctionComponent<ArticleNavigationType> = ({
+  navigation,
+  route,
+}) => {
   const theme = useTheme();
   return (
     <>
@@ -43,16 +49,9 @@ const Artical = () => {
           <Text
             style={[styles.heading, {color: theme.colors.scrim}]}
             numberOfLines={3}>
-            B-12 and Parkinson’s symptoms
+            {route.params?.details.heading}
           </Text>
-          <Text
-            style={
-              styles.content
-            }>{`Vitamin B-12 may be of particular importance to those with Parkinson’s disease, a progressive nervous system disorder that affects movement.
-
-Low vitamin B-12 levels may worsen some symptoms of the disease, especially postural instability and cognitive impairment, which can lead to falls and injuries. In addition, Mayo Clinic researchers have found that lower vitamin B-12 levels at Parkinson’s disease diagnosis is associated with a greater risk of dementia in the future.
-
-A 2019 Mayo Clinic-led study proposed that supplementing vitamin B-12 could be helpful to potentially improve motor and cognitive function. Mayo Clinic experts say that vitamin B-12 levels should be checked in people with Parkinson’s disease and supplemented if low.`}</Text>
+          <Text style={styles.content}>{`${route.params.details.text}`}</Text>
         </View>
       </Block>
     </>

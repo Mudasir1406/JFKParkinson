@@ -38,7 +38,6 @@ const Stories = () => {
 
   useEffect(() => {
     getAllStories().then((data: GetStoryDataType[] | []) => {
-      console.log(data);
       setStories(data);
     });
   }, []);
