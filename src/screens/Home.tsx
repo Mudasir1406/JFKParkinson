@@ -9,6 +9,7 @@ import {
   ImageBackground,
   AppState,
   DevSettings,
+  PermissionsAndroid,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
@@ -23,19 +24,32 @@ import {
   TouchableText,
   HomeBanner,
   EmptyText,
+  StepsCounter,
 } from '../components';
 import {colors, fonts, images} from '../constant';
 import {useTheme} from 'react-native-paper';
 import {useDrawerContext} from '../context/DrawerContex';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {HomeNavigationType} from '../Types/NavigationTypes.types';
 import {GetMeetingResponse, getMeetings} from '../services/meetings';
 import moment from 'moment';
+
+import GoogleFit, {BucketUnit, Scopes} from 'react-native-google-fit';
+import googleFit from 'react-native-google-fit';
 
 const Home: React.FunctionComponent<HomeNavigationType> = () => {
   const {isOpen, setIsOpen} = useDrawerContext();
   const navigation = useNavigation<HomeNavigationType['navigation']>();
   const [meetingData, setMeetingData] = useState<GetMeetingResponse[] | []>([]);
+  var currentDate = new Date();
+  var previousDate = new Date(currentDate);
+  previousDate.setDate(currentDate.getDate() - 1);
+  const opt = {
+    startDate: previousDate.toISOString(), // required ISO8601Timestamp
+    endDate: new Date().toISOString(), // required ISO8601Timestamp
+    bucketUnit: BucketUnit.DAY, // optional - default "DAY". Valid values: "NANOSECOND" | "MICROSECOND" | "MILLISECOND" | "SECOND" | "MINUTE" | "HOUR" | "DAY"
+    bucketInterval: 2, // optional - default 1.
+  };
 
   const theme = useTheme();
   const {width, height} = Dimensions.get('window');
@@ -46,9 +60,21 @@ const Home: React.FunctionComponent<HomeNavigationType> = () => {
         setMeetingData(data);
       },
     );
-
     return () => {};
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      GoogleFit.checkIsAuthorized().then(() => {
+        if (GoogleFit.isAuthorized) {
+          GoogleFit.getDailySteps().then(res => {
+            console.log(res);
+          });
+        }
+      });
+    }, []),
+  );
+
   return (
     <Block>
       <View
@@ -80,6 +106,7 @@ const Home: React.FunctionComponent<HomeNavigationType> = () => {
         </Pressable>
       </View>
       <HomeBanner />
+      <StepsCounter steps={10} onPress={() => {}} />
       <View style={styles.headingContanier}>
         <Text style={styles.heading}>Parkinson's Support Group Events</Text>
         <TouchableText
@@ -88,6 +115,7 @@ const Home: React.FunctionComponent<HomeNavigationType> = () => {
           onPress={() => navigation.navigate('Events')}
         />
       </View>
+
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={false}

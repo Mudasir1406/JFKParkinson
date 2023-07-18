@@ -33,3 +33,4 @@ export {default as Disease} from './Disease.svg';
 export {default as Add} from './Add.svg';
 export {default as Mobile} from './Mobile.svg';
 export {default as Arrow} from './Arrow.svg';
+export {default as Shoes} from './Shoes.svg';

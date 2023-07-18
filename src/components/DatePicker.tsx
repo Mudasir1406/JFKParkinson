@@ -40,7 +40,6 @@ const DatePicker: React.FunctionComponent<props> = ({setDate, date}) => {
   >([]);
   useEffect(() => {
     const daysData = getMonthDays(monthValues, year);
-    console.log(daysData);
     setDays(daysData);
     setDay(daysData[0].dayLong);
     setpickedDate(daysData[0].date);

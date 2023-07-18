@@ -61,18 +61,22 @@ const PostCard: React.FunctionComponent<props> = ({
             </Text>
           </View>
         </View>
-        <Text style={[styles.postText, {color: theme.colors.outlineVariant}]}>
-          {text}
-        </Text>
-        <Image
-          source={
-            image
-              ? typeof image === 'number'
-                ? image
-                : {uri: image}
-              : images.profileImage
-          }
-          style={styles.postImage}></Image>
+        {text && (
+          <Text style={[styles.postText, {color: theme.colors.outlineVariant}]}>
+            {text}
+          </Text>
+        )}
+        {image && (
+          <Image
+            source={
+              image
+                ? typeof image === 'number'
+                  ? image
+                  : {uri: image}
+                : images.profileImage
+            }
+            style={styles.postImage}></Image>
+        )}
         <View
           style={[
             styles.HorizontalLine,

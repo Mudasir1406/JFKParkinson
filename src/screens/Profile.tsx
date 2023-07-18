@@ -3,7 +3,14 @@ import React, {useState} from 'react';
 import {Back, Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
 import {Dialog, Portal, useTheme, Button} from 'react-native-paper';
 import {fonts, colors} from '../constant';
-import {Block, DietPlan, ProfilePicture, ProfileTextInput} from '../components';
+import {
+  AuthButton,
+  Block,
+  DietPlan,
+  ProfilePicture,
+  ProfileTextInput,
+  StepsCounter,
+} from '../components';
 import {useNavigation} from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
 import {useUserContext} from '../context/UserContex';
@@ -119,6 +126,7 @@ const Profile: React.FunctionComponent<ProfileNavigationType> = ({
           onChangeText={() => {}}
           value=""
         />
+        <AuthButton heading="Save" />
         <Text style={[styles.heading, {color: theme.colors.tertiary}]}>
           Today's Diet Plan
         </Text>
@@ -126,12 +134,16 @@ const Profile: React.FunctionComponent<ProfileNavigationType> = ({
         <Text style={[styles.heading, {color: theme.colors.tertiary}]}>
           Today's Steps
         </Text>
+        <StepsCounter steps={20} onPress={() => {}} />
+        <Text style={[styles.heading, {color: theme.colors.tertiary}]}>
+          Blood Pressure And Heart Rate
+        </Text>
       </Block>
       <Portal>
         <Dialog visible={visible} onDismiss={hideDialog}>
           <Dialog.Title>Upload Image</Dialog.Title>
           <Dialog.Content>
-            <Text>Upload an Image to added to your Story</Text>
+            <Text>Upload an Image to added to your profile</Text>
           </Dialog.Content>
           <Dialog.Actions>
             <Button onPress={openCamera}>Open Camera</Button>

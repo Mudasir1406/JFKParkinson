@@ -1,4 +1,4 @@
-import {Alert, StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View, PermissionsAndroid} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   Block,
@@ -18,6 +18,7 @@ import {isValidEmail} from '../utils/Validator';
 import {signIn} from '../services/Auth';
 import {err} from 'react-native-svg/lib/typescript/xml';
 import {useLoadingContext} from '../context/LoadingContext';
+import GoogleFit, {BucketUnit, Scopes} from 'react-native-google-fit';
 interface props {
   navigation: any;
 }
@@ -41,6 +42,36 @@ const SignIn: React.FunctionComponent<props> = () => {
       ...user,
       [name]: value,
     });
+  };
+  const requestActivityPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACTIVITY_RECOGNITION,
+        {
+          title: 'Physical Permission Needed',
+          message:
+            'JFKParkinsons needs access to your Physical activity ' +
+            'so we can takecare of you',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log(granted);
+        GoogleFit.startRecording(
+          callback => {
+            console.log(callback);
+            // Process data from Google Fit Recording API (no google fit app needed)
+          },
+          ['step', 'activity'],
+        );
+      } else {
+        console.log('Camera permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
   };
   const handleSignIn = () => {
     setLoading(true);
@@ -69,6 +100,29 @@ const SignIn: React.FunctionComponent<props> = () => {
       });
     }
   }, [user]);
+
+  useEffect(() => {
+    const options = {
+      scopes: [
+        Scopes.FITNESS_ACTIVITY_READ,
+        Scopes.FITNESS_ACTIVITY_WRITE,
+        Scopes.FITNESS_BODY_READ,
+        Scopes.FITNESS_BODY_WRITE,
+      ],
+    };
+    GoogleFit.authorize(options)
+      .then(authResult => {
+        if (authResult.success) {
+          console.log(authResult.success);
+          requestActivityPermission();
+        } else {
+          console.log('AUTH_DENIED', authResult.message);
+        }
+      })
+      .catch(() => {
+        console.log('AUTH_ERROR');
+      });
+  }, []);
   return (
     <Block>
       <TopDesign />
