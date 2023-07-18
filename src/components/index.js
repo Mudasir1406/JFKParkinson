@@ -28,3 +28,4 @@ export {default as Toast} from './Toast';
 export {default as Loading} from './Loading';
 export {default as NewsCards} from './NewsCards';
 export {default as StepsCounter} from './StepsCounter';
+export {default as BloodPressure} from './BloodPressure';

@@ -34,3 +34,5 @@ export {default as Add} from './Add.svg';
 export {default as Mobile} from './Mobile.svg';
 export {default as Arrow} from './Arrow.svg';
 export {default as Shoes} from './Shoes.svg';
+export {default as Heartattack} from './Heartattack.svg';
+export {default as Hypertension} from './Hypertension.svg';

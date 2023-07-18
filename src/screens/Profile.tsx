@@ -1,11 +1,12 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Back, Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
 import {Dialog, Portal, useTheme, Button} from 'react-native-paper';
 import {fonts, colors} from '../constant';
 import {
   AuthButton,
   Block,
+  BloodPressure,
   DietPlan,
   ProfilePicture,
   ProfileTextInput,
@@ -17,6 +18,7 @@ import {useUserContext} from '../context/UserContex';
 import {uploadImage} from '../services/Storage';
 import {updateProfilePicture} from '../services/Auth';
 import {ProfileNavigationType} from '../Types/NavigationTypes.types';
+import GoogleFit, {BucketUnit, Scopes} from 'react-native-google-fit';
 
 const Profile: React.FunctionComponent<ProfileNavigationType> = ({
   navigation,
@@ -24,6 +26,17 @@ const Profile: React.FunctionComponent<ProfileNavigationType> = ({
   const theme = useTheme();
   const user = useUserContext();
   const [visible, setVisible] = useState<boolean>(false);
+  const [healthValues, setHealthValues] = useState<{
+    heartRate: number;
+    systolic: number;
+    diastolic: number;
+    day: string;
+  }>({
+    heartRate: 0,
+    systolic: 0,
+    diastolic: 0,
+    day: new Date().toLocaleString('en', {weekday: 'short'}),
+  });
   const hideDialog = () => setVisible(false);
   const openCamera = () => {
     ImagePicker.openCamera({
@@ -63,7 +76,32 @@ const Profile: React.FunctionComponent<ProfileNavigationType> = ({
       .catch(error => console.log(error))
       .finally(() => setVisible(false));
   };
+  var currentDate = new Date();
+  var previousDate = new Date(currentDate);
+  previousDate.setDate(currentDate.getDate() - 1);
+  const options = {
+    startDate: previousDate.toISOString(), // required
+    endDate: new Date().toISOString(), // required
+    bucketUnit: BucketUnit.DAY, // optional - default "DAY". Valid values: "NANOSECOND" | "MICROSECOND" | "MILLISECOND" | "SECOND" | "MINUTE" | "HOUR" | "DAY"
+    bucketInterval: 1, // optional - default 1.
+  };
 
+  async function fetchData() {
+    const heartrate = await GoogleFit.getHeartRateSamples(options);
+    setHealthValues({...healthValues, heartRate: heartrate[0]?.value});
+
+    const bloodpressure = await GoogleFit.getBloodPressureSamples(options);
+    setHealthValues({
+      ...healthValues,
+      systolic: bloodpressure[0]?.systolic,
+      diastolic: bloodpressure[0]?.diastolic,
+      day: bloodpressure[0]?.day,
+    });
+    console.log(heartrate, bloodpressure);
+  }
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <>
       <Block>
@@ -138,6 +176,11 @@ const Profile: React.FunctionComponent<ProfileNavigationType> = ({
         <Text style={[styles.heading, {color: theme.colors.tertiary}]}>
           Blood Pressure And Heart Rate
         </Text>
+        <BloodPressure
+          heartRate={healthValues.heartRate}
+          diastolic={healthValues.diastolic}
+          systolic={healthValues.systolic}
+        />
       </Block>
       <Portal>
         <Dialog visible={visible} onDismiss={hideDialog}>
