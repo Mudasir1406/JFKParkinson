@@ -31,11 +31,13 @@ const Profile: React.FunctionComponent<ProfileNavigationType> = ({
     systolic: number;
     diastolic: number;
     day: string;
+    steps: number;
   }>({
     heartRate: 0,
     systolic: 0,
     diastolic: 0,
     day: new Date().toLocaleString('en', {weekday: 'short'}),
+    steps: 0,
   });
   const hideDialog = () => setVisible(false);
   const openCamera = () => {
@@ -91,13 +93,15 @@ const Profile: React.FunctionComponent<ProfileNavigationType> = ({
     setHealthValues({...healthValues, heartRate: heartrate[0]?.value});
 
     const bloodpressure = await GoogleFit.getBloodPressureSamples(options);
+    const steps = await GoogleFit.getDailyStepCountSamples(options);
     setHealthValues({
       ...healthValues,
       systolic: bloodpressure[0]?.systolic,
       diastolic: bloodpressure[0]?.diastolic,
       day: bloodpressure[0]?.day,
+      steps: steps[0]?.steps[0]?.value,
     });
-    console.log(heartrate, bloodpressure);
+    console.log(heartrate, bloodpressure, steps);
   }
   useEffect(() => {
     fetchData();
@@ -172,7 +176,7 @@ const Profile: React.FunctionComponent<ProfileNavigationType> = ({
         <Text style={[styles.heading, {color: theme.colors.tertiary}]}>
           Today's Steps
         </Text>
-        <StepsCounter steps={20} onPress={() => {}} />
+        <StepsCounter steps={healthValues.steps} onPress={() => {}} />
         <Text style={[styles.heading, {color: theme.colors.tertiary}]}>
           Blood Pressure And Heart Rate
         </Text>

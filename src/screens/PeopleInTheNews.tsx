@@ -6,7 +6,7 @@ import {useTheme} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {Block, PeopleInTheNewsCards} from '../components';
 
-const PeopleInTheNews = () => {
+const PeopleInTheNews: React.FunctionComponent = () => {
   const theme = useTheme();
   const navigation = useNavigation();
   return (

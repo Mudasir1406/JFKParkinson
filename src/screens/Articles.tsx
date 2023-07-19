@@ -15,7 +15,7 @@ import {ArticlesNavigationType} from '../Types/NavigationTypes.types';
 import {getArticals} from '../services/Articals';
 import {GetArticalResponse} from '../Types/Articals';
 
-const Articals = () => {
+const Articals: React.FunctionComponent = () => {
   const theme = useTheme();
   const navigation = useNavigation<ArticlesNavigationType['navigation']>();
   const [articals, setArticals] = useState<GetArticalResponse[] | []>([]);

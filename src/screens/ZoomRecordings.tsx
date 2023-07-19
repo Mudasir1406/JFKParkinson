@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import {colors, fonts} from '../constant';
 import {Block, VedioCard} from '../components';
 
-const ZoomRecordings = () => {
+const ZoomRecordings: React.FunctionComponent = () => {
   const theme = useTheme();
   const navigation = useNavigation();
   return (

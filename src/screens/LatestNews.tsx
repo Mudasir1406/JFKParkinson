@@ -15,7 +15,7 @@ import {ArticlesNavigationType} from '../Types/NavigationTypes.types';
 import {GetNewsResponse} from '../Types/News.types';
 import {getNews} from '../services/LatestNews';
 
-const LatestNews = () => {
+const LatestNews: React.FunctionComponent = () => {
   const theme = useTheme();
   const navigation = useNavigation<ArticlesNavigationType['navigation']>();
   const [news, setNews] = useState<GetNewsResponse[] | []>([]);

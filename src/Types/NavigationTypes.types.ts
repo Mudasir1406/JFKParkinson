@@ -33,6 +33,8 @@ export type RootStackParamsApp={
     CreatePost:any;
     Stories:any;
     Post:any;
+    Notes:any;
+    CreateNote:any;
 }
 
 export type RootBottomTabParams={
@@ -54,7 +56,7 @@ export type RootBottomTabParams={
     };
     Notifications:any;
     CreatePost:any;
-
+   
 
 }
 
@@ -79,6 +81,8 @@ export type NotificationsNavigationType = NativeStackScreenProps<RootStackParams
 export type ArticlesNavigationType = NativeStackScreenProps<RootStackParamsApp, 'Articles'>;
 export type ArticleNavigationType = NativeStackScreenProps<RootStackParamsApp, 'Article'>;
 export type CreatePostNavigationType = NativeStackScreenProps<RootStackParamsApp, 'CreatePost'>;
+export type NotesNavigationType = NativeStackScreenProps<RootStackParamsApp, 'Notes'>;
+export type CreateNoteNavigationType = NativeStackScreenProps<RootStackParamsApp, 'CreateNote'>;
 
 //Bottom Tab Screens
 export type EventsNavigationType = BottomTabScreenProps<RootBottomTabParams, 'Events'>;

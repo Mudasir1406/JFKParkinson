@@ -21,3 +21,5 @@ export {default as Articals} from './Articles';
 export {default as SupportsGroup} from './SupportsGroup';
 export {default as PeopleInTheNews} from './PeopleInTheNews';
 export {default as LatestNews} from './LatestNews';
+export {default as Notes} from './Notes';
+export {default as CreateNote} from './CreateNote';

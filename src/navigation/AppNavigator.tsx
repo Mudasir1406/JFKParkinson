@@ -3,8 +3,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {
   Comments,
+  CreateNote,
   EventDetails,
   LatestNews,
+  Notes,
   Notifications,
   Onboarding,
   PeopleInTheNews,
@@ -51,6 +53,8 @@ const AppNavigator = () => {
       <Stack.Screen name="PeopleInTheNews" component={PeopleInTheNews} />
       <Stack.Screen name="LatestNews" component={LatestNews} />
       <Stack.Screen name="CreatePost" component={CreatePost} />
+      <Stack.Screen name="Notes" component={Notes} />
+      <Stack.Screen name="CreateNote" component={CreateNote} />
     </Stack.Navigator>
   );
 };

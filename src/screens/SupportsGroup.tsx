@@ -8,7 +8,7 @@ import {Back, Design} from '../../assets/svg';
 import {GetSupportData} from '../Types/SupportData.types';
 import {getSupportsGroup} from '../services/SupportGroups';
 
-const SupportsGroup = () => {
+const SupportsGroup: React.FunctionComponent = () => {
   const theme = useTheme();
   const navigation = useNavigation();
   const [supportData, setSupportData] = useState<GetSupportData[] | []>([]);
