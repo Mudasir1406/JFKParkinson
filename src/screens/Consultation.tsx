@@ -12,13 +12,13 @@ import {DoctorsCard, Loading, SponsorCards} from '../components';
 import {Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
 import {useDrawerContext} from '../context/DrawerContex';
 import {DoctorsDataResponse, getDoctorsData} from '../services/consultation';
-import {useNavigation} from '@react-navigation/native';
 import {ConsultationNavigationType} from '../Types/NavigationTypes.types';
 
-const Consultation = () => {
+const Consultation: React.FunctionComponent<ConsultationNavigationType> = ({
+  navigation,
+}) => {
   const {setIsOpen} = useDrawerContext();
   const theme = useTheme();
-  const navigation = useNavigation<ConsultationNavigationType['navigation']>();
   const [doctorsData, setDoctorsData] = useState<DoctorsDataResponse[] | []>(
     [],
   );

@@ -10,11 +10,12 @@ import {
   Dimensions,
   Easing,
   Alert,
+  Image,
+  Pressable,
 } from 'react-native';
 import {useDrawerContext} from '../context/DrawerContex';
 import {useNavigation} from '@react-navigation/native';
-import {Logo} from '../../assets/svg';
-import {fonts} from '../constant';
+import {fonts, images} from '../constant';
 import {AuthButton, Block} from '../components';
 import {HomeNavigationType} from '../Types/NavigationTypes.types';
 import {signOut} from '../services/Auth';
@@ -50,12 +51,6 @@ const DrawerNavigator: React.FC<DrawerModalProps> = () => {
       handleModalClose();
     }
   }, [isOpen]);
-
-  const overlayOpacity = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 0.5],
-  });
-
   const drawerTranslateX = animation.interpolate({
     inputRange: [0, 1],
     outputRange: [-width * 0.7, 0],
@@ -79,9 +74,14 @@ const DrawerNavigator: React.FC<DrawerModalProps> = () => {
       />
       <Animated.View
         style={[styles.drawer, {transform: [{translateX: drawerTranslateX}]}]}>
-        <View style={{alignItems: 'center', marginBottom: 20}}>
-          <Logo />
-        </View>
+        <Pressable
+          style={{alignItems: 'center'}}
+          onPress={() => {
+            setIsOpen(false);
+            navigation.navigate('Home');
+          }}>
+          <Image source={images.logoAnimation} style={styles.logo} />
+        </Pressable>
         <Block>
           <Text
             style={styles.text}
@@ -191,6 +191,10 @@ const styles = StyleSheet.create({
   text: {
     ...fonts.deawerItem,
     lineHeight: 40,
+  },
+  logo: {
+    width: 100,
+    height: 130,
   },
 });
 

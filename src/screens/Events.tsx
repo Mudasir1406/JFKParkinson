@@ -11,19 +11,19 @@ import {
 import {Design} from '../../assets/svg';
 import {Text, useTheme} from 'react-native-paper';
 const {height, width} = Dimensions.get('window');
-import {useNavigation} from '@react-navigation/native';
 import {EventsNavigationType} from '../Types/NavigationTypes.types';
 import {GetMeetingResponse, getMeetings} from '../services/meetings';
 import moment from 'moment';
 
-const Events = () => {
+const Events: React.FunctionComponent<EventsNavigationType> = ({
+  navigation,
+}) => {
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const theme = useTheme();
   const [date, setDate] = useState<string>(
     moment().format('dddd, MMM D, YYYY'),
   );
   const [meetingData, setMeetingData] = useState<GetMeetingResponse[] | []>([]);
-  const navigation = useNavigation<EventsNavigationType['navigation']>();
   const handleDate = (e: string) => {
     setDate(e);
   };
@@ -41,7 +41,6 @@ const Events = () => {
       <View
         style={[
           styles.designContanier,
-
           {backgroundColor: theme.colors.tertiaryContainer},
         ]}>
         <View style={styles.design}>

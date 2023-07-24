@@ -7,6 +7,7 @@ import SplashScreen from 'react-native-splash-screen';
 import UserContextProvider from './src/context/UserContex';
 import DrawerContextProvider from './src/context/DrawerContex';
 import LoadingContextProvider from './src/context/LoadingContext';
+import notifee, {EventType} from '@notifee/react-native';
 function App(): JSX.Element {
   const [isThemeDark, setIsThemeDark] = React.useState(false);
   let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
@@ -23,6 +24,18 @@ function App(): JSX.Element {
     }),
     [toggleTheme, isThemeDark],
   );
+  useEffect(() => {
+    return notifee.onForegroundEvent(({type, detail}) => {
+      switch (type) {
+        case EventType.DISMISSED:
+          console.log('User dismissed notification', detail.notification);
+          break;
+        case EventType.PRESS:
+          console.log('User pressed notification', detail.notification);
+          break;
+      }
+    });
+  }, []);
   return (
     <LoadingContextProvider>
       <DrawerContextProvider>

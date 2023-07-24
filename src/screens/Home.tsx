@@ -45,7 +45,6 @@ const Home: React.FunctionComponent<HomeNavigationType> = () => {
   const {isOpen, setIsOpen} = useDrawerContext();
   const navigation = useNavigation<HomeNavigationType['navigation']>();
   const [meetingData, setMeetingData] = useState<GetMeetingResponse[] | []>([]);
-  const [channelId, setChannelId] = useState<string>('');
   var currentDate = new Date();
   var previousDate = new Date(currentDate);
   previousDate.setDate(currentDate.getDate() - 1);
@@ -63,16 +62,6 @@ const Home: React.FunctionComponent<HomeNavigationType> = () => {
     notifee.requestPermission().then(value => {
       console.log(value);
     });
-  }, []);
-  useEffect(() => {
-    notifee
-      .createChannel({
-        id: 'default',
-        name: 'Default Channel',
-        visibility: AndroidVisibility.PUBLIC,
-        importance: AndroidImportance.HIGH,
-      })
-      .then(channelId => setChannelId(channelId));
   }, []);
 
   useEffect(() => {
@@ -120,8 +109,9 @@ const Home: React.FunctionComponent<HomeNavigationType> = () => {
         </Pressable>
         <Pressable
           onPress={() => {
-            onDisplayNotification(channelId).then(() =>
-              navigation.navigate('Notifications'),
+            onDisplayNotification().then(
+              () => {},
+              //navigation.navigate('Notifications'),
             );
           }}>
           <NotificationIcon

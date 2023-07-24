@@ -16,16 +16,16 @@ import {colors, fonts} from '../constant';
 import {Add, Design, DrawerIcon, NotificationIcon} from '../../assets/svg';
 import {useDrawerContext} from '../context/DrawerContex';
 import {Loading, StoryCard} from '../components';
-import {useNavigation} from '@react-navigation/native';
 import {StoriesNavigationType} from '../Types/NavigationTypes.types';
 import {getAllStories} from '../services/Story';
 import {GetStoryDataType} from '../Types/Story.types';
 import {formatDate} from '../utils/date';
 const {width, height} = Dimensions.get('window');
 type ScrollViewNativeEvent = NativeSyntheticEvent<NativeScrollEvent>;
-const Stories = () => {
+const Stories: React.FunctionComponent<StoriesNavigationType> = ({
+  navigation,
+}) => {
   const theme = useTheme();
-  const navigation = useNavigation<StoriesNavigationType['navigation']>();
   const {setIsOpen} = useDrawerContext();
   const [isExtended, setIsExtended] = React.useState(true);
   const [stories, setStories] = useState<GetStoryDataType[] | []>([]);
