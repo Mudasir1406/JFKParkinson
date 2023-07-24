@@ -33,14 +33,19 @@ import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {HomeNavigationType} from '../Types/NavigationTypes.types';
 import {GetMeetingResponse, getMeetings} from '../services/meetings';
 import moment from 'moment';
-
+import notifee, {
+  AndroidImportance,
+  AndroidVisibility,
+} from '@notifee/react-native';
 import GoogleFit, {BucketUnit, Scopes} from 'react-native-google-fit';
 import googleFit from 'react-native-google-fit';
+import {onDisplayNotification} from '../services/Notifications';
 
 const Home: React.FunctionComponent<HomeNavigationType> = () => {
   const {isOpen, setIsOpen} = useDrawerContext();
   const navigation = useNavigation<HomeNavigationType['navigation']>();
   const [meetingData, setMeetingData] = useState<GetMeetingResponse[] | []>([]);
+  const [channelId, setChannelId] = useState<string>('');
   var currentDate = new Date();
   var previousDate = new Date(currentDate);
   previousDate.setDate(currentDate.getDate() - 1);
@@ -54,6 +59,22 @@ const Home: React.FunctionComponent<HomeNavigationType> = () => {
   const theme = useTheme();
   const {width, height} = Dimensions.get('window');
   //moment().format('dddd, MMM D, YYYY')
+  useEffect(() => {
+    notifee.requestPermission().then(value => {
+      console.log(value);
+    });
+  }, []);
+  useEffect(() => {
+    notifee
+      .createChannel({
+        id: 'default',
+        name: 'Default Channel',
+        visibility: AndroidVisibility.PUBLIC,
+        importance: AndroidImportance.HIGH,
+      })
+      .then(channelId => setChannelId(channelId));
+  }, []);
+
   useEffect(() => {
     getMeetings('Wednesday, Jul 12, 2023').then(
       (data: GetMeetingResponse[] | []) => {
@@ -97,7 +118,12 @@ const Home: React.FunctionComponent<HomeNavigationType> = () => {
           <DrawerIcon width={30} height={30} />
           <Text style={styles.text}>Home</Text>
         </Pressable>
-        <Pressable onPress={() => navigation.navigate('Notifications')}>
+        <Pressable
+          onPress={() => {
+            onDisplayNotification(channelId).then(() =>
+              navigation.navigate('Notifications'),
+            );
+          }}>
           <NotificationIcon
             width={30}
             height={30}

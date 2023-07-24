@@ -10,4 +10,5 @@ export default images = {
   onbordingImage: require('../../assets/OnboardingImage.png'),
   logoGif: require('../../assets/Logo.gif'),
   profileImage: require('../../assets/profileImage.jpg'),
+  logoAnimation: require('../../assets/LogoAnimation.gif'),
 };

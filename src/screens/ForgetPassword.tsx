@@ -1,8 +1,8 @@
-import {StyleSheet, View, Alert} from 'react-native';
+import {StyleSheet, View, Alert, Image} from 'react-native';
 import React, {useState} from 'react';
 import {Block, AuthTextInput, AuthButton, TouchableText} from '../components';
 import {Text, useTheme} from 'react-native-paper';
-import {fonts} from '../constant';
+import {fonts, images} from '../constant';
 import {Logo, TopDesign} from '../../assets/svg';
 import {useNavigation} from '@react-navigation/native';
 import {ForgetPasswordNavigationType} from '../Types/NavigationTypes.types';
@@ -43,7 +43,7 @@ const ForgetPassword: React.FunctionComponent<props> = () => {
         Forget Password
       </Text>
       <View style={styles.logo}>
-        <Logo width={140} height={130} />
+        <Image source={images.logoAnimation} style={styles.logoImage} />
       </View>
       <TouchableText
         text="Please enter your email and you will recive a password reset link if your account exist"
@@ -102,5 +102,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
+  },
+  logoImage: {
+    width: 170,
+    height: 140,
   },
 });

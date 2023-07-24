@@ -16,7 +16,11 @@ import Toast from 'react-native-toast-message';
 import {toastConfig} from '../utils/toastConfig';
 import {images} from '../constant';
 import {Text} from 'react-native-paper';
-
+import notifee, {
+  AndroidImportance,
+  AndroidVisibility,
+  EventType,
+} from '@notifee/react-native';
 export default AppContainer = ({theme}) => {
   const {user, setUser} = useUserContext();
   const {isOpen} = useDrawerContext();
@@ -35,7 +39,18 @@ export default AppContainer = ({theme}) => {
 
     setLoading(false);
   };
-
+  useEffect(() => {
+    return notifee.onForegroundEvent(({type, detail}) => {
+      switch (type) {
+        case EventType.DISMISSED:
+          console.log('User dismissed notification', detail.notification);
+          break;
+        case EventType.PRESS:
+          console.log('User pressed notification', detail.notification);
+          break;
+      }
+    });
+  }, []);
   return (
     <>
       <NavigationContainer theme={theme}>

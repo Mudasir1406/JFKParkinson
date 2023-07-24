@@ -1,20 +1,42 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {Block, Note} from '../components';
+import {Block, Loading, Note} from '../components';
 import {AnimatedFAB, useTheme} from 'react-native-paper';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {NotesNavigationType} from '../Types/NavigationTypes.types';
 import {Add, Back, Design} from '../../assets/svg';
 import {colors, fonts} from '../constant';
+import {getNotesFromFirestore} from '../services/Notes';
+import {useUserContext} from '../context/UserContex';
+import {GetNotesDataType} from '../Types/Notes.types';
 type props = {};
+type ScrollViewNativeEvent = NativeSyntheticEvent<NativeScrollEvent>;
+
 const Notes: React.FunctionComponent<props> = () => {
   const theme = useTheme();
+  const {user} = useUserContext();
   const navigation = useNavigation<NotesNavigationType['navigation']>();
-  const [isExtended, setIsExtended] = useState<boolean>(false);
-  useEffect(() => {
-    const timer = setTimeout(() => setIsExtended(!isExtended), 5000);
-    return () => clearTimeout(timer);
-  }, [isExtended]);
+  const [isExtended, setIsExtended] = useState<boolean>(true);
+  const [notes, setNotes] = useState<GetNotesDataType[] | []>([]);
+  const onScroll = (nativeEvent: ScrollViewNativeEvent) => {
+    const currentScrollPosition =
+      Math.floor(nativeEvent?.nativeEvent?.contentOffset?.y) ?? 0;
+
+    setIsExtended(currentScrollPosition <= 0);
+  };
+  useFocusEffect(
+    React.useCallback(() => {
+      if (user) getNotesFromFirestore(user?.uid).then(notes => setNotes(notes));
+    }, []),
+  );
   return (
     <>
       <View style={{marginBottom: 90}}>
@@ -35,38 +57,27 @@ const Notes: React.FunctionComponent<props> = () => {
           </View>
         </View>
       </View>
-      <Block>
-        <Note
-          heading="This Is My First Notes"
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque felis arcu, efficitur nec commodo non, posuere vel ex. Etiam luctus odio sed lacus laoreet vestibulum."
-          color={theme.colors.primaryContainer}
-        />
-        <Note
-          heading="This Is My First Notes"
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque felis arcu, efficitur nec commodo non, posuere vel ex. Etiam luctus odio sed lacus laoreet vestibulum."
-          color={theme.colors.secondaryContainer}
-        />
-        <Note
-          heading="This Is My First Notes"
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque felis arcu, efficitur nec commodo non, posuere vel ex. Etiam luctus odio sed lacus laoreet vestibulum."
-          color={theme.colors.tertiaryContainer}
-        />
-        <Note
-          heading="This Is My First Notes"
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque felis arcu, efficitur nec commodo non, posuere vel ex. Etiam luctus odio sed lacus laoreet vestibulum."
-          color={theme.colors.primaryContainer}
-        />
-        <Note
-          heading="This Is My First Notes"
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque felis arcu, efficitur nec commodo non, posuere vel ex. Etiam luctus odio sed lacus laoreet vestibulum."
-          color={theme.colors.secondaryContainer}
-        />
-        <Note
-          heading="This Is My First Notes"
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque felis arcu, efficitur nec commodo non, posuere vel ex. Etiam luctus odio sed lacus laoreet vestibulum."
-          color={theme.colors.tertiaryContainer}
-        />
-      </Block>
+      <FlatList
+        data={notes}
+        onScroll={onScroll}
+        contentContainerStyle={{paddingBottom: 100}}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={item => `${item.createdAt.seconds}-${item.userUid}`}
+        renderItem={({item, index}) => (
+          <Note
+            text={item.description}
+            heading={item.title}
+            color={
+              index % 2
+                ? theme.colors.primaryContainer
+                : index % 3
+                ? theme.colors.secondaryContainer
+                : theme.colors.tertiaryContainer
+            }
+          />
+        )}
+        ListEmptyComponent={() => <Loading />}
+      />
       <AnimatedFAB
         icon={props => <Add />}
         label="Write a Note  "

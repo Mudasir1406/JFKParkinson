@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   Block,
@@ -9,7 +9,7 @@ import {
 } from '../components';
 import Heading from '../components/Heading';
 import {HelperText, Text, useTheme} from 'react-native-paper';
-import {fonts} from '../constant';
+import {fonts, images} from '../constant';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {Logo, TopDesign} from '../../assets/svg';
 import {useNavigation} from '@react-navigation/native';
@@ -76,7 +76,7 @@ const SignUp: React.FunctionComponent<props> = () => {
         Sign up
       </Text>
       <View style={styles.logo}>
-        <Logo width={140} height={130} />
+        <Image source={images.logoAnimation} style={styles.logoImage} />
       </View>
       <Heading heading="Welcome" />
       <AuthTextInput
@@ -182,7 +182,6 @@ const styles = StyleSheet.create({
   logo: {
     alignItems: 'center',
     marginHorizontal: 20,
-    top: -30,
   },
   screenHeading: {
     ...fonts.screenHeading,
@@ -190,6 +189,7 @@ const styles = StyleSheet.create({
     left: '37%',
     top: '4%',
   },
+
   bottomButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -197,4 +197,8 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   helper: {alignSelf: 'center'},
+  logoImage: {
+    width: 160,
+    height: 180,
+  },
 });

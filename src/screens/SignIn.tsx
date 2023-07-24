@@ -1,4 +1,4 @@
-import {Alert, StyleSheet, View, PermissionsAndroid} from 'react-native';
+import {Alert, StyleSheet, View, PermissionsAndroid, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   Block,
@@ -9,7 +9,7 @@ import {
 } from '../components';
 import Heading from '../components/Heading';
 import {Snackbar, Text, useTheme} from 'react-native-paper';
-import {fonts} from '../constant';
+import {fonts, images} from '../constant';
 import {Logo, TopDesign} from '../../assets/svg';
 import {useNavigation} from '@react-navigation/native';
 import {SignInNavigationType} from '../Types/NavigationTypes.types';
@@ -130,7 +130,7 @@ const SignIn: React.FunctionComponent<props> = () => {
         Sign In
       </Text>
       <View style={styles.logo}>
-        <Logo width={140} height={130} />
+        <Image source={images.logoAnimation} style={styles.logoImage} />
       </View>
       <Heading heading="Welcome" />
       <AuthTextInput
@@ -196,7 +196,6 @@ const styles = StyleSheet.create({
   logo: {
     alignItems: 'center',
     marginHorizontal: 20,
-    top: -30,
   },
   screenHeading: {
     ...fonts.screenHeading,
@@ -210,4 +209,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 20,
   },
+  logoImage: {width: 170, height: 140},
 });

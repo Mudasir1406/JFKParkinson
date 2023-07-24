@@ -14,14 +14,12 @@ import {Button, Dialog, HelperText, Portal, useTheme} from 'react-native-paper';
 import {colors, fonts, images} from '../constant';
 import {Back, Design} from '../../assets/svg';
 import {AuthButton, Block, ProfileTextInput} from '../components';
-import ImagePicker from 'react-native-image-crop-picker';
-import {useNavigation} from '@react-navigation/native';
-import {newStoryType} from '../Types/Story.types';
-import {addStoryToFirestore} from '../services/Story';
 import {useUserContext} from '../context/UserContex';
 import {useLoadingContext} from '../context/LoadingContext';
 import Toast from 'react-native-toast-message';
 import {CreateNoteNavigationType} from '../Types/NavigationTypes.types';
+import {addNotesToFirestore} from '../services/Notes';
+import {newNotesType} from '../Types/Notes.types';
 const {width, height} = Dimensions.get('window');
 
 const CreateNote: React.FunctionComponent<CreateNoteNavigationType> = ({
@@ -33,8 +31,7 @@ const CreateNote: React.FunctionComponent<CreateNoteNavigationType> = ({
   const [visible, setVisible] = useState<boolean>(false);
   const {user} = useUserContext();
 
-  const [newStory, setNewStory] = useState<newStoryType>({
-    image: undefined,
+  const [newNote, setNewNote] = useState<newNotesType>({
     title: '',
     description: '',
   });
@@ -46,6 +43,7 @@ const CreateNote: React.FunctionComponent<CreateNoteNavigationType> = ({
   });
 
   const handlePostNotes = () => {
+    setLoading(true);
     let errTemp = {
       titleVisible: false,
       titleText: '',
@@ -53,29 +51,42 @@ const CreateNote: React.FunctionComponent<CreateNoteNavigationType> = ({
       descriptionText: '',
     };
 
-    if (newStory.title.length <= 0) {
+    if (newNote.title.length <= 0) {
       errTemp = {
         ...errTemp,
         titleText: 'Title is Required',
         titleVisible: true,
       };
     }
-    if (newStory.description.length <= 0) {
+    if (newNote.description.length <= 0) {
       errTemp = {
         ...errTemp,
         descriptionText: 'Note is Required',
         descriptionVisible: true,
       };
     }
-    if (newStory.description.length > 1000) {
+    if (newNote.description.length > 1000) {
       errTemp = {
         ...errTemp,
         descriptionText: 'Story can not be greater than 1000 characters',
         descriptionVisible: true,
       };
     }
-
     setErrorValidation(errTemp);
+    if (newNote.title.length > 0 && newNote.description.length > 0) {
+      addNotesToFirestore(newNote.title, newNote.description, user)
+        .then(res => {
+          Toast.show({
+            type: 'tomatoToast',
+            text1: 'Notes Added Successfully!!',
+          });
+          navigation.goBack();
+        })
+        .catch(err => console.log(err))
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
   };
 
   return (
@@ -100,21 +111,21 @@ const CreateNote: React.FunctionComponent<CreateNoteNavigationType> = ({
           </View>
           <TouchableOpacity onPress={handlePostNotes}>
             <Text style={[styles.text, {color: theme.colors.primary}]}>
-              Add
+              Save
             </Text>
           </TouchableOpacity>
         </View>
       </View>
       <Block alignItems="center" viewStyle={{top: 20}}>
         <ProfileTextInput
-          placeholder="Enter Title of your story"
+          placeholder="Enter Title of your Note"
           onChangeText={e =>
-            setNewStory({
-              ...newStory,
+            setNewNote({
+              ...newNote,
               title: e,
             })
           }
-          value={newStory.title}
+          value={newNote.title}
         />
         <HelperText
           type="error"
@@ -127,11 +138,11 @@ const CreateNote: React.FunctionComponent<CreateNoteNavigationType> = ({
           <TextInput
             style={[styles.description, {borderColor: theme.colors.outline}]}
             multiline={true}
-            placeholder="let them know about Your Story..."
-            value={newStory.description}
+            placeholder="Write something important..."
+            value={newNote.description}
             onChangeText={e =>
-              setNewStory({
-                ...newStory,
+              setNewNote({
+                ...newNote,
                 description: e,
               })
             }
@@ -155,7 +166,7 @@ const CreateNote: React.FunctionComponent<CreateNoteNavigationType> = ({
             visible={true}
             padding="none"
             style={styles.helper}>
-            {newStory.description.length}/999
+            {newNote.description.length}/999
           </HelperText>
         </View>
       </Block>
