@@ -107,13 +107,7 @@ const Home: React.FunctionComponent<HomeNavigationType> = () => {
           <DrawerIcon width={30} height={30} />
           <Text style={styles.text}>Home</Text>
         </Pressable>
-        <Pressable
-          onPress={() => {
-            onDisplayNotification().then(
-              () => {},
-              //navigation.navigate('Notifications'),
-            );
-          }}>
+        <Pressable onPress={() => navigation.navigate('Notifications')}>
           <NotificationIcon
             width={30}
             height={30}

@@ -6,27 +6,46 @@ import {
   Text,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Calender, Design, Location, Time, Zoom} from '../../assets/svg';
-import {BackButton, Block} from '../components';
+import {AuthButton, BackButton, Block} from '../components';
 import {colors, fonts} from '../constant';
 import Animated, {Easing, FadeInDown} from 'react-native-reanimated';
 import {useTheme} from 'react-native-paper';
 import {useRoute} from '@react-navigation/native';
 import {EventDetailsNavigationType} from '../Types/NavigationTypes.types';
+import {
+  onCreateTriggerNotification,
+  onDisplayNotification,
+} from '../services/Notifications';
+import {GetMeetingResponse, getMeetingDetailsById} from '../services/meetings';
+import {useLoadingContext} from '../context/LoadingContext';
+import {convertDateStringToDate} from '../utils/date';
 
 type props = {};
 const {height, width} = Dimensions.get('window');
 
 const EventDetails: React.FunctionComponent<props> = () => {
   const theme = useTheme();
+  const {setLoading, loading} = useLoadingContext();
   const route = useRoute<EventDetailsNavigationType['route']>();
+  const [data, setData] = useState<GetMeetingResponse>();
+
+  useEffect(() => {
+    setLoading(true);
+    getMeetingDetailsById(route.params.details.id)
+      .then(data => {
+        setData(data);
+      })
+      .catch(err => console.log(err))
+      .finally(() => setLoading(false));
+  }, []);
   const handleLinkPress = async () => {
-    const supported = await Linking.canOpenURL(route.params.details.zoomlink);
-    // if (supported) {
-    await Linking.openURL(route.params.details.zoomlink);
-    // }
+    if (data?.zoomlink) {
+      await Linking.openURL(data.zoomlink);
+    }
   };
+
   return (
     <>
       <ImageBackground
@@ -45,7 +64,7 @@ const EventDetails: React.FunctionComponent<props> = () => {
         <Animated.Text
           style={styles.heading}
           entering={FadeInDown.duration(2000).easing(Easing.bounce)}>
-          {route.params.details.heading}
+          {data?.heading}
         </Animated.Text>
         <Animated.Text
           style={styles.heading}
@@ -58,7 +77,7 @@ const EventDetails: React.FunctionComponent<props> = () => {
             entering={FadeInDown.duration(2000).easing(Easing.bounce)}>
             <Calender />
             <Animated.Text style={[styles.date, {color: theme.colors.primary}]}>
-              {route.params.details.date}
+              {data?.date}
             </Animated.Text>
           </Animated.View>
           <Animated.View
@@ -67,25 +86,25 @@ const EventDetails: React.FunctionComponent<props> = () => {
             <Time />
             <Animated.Text
               style={[styles.time, {color: theme.colors.outlineVariant}]}>
-              {route.params.details.time}
+              {data?.time}
             </Animated.Text>
           </Animated.View>
         </View>
-        {route.params.details?.location ? (
+        {data?.location ? (
           <Animated.View
             entering={FadeInDown.duration(2000).easing(Easing.bounce)}
             style={styles.linkContanier}>
             <Location />
             <Animated.Text
               style={[styles.location, {color: theme.colors.outlineVariant}]}>
-              {route.params.details.location}
+              {data.location}
             </Animated.Text>
           </Animated.View>
         ) : (
           <></>
         )}
 
-        {route.params.details.zoomlink ? (
+        {data?.zoomlink ? (
           <View style={styles.linkContanier}>
             <Zoom />
             <Animated.Text
@@ -97,24 +116,44 @@ const EventDetails: React.FunctionComponent<props> = () => {
               entering={FadeInDown.duration(2000).easing(Easing.bounce)}
               onPress={handleLinkPress}
               style={[styles.location, {color: theme.colors.tertiary}]}>
-              {route.params.details.zoomlink}
+              {data.zoomlink}
             </Animated.Text>
           </View>
         ) : (
           <></>
         )}
-        {route.params.details.note ? (
+        {data?.note ? (
           <Animated.View
             entering={FadeInDown.duration(2000).easing(Easing.bounce)}
             style={styles.linkContanier}>
             <Animated.Text
               style={[styles.location, {color: theme.colors.outlineVariant}]}>
-              Note: {route.params.details.note}
+              Note: {data.note}
             </Animated.Text>
           </Animated.View>
         ) : (
           <></>
         )}
+        <AuthButton
+          heading="Register"
+          disabled={
+            new Date().getTime() > convertDateStringToDate(data?.date).getTime()
+          }
+          onPress={() => {
+            onDisplayNotification(
+              'Meeting Registered Successfully',
+              `${data?.heading} ${data?.date}`,
+            );
+            if (data?.date) {
+              const date = convertDateStringToDate(data?.date);
+              onCreateTriggerNotification(
+                date,
+                'Meeting Reminder',
+                `${data?.heading} ${data?.date}`,
+              );
+            }
+          }}
+        />
       </Block>
     </>
   );

@@ -1,11 +1,11 @@
 
-import notifee, { AndroidImportance, AndroidVisibility } from '@notifee/react-native';
+import notifee, { AndroidImportance, AndroidVisibility, TimestampTrigger, TriggerType } from '@notifee/react-native';
 import messaging from '@react-native-firebase/messaging';
 
 import {PermissionsAndroid, Platform} from 'react-native';
 
 
-export const  onDisplayNotification=async()=> {
+export const  onDisplayNotification=async(title:string,body:string)=> {
     // Request permissions (required for iOS)
     notifee
       .createChannel({
@@ -15,13 +15,12 @@ export const  onDisplayNotification=async()=> {
         importance: AndroidImportance.HIGH,
       })
       .then(channelId =>  notifee.displayNotification({
-        title: 'Notification Title',
-        body: 'Main body content of the notification',
+        title: title,
+        body: body,
         android: {
           channelId,
           importance: AndroidImportance.HIGH,
-          // optional, defaults to 'ic_launcher'.
-          // pressAction is needed if you want the notification to open the app when pressed
+          
           pressAction: {
             id: 'default',
           },
@@ -53,4 +52,23 @@ export const  onDisplayNotification=async()=> {
       PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS).then(status=>console.log("status",status))
     }
    
+  }
+
+  export const onCreateTriggerNotification=async(date:Date,title:string,body:string)=> {
+    const trigger: TimestampTrigger = {
+      type: TriggerType.TIMESTAMP,
+      timestamp: date.getTime(), 
+    };
+
+    // Create a trigger notification
+    await notifee.createTriggerNotification(
+      {
+        title: title,
+        body: body,
+        android: {
+          channelId:'default',
+        },
+      },
+      trigger,
+    );
   }

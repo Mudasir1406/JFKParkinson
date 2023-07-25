@@ -52,3 +52,21 @@ export function getYearMonths(year: number): { month: string; shortName: string;
   
     return date.toLocaleString('en-US', options);
   }
+
+  export function convertDateStringToDate(dateString: string): Date {
+    const months: { [key: string]: number } = {
+      Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
+      Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
+    };
+  
+    // Split the input date string by comma and space to extract individual components.
+    const [, month, dayNumber, year] = dateString.split(' ');
+  
+    // Convert the month name to its corresponding numeric value using the months object.
+    const monthIndex = months[month];
+  
+    // Create the Date object using the components.
+    const dateObject = new Date(parseInt(year), monthIndex, parseInt(dayNumber));
+  
+    return dateObject;
+  }

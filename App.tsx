@@ -11,6 +11,7 @@ import notifee, {EventType} from '@notifee/react-native';
 import {Alert} from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 import {
+  onDisplayNotification,
   registerDevice,
   requestUserPermission,
 } from './src/services/Notifications';
@@ -36,21 +37,25 @@ function App(): JSX.Element {
   useEffect(() => {
     registerDevice();
   }, []);
-  // useEffect(() => {
-  //   return notifee.onForegroundEvent(({type, detail}) => {
-  //     switch (type) {
-  //       case EventType.DISMISSED:
-  //         console.log('User dismissed notification', detail.notification);
-  //         break;
-  //       case EventType.PRESS:
-  //         console.log('User pressed notification', detail.notification);
-  //         break;
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    return notifee.onForegroundEvent(({type, detail}) => {
+      switch (type) {
+        case EventType.DISMISSED:
+          console.log('User dismissed notification', detail.notification);
+          break;
+        case EventType.PRESS:
+          console.log('User pressed notification', detail.notification);
+          break;
+      }
+    });
+  }, []);
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+      if (remoteMessage.notification?.title && remoteMessage.notification?.body)
+        onDisplayNotification(
+          remoteMessage.notification?.title,
+          remoteMessage.notification?.body,
+        );
     });
 
     return unsubscribe;
