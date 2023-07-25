@@ -1,5 +1,9 @@
 
 import notifee, { AndroidImportance, AndroidVisibility } from '@notifee/react-native';
+import messaging from '@react-native-firebase/messaging';
+
+import {PermissionsAndroid, Platform} from 'react-native';
+
 
 export const  onDisplayNotification=async()=> {
     // Request permissions (required for iOS)
@@ -24,5 +28,29 @@ export const  onDisplayNotification=async()=> {
         },
       }));
     // Display a notification
+  }
+
+  export const registerDevice=async ()=>{
+    await messaging().registerDeviceForRemoteMessages()
+    // Get the token
+    const token = await messaging().getToken();
+    console.log(token)
+  }
+
+  export const requestUserPermission=async()=> {
+    if(Platform.OS==='ios')
+    {
+      const authStatus = await messaging().requestPermission();
+      const enabled =
+        authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+        authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    
+      if (enabled) {
+        console.log('Authorization status:', authStatus);
+      }
+    }
+    else{
+      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS).then(status=>console.log("status",status))
+    }
    
   }

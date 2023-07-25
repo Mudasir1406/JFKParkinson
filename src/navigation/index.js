@@ -3,9 +3,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {useUserContext} from '../context/UserContex';
 import auth from '@react-native-firebase/auth';
 import {StyleSheet, View, Image} from 'react-native';
-// FireBase Auth
-
-// //import navigators
 import AppNavigator from './AppNavigator';
 import AuthNavigator from './AuthNavigator';
 import DrawerNavigator from './DrawerNavigator';
@@ -15,12 +12,8 @@ import {BlurView} from '@react-native-community/blur';
 import Toast from 'react-native-toast-message';
 import {toastConfig} from '../utils/toastConfig';
 import {images} from '../constant';
-import {Text} from 'react-native-paper';
-import notifee, {
-  AndroidImportance,
-  AndroidVisibility,
-  EventType,
-} from '@notifee/react-native';
+import messaging from '@react-native-firebase/messaging';
+
 export default AppContainer = ({theme}) => {
   const {user, setUser} = useUserContext();
   const {isOpen} = useDrawerContext();
@@ -39,18 +32,9 @@ export default AppContainer = ({theme}) => {
 
     setLoading(false);
   };
-  useEffect(() => {
-    return notifee.onForegroundEvent(({type, detail}) => {
-      switch (type) {
-        case EventType.DISMISSED:
-          console.log('User dismissed notification', detail.notification);
-          break;
-        case EventType.PRESS:
-          console.log('User pressed notification', detail.notification);
-          break;
-      }
-    });
-  }, []);
+
+  const [initialRoute, setInitialRoute] = useState('Home');
+
   return (
     <>
       <NavigationContainer theme={theme}>
