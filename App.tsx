@@ -9,7 +9,6 @@ import DrawerContextProvider from './src/context/DrawerContex';
 import LoadingContextProvider from './src/context/LoadingContext';
 import notifee, {EventType} from '@notifee/react-native';
 import {Alert} from 'react-native';
-import messaging from '@react-native-firebase/messaging';
 import {
   onDisplayNotification,
   registerDevice,
@@ -36,54 +35,6 @@ function App(): JSX.Element {
   }, []);
   useEffect(() => {
     registerDevice();
-  }, []);
-  useEffect(() => {
-    return notifee.onForegroundEvent(({type, detail}) => {
-      switch (type) {
-        case EventType.DISMISSED:
-          console.log('User dismissed notification', detail.notification);
-          break;
-        case EventType.PRESS:
-          console.log('User pressed notification', detail.notification);
-          break;
-      }
-    });
-  }, []);
-  useEffect(() => {
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      if (remoteMessage.notification?.title && remoteMessage.notification?.body)
-        onDisplayNotification(
-          remoteMessage.notification?.title,
-          remoteMessage.notification?.body,
-        );
-    });
-
-    return unsubscribe;
-  }, []);
-
-  useEffect(() => {
-    // Assume a message-notification contains a "type" property in the data payload of the screen to open
-
-    messaging().onNotificationOpenedApp(remoteMessage => {
-      console.log(
-        'Notification caused app to open from background state:',
-        remoteMessage.notification,
-      );
-    });
-
-    // Check whether an initial notification is available
-    messaging()
-      .getInitialNotification()
-      .then(remoteMessage => {
-        if (remoteMessage) {
-          console.log(
-            'Notification caused app to open from quit state:',
-            remoteMessage.notification,
-          );
-          //setInitialRoute(remoteMessage.data.type); // e.g. "Settings"
-        }
-        //setLoading(false);
-      });
   }, []);
 
   return (

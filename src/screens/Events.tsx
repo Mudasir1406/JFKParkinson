@@ -85,7 +85,7 @@ const Events: React.FunctionComponent<EventsNavigationType> = ({
                     time={item.time}
                     title={item.heading}
                     onPress={() =>
-                      navigation.navigate('EventDetails', {details: item})
+                      navigation.navigate('EventDetails', {id: item.id})
                     }
                   />
                 </Animated.View>

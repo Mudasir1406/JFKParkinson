@@ -30,12 +30,17 @@ const EventDetails: React.FunctionComponent<props> = () => {
   const {setLoading, loading} = useLoadingContext();
   const route = useRoute<EventDetailsNavigationType['route']>();
   const [data, setData] = useState<GetMeetingResponse>();
-
+  const [buttonDisable, setButtonDisable] = useState<boolean>(true);
   useEffect(() => {
     setLoading(true);
-    getMeetingDetailsById(route.params.details.id)
+    getMeetingDetailsById(route.params.id?.trim())
       .then(data => {
         setData(data);
+        if (
+          new Date().getTime() > convertDateStringToDate(data?.date).getTime()
+        ) {
+          setButtonDisable(true);
+        }
       })
       .catch(err => console.log(err))
       .finally(() => setLoading(false));
@@ -136,13 +141,12 @@ const EventDetails: React.FunctionComponent<props> = () => {
         )}
         <AuthButton
           heading="Register"
-          disabled={
-            new Date().getTime() > convertDateStringToDate(data?.date).getTime()
-          }
+          disabled={buttonDisable}
           onPress={() => {
             onDisplayNotification(
               'Meeting Registered Successfully',
               `${data?.heading} ${data?.date}`,
+              route.params.id,
             );
             if (data?.date) {
               const date = convertDateStringToDate(data?.date);

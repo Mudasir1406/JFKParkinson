@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {
@@ -16,17 +16,81 @@ import {
   TermsAndConditions,
   ZoomRecordings,
 } from '../screens';
-import {RootStackParamsApp} from '../Types/NavigationTypes.types';
+import {
+  HomeNavigationType,
+  RootStackParamsApp,
+} from '../Types/NavigationTypes.types';
 import BottomTab from './BottomTabNavigator';
 import CreateStories from '../screens/CreateStory';
 import PrivacyPolicy from '../screens/PravicyPolicy';
 import Articles from '../screens/Articles';
 import Article from '../screens/Article';
 import CreatePost from '../screens/CreatePost';
+import {onDisplayNotification} from '../services/Notifications';
+import messaging from '@react-native-firebase/messaging';
+import notifee, {EventType} from '@notifee/react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator<RootStackParamsApp>();
 
 const AppNavigator = () => {
+  const navigation = useNavigation<HomeNavigationType['navigation']>();
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      if (
+        remoteMessage.notification?.title &&
+        remoteMessage.notification?.body &&
+        remoteMessage?.data?.id
+      )
+        onDisplayNotification(
+          remoteMessage.notification?.title,
+          remoteMessage.notification?.body,
+          remoteMessage?.data?.id,
+        );
+    });
+
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    // Assume a message-notification contains a "type" property in the data payload of the screen to open
+
+    messaging().onNotificationOpenedApp(remoteMessage => {
+      if (remoteMessage?.data?.id) {
+        navigation.navigate('EventDetails', {
+          id: `${remoteMessage?.data.id}`,
+        });
+      }
+    });
+
+    // Check whether an initial notification is available
+    messaging()
+      .getInitialNotification()
+      .then(remoteMessage => {
+        if (remoteMessage) {
+          if (remoteMessage?.data?.id)
+            navigation.navigate('EventDetails', {
+              id: `${remoteMessage?.data.id}`,
+            });
+        }
+      });
+  }, []);
+  useEffect(() => {
+    return notifee.onForegroundEvent(({type, detail}) => {
+      switch (type) {
+        case EventType.DISMISSED:
+          console.log('User dismissed notification', detail.notification);
+          break;
+        case EventType.PRESS:
+          if (detail.notification?.data?.id)
+            navigation.navigate('EventDetails', {
+              id: `${detail.notification?.data.id}`,
+            });
+          break;
+      }
+    });
+  }, []);
+
   return (
     <Stack.Navigator
       initialRouteName="BottomTab"

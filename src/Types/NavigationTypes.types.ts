@@ -8,7 +8,7 @@ export type RootStackParamsApp={
     Home:any;
     BottomTab:any;
     Onboarding:any;
-    EventDetails:{ details:GetMeetingResponse};
+    EventDetails:{ id:string};
     Profile:any;
     CreateStory:any;
     Story:{
@@ -43,7 +43,7 @@ export type RootBottomTabParams={
     Home:any;
     Consultation:any;
     Stories:any;
-    EventDetails:{ details:GetMeetingResponse};
+    EventDetails:{ id:string};
     Comments:{details:GetPostDataType};
     CreateStory:any;
     Story:{

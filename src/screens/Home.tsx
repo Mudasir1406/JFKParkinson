@@ -138,9 +138,7 @@ const Home: React.FunctionComponent<HomeNavigationType> = () => {
               heading={item.heading}
               time={`${item.date} ${item.time}`}
               source={images.premier}
-              onPress={() =>
-                navigation.navigate('EventDetails', {details: item})
-              }
+              onPress={() => navigation.navigate('EventDetails', {id: item.id})}
             />
           ))
         ) : (

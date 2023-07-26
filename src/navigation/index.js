@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {useUserContext} from '../context/UserContex';
 import auth from '@react-native-firebase/auth';
 import {StyleSheet, View, Image} from 'react-native';
@@ -12,7 +12,6 @@ import {BlurView} from '@react-native-community/blur';
 import Toast from 'react-native-toast-message';
 import {toastConfig} from '../utils/toastConfig';
 import {images} from '../constant';
-import messaging from '@react-native-firebase/messaging';
 
 export default AppContainer = ({theme}) => {
   const {user, setUser} = useUserContext();
@@ -32,8 +31,6 @@ export default AppContainer = ({theme}) => {
 
     setLoading(false);
   };
-
-  const [initialRoute, setInitialRoute] = useState('Home');
 
   return (
     <>

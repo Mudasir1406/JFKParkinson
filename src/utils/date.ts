@@ -60,7 +60,7 @@ export function getYearMonths(year: number): { month: string; shortName: string;
     };
   
     // Split the input date string by comma and space to extract individual components.
-    const [, month, dayNumber, year] = dateString.split(' ');
+    const [, month, dayNumber, year] = dateString?.split(' ');
   
     // Convert the month name to its corresponding numeric value using the months object.
     const monthIndex = months[month];

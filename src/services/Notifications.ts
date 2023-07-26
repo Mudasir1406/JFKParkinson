@@ -5,7 +5,7 @@ import messaging from '@react-native-firebase/messaging';
 import {PermissionsAndroid, Platform} from 'react-native';
 
 
-export const  onDisplayNotification=async(title:string,body:string)=> {
+export const  onDisplayNotification=async(title:string,body:string,id:string)=> {
     // Request permissions (required for iOS)
     notifee
       .createChannel({
@@ -23,8 +23,13 @@ export const  onDisplayNotification=async(title:string,body:string)=> {
           
           pressAction: {
             id: 'default',
+            
           },
+          
         },
+        data:{
+          id:id
+        }
       }));
     // Display a notification
   }
