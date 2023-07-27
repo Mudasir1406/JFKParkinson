@@ -5,6 +5,7 @@ import firestore from '@react-native-firebase/firestore';
 
 import {PermissionsAndroid, Platform} from 'react-native';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { GetNotification } from '../Types/Notification.types';
 
 
 export const  onDisplayNotification=async(title:string,body:string,id:string)=> {
@@ -85,6 +86,18 @@ export const  onDisplayNotification=async(title:string,body:string,id:string)=> 
       userId:user.uid,
       title:title,
       body:body,
-      id:id
+      id:id,
+      createdAt:firestore.FieldValue.serverTimestamp(),
     }).then(()=>{}).catch(error=>console.log(error))
+  }
+
+  export const getNotifications=async(user:FirebaseAuthTypes.User)=>{
+    return await firestore().collection('Notifications').where("userId",'==',user.uid).get().then((snapshot)=>{
+      const notifications=snapshot.docs.map(doc=>({...doc.data(),docId:doc.id} as GetNotification))
+      return notifications;
+    }).catch((error)=>
+    {
+      return [] as GetNotification []
+    }
+    )
   }

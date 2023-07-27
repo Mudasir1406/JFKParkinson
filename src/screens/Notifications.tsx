@@ -5,16 +5,28 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {colors, fonts} from '../constant';
 import {useTheme} from 'react-native-paper';
 import {Back, Design} from '../../assets/svg';
 import {Block, NotificationCard} from '../components';
 import {useNavigation} from '@react-navigation/native';
+import {getNotifications} from '../services/Notifications';
+import {useUserContext} from '../context/UserContex';
+import {GetNotification} from '../Types/Notification.types';
+import {NotificationsNavigationType} from '../Types/NavigationTypes.types';
 
-const Notifications: React.FunctionComponent = () => {
+const Notifications: React.FunctionComponent<NotificationsNavigationType> = ({
+  navigation,
+}) => {
   const theme = useTheme();
-  const navigation = useNavigation();
+  const {user} = useUserContext();
+  const [notifications, setNotifications] = useState<GetNotification[] | []>(
+    [],
+  );
+  useEffect(() => {
+    if (user) getNotifications(user).then(data => setNotifications(data));
+  }, []);
   return (
     <>
       <View style={{marginBottom: 90}}>
@@ -36,10 +48,20 @@ const Notifications: React.FunctionComponent = () => {
         </View>
       </View>
       <Block>
-        <NotificationCard />
-        <NotificationCard />
-        <NotificationCard />
-        <NotificationCard />
+        {notifications.length > 0
+          ? notifications.map((item, index) => (
+              <NotificationCard
+                key={index}
+                title={item.title}
+                body={item.body}
+                onPress={() => {
+                  if (item.id)
+                    navigation.navigate('EventDetails', {id: item.id?.trim()});
+                }}
+                time={item.createdAt?.seconds}
+              />
+            ))
+          : null}
       </Block>
     </>
   );
