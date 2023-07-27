@@ -9,25 +9,32 @@ import {
 import React from 'react';
 import {colors, fonts, images} from '../constant';
 import {useTheme} from 'react-native-paper';
+import {convertToDate, formatDate} from '../utils/date';
 const {width} = Dimensions.get('window');
-type props = {};
-const NotificationCard: React.FunctionComponent<props> = () => {
+type props = {
+  title: string;
+  body: string;
+  onPress: () => void;
+  time: number;
+};
+const NotificationCard: React.FunctionComponent<props> = ({
+  title,
+  body,
+  onPress,
+  time,
+}) => {
   const theme = useTheme();
   return (
-    <TouchableOpacity activeOpacity={0.8}>
+    <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
       <View style={styles.contanier}>
-        <Image source={images.image1} style={styles.profileImage} />
         <View>
           <Text style={[styles.notificationText, {color: theme.colors.scrim}]}>
-            Notification
+            {title}
           </Text>
           <Text style={styles.content} numberOfLines={2}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit
-            amet molestie justo. Praesent bibendum, arcu nec consequat
-            hendrerit, purus arcu fermentum dui, quis molestie tortor nulla eu
-            arcu
+            {body}
           </Text>
-          <Text style={styles.time}>8 mins ago</Text>
+          <Text style={styles.time}>{formatDate(time)}</Text>
         </View>
       </View>
       <View style={[styles.line, {backgroundColor: theme.colors.outline}]} />
@@ -38,16 +45,11 @@ const NotificationCard: React.FunctionComponent<props> = () => {
 export default NotificationCard;
 
 const styles = StyleSheet.create({
-  profileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 30,
-    marginHorizontal: 5,
-  },
   contanier: {
     flexDirection: 'row',
     padding: 10,
     alignItems: 'center',
+    marginHorizontal: 20,
   },
   content: {
     ...fonts.TouchableText,
