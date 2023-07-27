@@ -26,14 +26,19 @@ import PrivacyPolicy from '../screens/PravicyPolicy';
 import Articles from '../screens/Articles';
 import Article from '../screens/Article';
 import CreatePost from '../screens/CreatePost';
-import {onDisplayNotification} from '../services/Notifications';
+import {
+  onDisplayNotification,
+  saveNotification,
+} from '../services/Notifications';
 import messaging from '@react-native-firebase/messaging';
 import notifee, {EventType} from '@notifee/react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useUserContext} from '../context/UserContex';
 
 const Stack = createNativeStackNavigator<RootStackParamsApp>();
 
 const AppNavigator = () => {
+  const {user} = useUserContext();
   const navigation = useNavigation<HomeNavigationType['navigation']>();
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
@@ -79,13 +84,25 @@ const AppNavigator = () => {
     return notifee.onForegroundEvent(({type, detail}) => {
       switch (type) {
         case EventType.DISMISSED:
-          console.log('User dismissed notification', detail.notification);
+          if (
+            detail.notification?.data?.id &&
+            user &&
+            detail.notification?.title &&
+            detail.notification?.body
+          )
+            saveNotification(
+              user,
+              detail.notification?.title,
+              detail.notification?.body,
+              `${detail.notification?.data.id}`,
+            );
           break;
         case EventType.PRESS:
           if (detail.notification?.data?.id)
             navigation.navigate('EventDetails', {
               id: `${detail.notification?.data.id}`,
             });
+          console.log(detail.notification?.data);
           break;
       }
     });

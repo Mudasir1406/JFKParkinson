@@ -1,8 +1,10 @@
 
 import notifee, { AndroidImportance, AndroidVisibility, TimestampTrigger, TriggerType } from '@notifee/react-native';
 import messaging from '@react-native-firebase/messaging';
+import firestore from '@react-native-firebase/firestore';
 
 import {PermissionsAndroid, Platform} from 'react-native';
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 
 export const  onDisplayNotification=async(title:string,body:string,id:string)=> {
@@ -76,4 +78,13 @@ export const  onDisplayNotification=async(title:string,body:string,id:string)=> 
       },
       trigger,
     );
+  }
+
+  export const saveNotification=async(user:FirebaseAuthTypes.User,title:string,body:string,id:string)=>{
+    return await firestore().collection('Notifications').doc().set({
+      userId:user.uid,
+      title:title,
+      body:body,
+      id:id
+    }).then(()=>{}).catch(error=>console.log(error))
   }
