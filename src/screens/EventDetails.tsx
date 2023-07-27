@@ -33,7 +33,7 @@ const EventDetails: React.FunctionComponent<props> = () => {
   const [buttonDisable, setButtonDisable] = useState<boolean>(true);
   useEffect(() => {
     setLoading(true);
-    getMeetingDetailsById(route.params.id?.trim())
+    getMeetingDetailsById(route.params?.id)
       .then(data => {
         setData(data);
         if (
@@ -66,45 +66,30 @@ const EventDetails: React.FunctionComponent<props> = () => {
         </View>
       </ImageBackground>
       <Block contentContainerStyle={{padding: 15}}>
-        <Animated.Text
-          style={styles.heading}
-          entering={FadeInDown.duration(2000).easing(Easing.bounce)}>
-          {data?.heading}
-        </Animated.Text>
-        <Animated.Text
-          style={styles.heading}
-          entering={FadeInDown.duration(2000).easing(Easing.bounce)}>
-          Description
-        </Animated.Text>
+        <Text style={styles.heading}>{data?.heading}</Text>
+        <Text style={styles.heading}>Description</Text>
         <View style={styles.dateContanier}>
-          <Animated.View
-            style={styles.linkContanier}
-            entering={FadeInDown.duration(2000).easing(Easing.bounce)}>
+          <View style={styles.linkContanier}>
             <Calender />
-            <Animated.Text style={[styles.date, {color: theme.colors.primary}]}>
+            <Text style={[styles.date, {color: theme.colors.primary}]}>
               {data?.date}
-            </Animated.Text>
-          </Animated.View>
-          <Animated.View
-            style={styles.linkContanier}
-            entering={FadeInDown.duration(2000).easing(Easing.bounce)}>
+            </Text>
+          </View>
+          <View style={styles.linkContanier}>
             <Time />
-            <Animated.Text
-              style={[styles.time, {color: theme.colors.outlineVariant}]}>
+            <Text style={[styles.time, {color: theme.colors.outlineVariant}]}>
               {data?.time}
-            </Animated.Text>
-          </Animated.View>
+            </Text>
+          </View>
         </View>
         {data?.location ? (
-          <Animated.View
-            entering={FadeInDown.duration(2000).easing(Easing.bounce)}
-            style={styles.linkContanier}>
+          <View style={styles.linkContanier}>
             <Location />
-            <Animated.Text
+            <Text
               style={[styles.location, {color: theme.colors.outlineVariant}]}>
               {data.location}
-            </Animated.Text>
-          </Animated.View>
+            </Text>
+          </View>
         ) : (
           <></>
         )}
@@ -112,30 +97,26 @@ const EventDetails: React.FunctionComponent<props> = () => {
         {data?.zoomlink ? (
           <View style={styles.linkContanier}>
             <Zoom />
-            <Animated.Text
-              entering={FadeInDown.duration(2000).easing(Easing.bounce)}
+            <Text
               style={[styles.location, {color: theme.colors.outlineVariant}]}>
               Zoom Link:
-            </Animated.Text>
-            <Animated.Text
-              entering={FadeInDown.duration(2000).easing(Easing.bounce)}
+            </Text>
+            <Text
               onPress={handleLinkPress}
               style={[styles.location, {color: theme.colors.tertiary}]}>
               {data.zoomlink}
-            </Animated.Text>
+            </Text>
           </View>
         ) : (
           <></>
         )}
         {data?.note ? (
-          <Animated.View
-            entering={FadeInDown.duration(2000).easing(Easing.bounce)}
-            style={styles.linkContanier}>
-            <Animated.Text
+          <View style={styles.linkContanier}>
+            <Text
               style={[styles.location, {color: theme.colors.outlineVariant}]}>
               Note: {data.note}
-            </Animated.Text>
-          </Animated.View>
+            </Text>
+          </View>
         ) : (
           <></>
         )}
